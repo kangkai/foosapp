@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/list/list",
+    "pages/map/map",
+    "pages/list/place/place",
     "pages/logs/logs",
     "pages/setup/setup"
   ],
@@ -17,18 +19,15 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "地点"
+        "pagePath": "pages/list/list",
+        "text": "列表"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "比赛"
-      },
-      {
-        "pagePath": "pages/setup/setup",
-        "text": "我的"
+        "pagePath": "pages/map/map",
+        "text": "地图"
       }
     ]
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
 }
