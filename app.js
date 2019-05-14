@@ -1,5 +1,12 @@
 //app.js
 App({
+  globalData: {
+    userInfo: null,
+    foobar: {},
+    bars: null,
+    cur_bar: 0
+  },
+
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -13,6 +20,7 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -33,8 +41,45 @@ App({
         }
       }
     })
-  },
-  globalData: {
-    userInfo: null
+
+    // 获取数据库内容
+    var that = this;
+    const db = wx.cloud.database();
+
+    db.collection('foos_place').get({
+      success: function(res) {
+        var foobar = res.data;
+        var bars = [];
+        var index = 0;
+
+        for (var i = 0; i < foobar.length; i++) {
+          var places = foobar[i].places
+          for (var j = 0; j < places.length; j++) {
+            bars.push(places[j]);
+
+            bars[index].id = index;
+            bars[index].iconPath = 'resources/map_marker.png';
+            bars[index].width = 50;
+            bars[index].height = 50;
+            bars[index].callout = { content: bars[index].name };
+
+            index++;
+          }
+        }
+
+        that.globalData.foobar = foobar;
+        that.globalData.bars = bars;
+
+        if (that.dataReadyCallback) {
+          that.dataReadyCallback(res);
+        }
+      },
+      fail: function(err) {
+        console.error(err);
+      }
+    });
+
+
   }
+
 })

@@ -1,22 +1,22 @@
-<view class="padding1rem cardWrap" data-c_e_id="wx_view_73b58de5">
+<view class="" data-c_e_id="wx_view_73b58de5">
     <view class="c-minheight carditem01" data-c_e_id="wx_view_f06c2d54">
         <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view_e1af8dee">
-            <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="http://qty83k.creatby.com/materials/155902/origin/353d27375ad89f43d1417c76a9b90580_origin.jpeg" style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; background-image: url(http://qty83k.creatby.com/materials/155902/origin/353d27375ad89f43d1417c76a9b90580_origin.jpeg); "/>
+            <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="/images/foosball2.png" style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "/>
             <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
-                <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">The Pool Bar</text>
+                <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">{{bar.name}}</text>
             </view>
-            <image class="wx-image_rqGA98" data-c_e_id="wx_image_ea21b57c" mode="scaleToFill" src="http://qty83k.creatby.com/materials/155902/origin/14a4714d8c8750c91fe3e163d6bb5c82_origin.png" style="background-size:   100% 100%; background-position:   0% 0%; background-repeat:   no-repeat; background-image: url(http://qty83k.creatby.com/materials/155902/origin/14a4714d8c8750c91fe3e163d6bb5c82_origin.png); "/>
+            <image class="wx-image_rqGA98" data-c_e_id="wx_image_ea21b57c" mode="scaleToFill" src="/images/p2p.png" style="background-size:   100% 100%; background-position:   0% 0%; background-repeat:   no-repeat;"/>
         </view>
         <navigator class="wx-navigator_PNd8QQ" data-c_e_id="wx_navigator_acf858d8" hover-class="navigator-hover">
             <image class="wx-image_BEjy38" data-c_e_id="wx_image5f1f44f9" mode="aspectFill" src="http://qty83k.creatby.com/materials/155902/origin/faae1e36accb21345081d891f3fc19a2_origin.jpg" style="background-size:   cover; background-position:   center center; background-repeat:   no-repeat; background-image: url(http://qty83k.creatby.com/materials/155902/origin/faae1e36accb21345081d891f3fc19a2_origin.jpg); "/>
-            <view class="padding1rem wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
-                <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">地址：东城区鼓楼东大街106号(南锣鼓巷北口,向东15米左右)     
-                    联系人：     
-                    桌子：</text>
+            <view class="paddinghalfrem wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
+                <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">地址：{{bar.address}}
+                    联系人：{{bar.contacts}}
+                    桌子：{{bar.tables}}</text>
             </view>
         </navigator>
-        <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view_db960618">
-            <view class="wx-view_2gazUr" data-c_e_id="wx_view_a714ad1f">
+        <view class="paddinghalfrem wx-view_adF7Mw poi-card-hide" data-c_e_id="wx_view_db960618">
+            <view class="wx-view_2gazUr poi-card-hide" data-c_e_id="wx_view_a714ad1f">
                 <view class="wx-view_DKe6UT" data-c_e_id="wx_view_6c05f14b">
                     <image class="wx-image_6E2A1o" data-c_e_id="wx_image_ebb4405b" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "/>
                     <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text_3ce74bbd">235</text>
@@ -26,7 +26,7 @@
                     <text class="c-block wx-text_id0VJj" data-c_e_id="wx_textfbf5db39">143</text>
                 </view>
             </view>
-            <text class="c-block wx-text_9Wn0Di" data-c_e_id="wx_text_b5ab79a9">1小时前</text>
+            <text class="c-block wx-text_9Wn0Di poi-card-hide" data-c_e_id="wx_text_b5ab79a9">1小时前</text>
         </view>
     </view>
 </view>

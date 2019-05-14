@@ -16,11 +16,7 @@ Page({
    */
 
   data: {
-  
-
-  
-
-  
+    bar: {}
   },
 
   /**
@@ -29,6 +25,10 @@ Page({
   onLoad () {
     // 注册coolsite360交互模块
     //app.coolsite360.register(this);
+    var bar = app.globalData.bars[app.globalData.cur_bar];
+    this.setData({
+      bar: bar
+    });
   },
 
   /**

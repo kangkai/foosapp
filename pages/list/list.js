@@ -23,24 +23,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function() {
-    var that = this;
-    const db = wx.cloud.database();
-    const mylist = [];
-    var myitem = {};
+    if (!app.globalData.bars) {
+      console.log("list page onLoad, data not ready");
+      app.dataReadyCallback = res => {
+        console.log("list page onLoad, data ready now");
+        var that = this;
+        const mylist = [];
+        var index = 0;
+        var foobar = app.globalData.foobar;
 
-    db.collection('foos_place').get({
-      success: function(res) {
-        for (var i = 0; i < res.data.length; i++) {
+        for (var i = 0; i < foobar.length; i++) {
           var pages = [];
 
-          var places = res.data[i].places
+          var places = foobar[i].places
           for (var j = 0; j < places.length; j++) {
-            pages.push(places[j].name)
+            pages.push({
+              index: index,
+              name: places[j].name
+            });
+            index++;
           }
 
           mylist.push({
-            id: 'test'+i, 
-            name: res.data[i].city,
+            id: 'test' + i,
+            name: foobar[i].city,
             open: false,
             pages: pages
           })
@@ -49,12 +55,38 @@ Page({
         that.setData({
           list: mylist
         })
-      },
-      fail: function(err) {
-        console.error(err);
       }
-    });
+    } else {
+      console.log("list page onLoad, data ready")
+      var that = this;
+      const mylist = [];
+      var index = 0;
+      var foobar = app.globalData.foobar;
 
+      for (var i = 0; i < foobar.length; i++) {
+        var pages = [];
+
+        var places = foobar[i].places
+        for (var j = 0; j < places.length; j++) {
+          pages.push({
+            index: index,
+            name: places[j].name
+          });
+          index++;
+        }
+
+        mylist.push({
+          id: 'test' + i,
+          name: foobar[i].city,
+          open: false,
+          pages: pages
+        })
+      }
+
+      that.setData({
+        list: mylist
+      })
+    }
 
   },
 
@@ -69,8 +101,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
-    // 执行coolsite360交互组件展示
-    //app.coolsite360.onShow(this);
+
   },
 
   /**
@@ -98,6 +129,8 @@ Page({
   //以下为自定义点击事件
   kindToggle(e) {
     const id = e.currentTarget.id
+    //console.log(id)
+
     const list = this.data.list
     for (let i = 0, len = list.length; i < len; ++i) {
       if (list[i].id === id) {
@@ -109,7 +142,11 @@ Page({
     this.setData({
       list
     })
+  },
+
+  itemClick(e) {
+    app.globalData.cur_bar = e.currentTarget.id;
   }
-  
+
 })
 
