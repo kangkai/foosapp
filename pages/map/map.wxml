@@ -21,10 +21,10 @@
             <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
                 <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">{{cur_bar.name}}</text>
             </view>
-            <image class="wx-image_rqGA98" data-c_e_id="wx_image_ea21b57c" mode="scaleToFill" src="/images/p2p.png" style="background-size:   100% 100%; background-position:   0% 0%; background-repeat:   no-repeat;"/>
+            <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation" />
         </view>
-        <navigator class="paddinghalfrem wx-navigator_PNd8QQ" data-c_e_id="wx_navigator_acf858d8" hover-class="navigator-hover">
-            <view class="wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
+        <navigator id="{{cur_bar.id}}" url="../list/place/place" bindtap="navitap">
+            <view class="paddinghalfrem">
                 <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">地址：{{cur_bar.address}}
                     联系人：{{cur_bar.contacts}}
                     桌子：{{cur_bar.tables}}</text>
