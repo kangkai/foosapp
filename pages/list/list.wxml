@@ -1,6 +1,9 @@
 <view class="index">
+    <view bindtap="onFloatIconClick">
+        <image class="floaticon" src="/images/map_marker.png"></image>
+    </view>
     <view class="index-hd">
-        <image class="index-logo" src="images/table-football.png"></image>
+        <image class="index-logo" src="/images/table-foosball2.png"></image>
     </view>
     <view class="index-bd">
         <view class="kind-list">
@@ -8,7 +11,7 @@
                 <view class="kind-list-item">
                     <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
                         <view class="kind-list-text">{{item.name}}</view>
-                        <image class="kind-list-img" src="/images/map_marker.png"></image>
+                        <image class="kind-list-img" src="/images/foosballtable1.png"></image>
                     </view>
                     <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
                         <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
@@ -23,5 +26,9 @@
                 </view>
             </block>
         </view>
+    </view>
+
+    <view class="index-ft">
+        <navigator class="footer-text" url="../about/about">关于本应用</navigator>
     </view>
 </view>

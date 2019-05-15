@@ -4,6 +4,7 @@
     "pages/map/map",
     "pages/list/place/place",
     "pages/logs/logs",
+    "pages/about/about",
     "pages/setup/setup"
   ],
   "window": {
@@ -11,22 +12,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Foosball",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "#dddddd",
-    "selectedColor": "#1296db",
-    "borderStyle": "black",
-    "backgroundColor": "#fff",
-    "list": [
-      {
-        "pagePath": "pages/list/list",
-        "text": "列表"
-      },
-      {
-        "pagePath": "pages/map/map",
-        "text": "地图"
-      }
-    ]
   },
   "sitemapLocation": "sitemap.json",
   "cloud": true,

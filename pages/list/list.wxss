@@ -12,8 +12,8 @@
   text-align: center;
 }
 .index-logo {
-  width: 200rpx;
-  height: 200rpx;
+  width: 280rpx;
+  height: 232rpx;
 }
 .index-desc {
   margin-top: 20rpx;
@@ -57,6 +57,7 @@
 }
 .navigator-text {
   flex: 1;
+  font-size: 30rpx;
 }
 .navigator-arrow {
   padding-right: 26rpx;
@@ -90,8 +91,8 @@
   flex: 1;
 }
 .kind-list-img {
-  width: 60rpx;
-  height: 60rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 .kind-list-item-hd {
   padding: 30rpx;
@@ -109,4 +110,17 @@
 }
 .kind-list-item-bd-show {
   height: auto;
+}
+
+.floaticon {
+    position: fixed;
+    top: 10rpx;
+    left: 10rpx;
+    width: 80rpx;
+    height: 80rpx;
+}
+
+.footer-text {
+  color: #888888;
+  font-size: 28rpx;
 }

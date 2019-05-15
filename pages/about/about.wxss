@@ -1,0 +1,14 @@
+.index-logo {
+  display: flex;
+  justify-content: center;
+  width: 93rpx;
+  height: 120rpx;
+  margin: 20rpx;
+}
+.index-desc {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  color: #888888;
+  font-size: 28rpx;
+}
+

@@ -58,9 +58,9 @@ App({
             bars.push(places[j]);
 
             bars[index].id = index;
-            bars[index].iconPath = 'resources/map_marker.png';
-            bars[index].width = 50;
-            bars[index].height = 50;
+            bars[index].iconPath = '/images/poi80.png';
+            bars[index].width = 30;
+            bars[index].height = 30;
             bars[index].callout = { content: bars[index].name };
 
             index++;

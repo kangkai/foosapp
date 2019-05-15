@@ -86,6 +86,15 @@ Page({
     app.globalData.cur_bar = e.currentTarget.id;
   },
 
+  onFloatIconClick(e) {
+    wx.redirectTo({
+      url: '../list/list',
+      fail: function(err) {
+        console.log(err);
+      }
+    })
+  },
+
   getLocation(e) {
     var bar = this.data.cur_bar;
 

@@ -1,0 +1,20 @@
+<!--about.wxml-->
+<view>
+  <image class="index-logo" src="/images/foosman1.png"></image>
+</view>
+<view class="index-desc">
+  <text>关于本应用
+
+这是一个Foosball相关的小程序，把各地打球的地点收集、整理了一下，希望对大家有用。
+
+本应用使用到的一些Icon来自互联网，按照协议声明如下，如有侵权，请联系小程序作者修改，谢谢。
+
+Credit：
+1. Icon made by Freepik from www.flaticon.com
+2. Free vector art via Vecteezy!
+3. Foosball by ProSymbols from the Noun Project
+
+Copyright (c) Yin Kangkai (kai at kangkai.in) 2019
+  </text>
+</view>
+

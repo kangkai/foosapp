@@ -146,6 +146,15 @@ Page({
 
   itemClick(e) {
     app.globalData.cur_bar = e.currentTarget.id;
+  },
+
+  onFloatIconClick(e) {
+    wx.redirectTo({
+      url: '../map/map',
+      fail: function(err) {
+        console.log(err);
+      }
+    })
   }
 
 })

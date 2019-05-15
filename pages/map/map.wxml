@@ -12,12 +12,17 @@
     bindregionchange="regionchange"
     show-location
     style="width: 100%; height: 400px;"
-    ></map>
+    >
+        <cover-view bindtap="onFloatIconClick">
+            <cover-image class="floaticon" src="/images/map_marker.png"></cover-image>
+        </cover-view>
+    </map>
+
 </view>
 <view class="poi-card-hide {{showCard?'poi-card-show':''}}" data-c_e_id="wx_view_73b58de5">
     <view class="c-minheight carditem01" data-c_e_id="wx_view_f06c2d54">
         <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view_e1af8dee">
-            <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="/images/foosball2.png" style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat;  "/>
+            <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="/images/foosball2.png"/>
             <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
                 <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">{{cur_bar.name}}</text>
             </view>
