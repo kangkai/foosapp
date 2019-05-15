@@ -8,7 +8,7 @@
             <image class="wx-image_rqGA98" data-c_e_id="wx_image_ea21b57c" mode="scaleToFill" src="/images/p2p.png" style="background-size:   100% 100%; background-position:   0% 0%; background-repeat:   no-repeat;"/>
         </view>
         <navigator class="wx-navigator_PNd8QQ" data-c_e_id="wx_navigator_acf858d8" hover-class="navigator-hover">
-            <image class="wx-image_BEjy38" data-c_e_id="wx_image5f1f44f9" mode="aspectFill" src="http://qty83k.creatby.com/materials/155902/origin/faae1e36accb21345081d891f3fc19a2_origin.jpg" style="background-size:   cover; background-position:   center center; background-repeat:   no-repeat; background-image: url(http://qty83k.creatby.com/materials/155902/origin/faae1e36accb21345081d891f3fc19a2_origin.jpg); "/>
+            <image class="wx-image_BEjy38" data-c_e_id="wx_image5f1f44f9" mode="aspectFill" src="{{bar.pic ? bar.pic : '/images/pic_default.jpg'}}" style="background-size:   cover; background-position:   center center; background-repeat:   no-repeat;"/>
             <view class="paddinghalfrem wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
                 <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">地址：{{bar.address}}
                     联系人：{{bar.contacts}}
