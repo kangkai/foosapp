@@ -30,9 +30,18 @@
         </view>
         <navigator id="{{cur_bar.id}}" url="../list/place/place" bindtap="navitap">
             <view class="paddinghalfrem">
-                <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">地址：{{cur_bar.address}}
-                    联系人：{{cur_bar.contacts}}
-                    桌子：{{cur_bar.tables}}</text>
+                <view class="tr-line">
+                    <view class="td-left">地址：</view>
+                    <view class="td-right">{{cur_bar.address}}</view>
+                </view>
+                <view class="tr-line">
+                    <view class="td-left">联系人：</view>
+                    <view class="td-right">{{cur_bar.contacts}}</view>
+                </view>
+                <view class="tr-line">
+                    <view class="td-left">桌子：</view>
+                    <view class="td-right">{{cur_bar.tables}}</view>
+                </view>
             </view>
         </navigator>
         <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view_db960618">

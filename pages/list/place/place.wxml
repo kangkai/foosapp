@@ -11,11 +11,22 @@
             <image class="wx-image_BEjy38" data-c_e_id="wx_image5f1f44f9" mode="aspectFill" src="{{cur_bar.pic ? cur_bar.pic : '/images/pic_default.jpg'}}" style="background-size:   cover; background-position:   center center; background-repeat:   no-repeat;"/>
             <view class="paddinghalfrem wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
                 <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
-                <text class="c-block wx-text_6zTs4l">地  址：{{cur_bar.address}}
-                    联系人：{{cur_bar.contacts}}
-                    桌  子：{{cur_bar.tables}}
-                    详  情：{{cur_bar.intro}}
-                </text>
+                <view class="tr-line">
+                    <view class="td-left">地址：</view>
+                    <view class="td-right">{{cur_bar.address}}</view>
+                </view>
+                <view class="tr-line">
+                    <view class="td-left">联系：</view>
+                    <view class="td-right">{{cur_bar.contacts}}</view>
+                </view>
+                <view class="tr-line">
+                    <view class="td-left">桌子：</view>
+                    <view class="td-right">{{cur_bar.tables}}</view>
+                </view>
+                <view class="tr-line">
+                    <view class="td-left">详情：</view>
+                    <view class="td-right">{{cur_bar.intro}}</view>
+                </view>
             </view>
         </view>
         <view class="paddinghalfrem wx-view_adF7Mw poi-card-hide" data-c_e_id="wx_view_db960618">

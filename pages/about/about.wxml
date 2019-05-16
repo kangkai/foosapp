@@ -3,9 +3,13 @@
   <image class="index-logo" src="/images/foosman1.png"></image>
 </view>
 <view class="index-desc">
-  <text>关于本应用
+  <text>这是一个Foosball（桌上足球）相关的小程序。
 
-这是一个Foosball相关的小程序，把各地打球的地点收集、整理了一下，希望对大家有用。
+目前功能暂时只把各地打球的地点收集、整理了一下，希望对大家有用。地点列表维护在github：
+https://github.com/kangkai/foosbars
+有需要修改可以联系我。
+
+后续计划的功能包括打球Tab：约球模块，记分比赛模块（请参考kickertool），练习计时器等；也许还可以加入商品模块，看时间和精力安排，谢谢关注。
 
 本应用使用到的一些Icon来自互联网，按照协议声明如下，如有侵权，请联系小程序作者修改，谢谢。
 

@@ -389,3 +389,20 @@ radio-group{
   height: auto;
 }
 
+.tr-line {
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    color: rgb(110, 110, 110);
+    line-height: 1.7em; 
+}
+
+.td-left {
+  width: 15%;
+  text-align: left;
+}
+
+.td-right {
+  width: 85%;
+  text-align: left;
+}
