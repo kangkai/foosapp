@@ -1,61 +1,55 @@
-<view class="c-minheight wx-view_LUuvj9" data-c_e_id="wx_view_92c6b2a3">
-    <map
-    id="map"
-    latitude="39.940690"
-    longitude="116.403350"
-    scale="6"
-    controls="{{controls}}"
-    bindcontroltap="controltap"
-    markers="{{markers}}"
-    bindmarkertap="markertap"
-    polyline="{{polyline}}"
-    bindregionchange="regionchange"
-    show-location
-    style="width: 100%; height: 400px;"
-    >
+<view class="page-map">
+    <map id="map" latitude="39.940690" longitude="116.403350" scale="6" controls="{{controls}}"
+         bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}"
+         bindregionchange="regionchange" show-location style="width: 100%; height: {{map_height}}px;">
+
         <cover-view bindtap="onFloatIconClick">
             <cover-image class="floaticon" src="/images/map_marker.png"></cover-image>
         </cover-view>
     </map>
-
-</view>
-<view class="poi-card-hide {{showCard?'poi-card-show':''}}" data-c_e_id="wx_view_73b58de5">
-    <view class="c-minheight carditem01" data-c_e_id="wx_view_f06c2d54">
-        <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view_e1af8dee">
-            <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="/images/foosball2.png"/>
-            <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
-                <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">{{cur_bar.name}}</text>
+    <view class="poi-card-hide {{showCard?'poi-card-show':''}}">
+        <view  id="mapcard" class="c-minheight carditem01" data-c_e_id="wx_view_f06c2d54">
+            <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view_e1af8dee">
+                <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill"
+                       src="/images/foosball2.png"  />
+                <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
+                    <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">{{cur_bar.name}}</text>
+                </view>
+                <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
             </view>
-            <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation" />
-        </view>
-        <navigator id="{{cur_bar.id}}" url="../list/place/place" bindtap="navitap">
-            <view class="paddinghalfrem">
-                <view class="tr-line">
-                    <view class="td-left">地址：</view>
-                    <view class="td-right">{{cur_bar.address}}</view>
+            <navigator id="{{cur_bar.id}}" url="../list/place/place" bindtap="navitap">
+                <view class="paddinghalfrem">
+                    <view class="tr-line">
+                        <view class="td-left">地址：</view>
+                        <view class="td-right">{{cur_bar.address}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">联系：</view>
+                        <view class="td-right">{{cur_bar.contacts}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">桌子：</view>
+                        <view class="td-right">{{cur_bar.tables}}</view>
+                    </view>
                 </view>
-                <view class="tr-line">
-                    <view class="td-left">联系人：</view>
-                    <view class="td-right">{{cur_bar.contacts}}</view>
+            </navigator>
+            <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view_db960618">
+                <view class="poi-card-hide wx-view_2gazUr" data-c_e_id="wx_view_a714ad1f">
+                    <view class="wx-view_DKe6UT" data-c_e_id="wx_view_6c05f14b">
+                        <image class="wx-image_6E2A1o" data-c_e_id="wx_image_ebb4405b" mode="aspectFit"
+                               src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png"
+                               style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "  />
+                        <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text_3ce74bbd">235</text>
+                    </view>
+                    <view class="wx-view_DKe6UT" data-c_e_id="wx_view68441a05">
+                        <image class="wx-image_6E2A1o" data-c_e_id="wx_image0f877e3f" mode="aspectFit"
+                               src="http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png"
+                               style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png); "  />
+                        <text class="c-block wx-text_id0VJj" data-c_e_id="wx_textfbf5db39">143</text>
+                    </view>
                 </view>
-                <view class="tr-line">
-                    <view class="td-left">桌子：</view>
-                    <view class="td-right">{{cur_bar.tables}}</view>
-                </view>
+                <text class="poi-card-hide c-block wx-text_9Wn0Di" data-c_e_id="wx_text_b5ab79a9">1小时前</text>
             </view>
-        </navigator>
-        <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view_db960618">
-            <view class="poi-card-hide wx-view_2gazUr" data-c_e_id="wx_view_a714ad1f">
-                <view class="wx-view_DKe6UT" data-c_e_id="wx_view_6c05f14b">
-                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image_ebb4405b" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "/>
-                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text_3ce74bbd">235</text>
-                </view>
-                <view class="wx-view_DKe6UT" data-c_e_id="wx_view68441a05">
-                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image0f877e3f" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png); "/>
-                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_textfbf5db39">143</text>
-                </view>
-            </view>
-            <text class="poi-card-hide c-block wx-text_9Wn0Di" data-c_e_id="wx_text_b5ab79a9">1小时前</text>
         </view>
     </view>
 </view>

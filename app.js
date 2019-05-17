@@ -4,11 +4,13 @@ App({
     userInfo: null,
     foobar: {},
     bars: null,
-    cur_bar: 0
+    cur_bar: 0,
+    windowHeight: 300
   },
 
   onLaunch: function () {
     // 展示本地存储能力
+    var that = this;    
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
@@ -42,8 +44,13 @@ App({
       }
     })
 
+    wx.getSystemInfo({
+      success: function (res) {
+        that.globalData.windowHeight = res.windowHeight;
+      }
+    })
+
     // 获取数据库内容
-    var that = this;
     const db = wx.cloud.database();
 
     db.collection('foos_place').get({

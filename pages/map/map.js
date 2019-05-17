@@ -22,8 +22,9 @@ Page({
 
     //map 标记数据
     markers: [],
-
-    cur_bar: {}
+    cur_bar: {},
+    map_height: 0,
+    mapcard_height: 0
   },
 
   /**
@@ -31,9 +32,9 @@ Page({
    */
   onLoad () {
     this.setData({
-      markers: app.globalData.bars
+      markers: app.globalData.bars,
+      map_height: app.globalData.windowHeight
     })
-
  
   },
 
@@ -48,8 +49,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
-    // 执行coolsite360交互组件展示
-    //app.coolsite360.onShow(this);
+
   },
 
   /**
@@ -76,10 +76,27 @@ Page({
 
   //以下为自定义点击事件
   markertap(e) {
-    this.setData({
-      showCard: true,
-      cur_bar: this.data.markers[e.markerId]
+    var query = wx.createSelectorQuery();
+    var that = this;
+
+      that.setData({
+        showCard: true,
+        cur_bar: that.data.markers[e.markerId]
+      });
+
+    //选择id
+    query.select('#mapcard').boundingClientRect()
+    query.exec(function (res) {
+      that.setData({
+        mapcard_height: res[0].height,
+        map_height: app.globalData.windowHeight - res[0].height
+      });
+
+      console.log("mapcard_height:", that.data.mapcard_height);
+      console.log("map_height:", that.data.map_height);
     });
+
+
   },
 
   navitap(e) {
