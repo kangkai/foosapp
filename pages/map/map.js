@@ -1,11 +1,6 @@
 
-// 引入coolsite360交互配置设定
-//require('coolsite.config.js');
-
 // 获取全局应用程序实例对象
 var app = getApp();
-
-
 
 // 创建页面实例对象
 Page({
@@ -30,47 +25,47 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
+  onLoad() {
     this.setData({
       markers: app.globalData.bars,
-      map_height: app.globalData.windowHeight
+      map_height: app.globalData.map_height
     })
- 
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady () {
+  onReady() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow () {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide () {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload () {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh () {
-    
+  onPullDownRefresh() {
+
   },
 
 
@@ -79,21 +74,18 @@ Page({
     var query = wx.createSelectorQuery();
     var that = this;
 
-      that.setData({
-        showCard: true,
-        cur_bar: that.data.markers[e.markerId]
-      });
+    that.setData({
+      showCard: true,
+      cur_bar: that.data.markers[e.markerId]
+    });
 
-    //选择id
     query.select('#mapcard').boundingClientRect()
     query.exec(function (res) {
       that.setData({
         mapcard_height: res[0].height,
-        map_height: app.globalData.windowHeight - res[0].height
+        map_height: app.globalData.map_height - res[0].height
       });
 
-      console.log("mapcard_height:", that.data.mapcard_height);
-      console.log("map_height:", that.data.map_height);
     });
 
 
@@ -106,7 +98,7 @@ Page({
   onFloatIconClick(e) {
     wx.redirectTo({
       url: '../list/list',
-      fail: function(err) {
+      fail: function (err) {
         console.log(err);
       }
     })
@@ -144,6 +136,6 @@ Page({
       }
     })
   }
-  
+
 })
 

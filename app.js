@@ -5,12 +5,12 @@ App({
     foobar: {},
     bars: null,
     cur_bar: 0,
-    windowHeight: 300
+    map_height: 300
   },
 
   onLaunch: function () {
     // 展示本地存储能力
-    var that = this;    
+    var that = this;
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
@@ -22,7 +22,7 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
-    
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -46,7 +46,7 @@ App({
 
     wx.getSystemInfo({
       success: function (res) {
-        that.globalData.windowHeight = res.windowHeight;
+        that.globalData.map_height = res.windowHeight;
       }
     })
 
@@ -54,7 +54,7 @@ App({
     const db = wx.cloud.database();
 
     db.collection('foos_place').get({
-      success: function(res) {
+      success: function (res) {
         var foobar = res.data;
         var bars = [];
         var index = 0;
@@ -81,7 +81,7 @@ App({
           that.dataReadyCallback(res);
         }
       },
-      fail: function(err) {
+      fail: function (err) {
         console.error(err);
       }
     });

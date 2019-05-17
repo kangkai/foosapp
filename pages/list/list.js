@@ -1,7 +1,4 @@
 
-// 引入coolsite360交互配置设定
-//require('coolsite.config.js');
-
 // 获取全局应用程序实例对象
 var app = getApp();
 
@@ -16,49 +13,14 @@ Page({
    */
 
   data: {
-      list: []
+    list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
-    if (!app.globalData.bars) {
-      console.log("list page onLoad, data not ready");
-      app.dataReadyCallback = res => {
-        console.log("list page onLoad, data ready now");
-        var that = this;
-        const mylist = [];
-        var index = 0;
-        var foobar = app.globalData.foobar;
-
-        for (var i = 0; i < foobar.length; i++) {
-          var pages = [];
-
-          var places = foobar[i].places
-          for (var j = 0; j < places.length; j++) {
-            pages.push({
-              index: index,
-              name: places[j].name
-            });
-            index++;
-          }
-
-          mylist.push({
-            id: 'test' + i,
-            name: foobar[i].city,
-            open: false,
-            pages: pages
-          })
-        }
-
-        that.setData({
-          list: mylist
-        })
-      }
-    } else {
-      console.log("list page onLoad, data ready")
-      var that = this;
+  onLoad: function () {
+    var list_bars = function(that) {
       const mylist = [];
       var index = 0;
       var foobar = app.globalData.foobar;
@@ -86,6 +48,14 @@ Page({
       that.setData({
         list: mylist
       })
+    };
+
+    if (!app.globalData.bars) {
+      app.dataReadyCallback = res => {
+        list_bars(this);
+      }
+    } else {
+      list_bars(this);
     }
 
   },
@@ -93,36 +63,36 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady () {
+  onReady() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow () {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide () {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload () {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh () {
-    
+  onPullDownRefresh() {
+
   },
 
 
@@ -151,7 +121,7 @@ Page({
   onFloatIconClick(e) {
     wx.redirectTo({
       url: '../map/map',
-      fail: function(err) {
+      fail: function (err) {
         console.log(err);
       }
     })
