@@ -18,7 +18,7 @@ foosball winxin miniapp
 	    "contacts": "公开",
 	    "tables": "Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -31,7 +31,7 @@ foosball winxin miniapp
 	    "contacts": "公开",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -44,7 +44,7 @@ foosball winxin miniapp
 	    "contacts": "御龙",
 	    "tables": "Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -57,7 +57,7 @@ foosball winxin miniapp
 	    "contacts": "朋友非对外",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -69,7 +69,7 @@ foosball winxin miniapp
 	    "contacts": "朋友非对外",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -81,7 +81,7 @@ foosball winxin miniapp
 	    "contacts": "朋友非对外",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -100,7 +100,7 @@ foosball winxin miniapp
 	    "contacts": "Johan http://shanghaifoosball.com",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -112,7 +112,7 @@ foosball winxin miniapp
 	    "contacts": "Johan http://shanghaifoosball.com",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -124,7 +124,7 @@ foosball winxin miniapp
 	    "contacts": "Johan http://shanghaifoosball.com",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -143,7 +143,7 @@ foosball winxin miniapp
 	    "contacts": "张世玉 18640989529",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -155,7 +155,7 @@ foosball winxin miniapp
 	    "contacts": "",
 	    "tables": "Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -174,7 +174,7 @@ foosball winxin miniapp
 	    "contacts": "姬巍洲 Fred",
 	    "tables": "Fireball/Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -186,7 +186,7 @@ foosball winxin miniapp
 	    "contacts": "姬巍洲 Fred",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -198,7 +198,7 @@ foosball winxin miniapp
 	    "contacts": "朋友非对外",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -216,7 +216,7 @@ foosball winxin miniapp
 	    "contacts": "Abbas，Eve 伊芙，槽耶斯特撸娃",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -234,7 +234,7 @@ foosball winxin miniapp
 	    "contacts": "",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -253,7 +253,7 @@ foosball winxin miniapp
 	    "contacts": "官方传云桌足俱乐部+许教练",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -271,7 +271,7 @@ foosball winxin miniapp
 	    "contacts": "季佳旺",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -283,7 +283,7 @@ foosball winxin miniapp
 	    "contacts": "季佳旺",
 	    "tables": "Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -295,7 +295,7 @@ foosball winxin miniapp
 	    "contacts": "季佳旺",
 	    "tables": "Fireball/Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -313,7 +313,7 @@ foosball winxin miniapp
 	    "contacts": "A果冻_不在家",
 	    "tables": "Fireball/Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -331,7 +331,7 @@ foosball winxin miniapp
 	    "contacts": "",
 	    "tables": "Fireball/Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	},
 	{
@@ -343,7 +343,7 @@ foosball winxin miniapp
 	    "contacts": "",
 	    "tables": "Gardian",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -361,7 +361,7 @@ foosball winxin miniapp
 	    "contacts": "",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -379,7 +379,7 @@ foosball winxin miniapp
 	    "contacts": "毛毛",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]
@@ -398,7 +398,7 @@ foosball winxin miniapp
 	    "contacts": "昆明—东，Kunming_Daxiong，JJ文",
 	    "tables": "Fireball",
 	    "logo": "",
-	    "pic": "",
+	    "pic": [],
 	    "intro": ""
 	}
     ]

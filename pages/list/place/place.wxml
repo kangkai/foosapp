@@ -3,16 +3,26 @@
         <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
                style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
         <view class="wx-view_cPj0ok">
-            <text class="c-block wx-text_TvHPc9" >{{cur_bar.name}}</text>
+            <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
         </view>
-        <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png"
-               bindtap="getLocation"  />
+        <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
     </view>
     <view>
-        <image class="wx-image_BEjy38" mode="aspectFill"
-               src="{{cur_bar.pic ? cur_bar.pic : '/images/pic_default.jpg'}}"
-               style="background-size:   cover; background-position:   center center; background-repeat:   no-repeat;"  />
-        <view class="paddinghalfrem wx-view_KedDbI" >
+        <view wx:if="{{cur_bar.pic.length==0}}">
+            <image class="wx-image_BEjy38" mode="aspectFill" src="/images/pic_default.jpg"/>
+        </view>
+        <view wx:else class="swiper-container">
+            <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+                    duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}"
+                    class="swiper">
+                <block wx:for="{{cur_bar.pic}}" wx:key="unique">
+                    <swiper-item>
+                        <image mode="aspectFill" src="{{item}}"/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <view class="paddinghalfrem wx-view_KedDbI">
             <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
             <view class="tr-line">
                 <view class="td-left">地址：</view>
@@ -35,14 +45,12 @@
     <view class="paddinghalfrem wx-view_adF7Mw poi-card-hide">
         <view class="wx-view_2gazUr poi-card-hide">
             <view class="wx-view_DKe6UT">
-                <image class="wx-image_6E2A1o" mode="aspectFit"
-                       src="/images/like.png"
+                <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"
                        style="background-size: contain; background-position: center center; background-repeat: no-repeat;"  />
                 <text class="c-block wx-text_id0VJj">235</text>
             </view>
             <view class="wx-view_DKe6UT">
-                <image class="wx-image_6E2A1o" mode="aspectFit"
-                       src="/images/discuss.png"
+                <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png"
                        style="background-size: contain; background-position: center center; background-repeat: no-repeat;"  />
                 <text class="c-block wx-text_id0VJj">143</text>
             </view>
