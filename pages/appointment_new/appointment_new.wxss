@@ -1,0 +1,23 @@
+.btn {
+  width: 100%;
+  margin-top: 10rpx;
+}
+
+.btn::after {
+  border: 0;
+}
+
+
+textarea {
+  width: 700rpx;
+  height: 500rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+}
+ 
+.textarea-bg {
+  background-color: #999;
+  padding: 10rpx;
+  font-size: 32rpx;
+}

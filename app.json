@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/appointment_new/appointment_new",
     "pages/list/list",
     "pages/map/map",
     "pages/list/place/place",
@@ -12,6 +13,26 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Foosball",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9a9a9",
+    "selectedColor": "#1f1f1f",
+    "backgroundColor": "#fefefe",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/list/list",
+        "text": "地点",
+        "iconPath": "images/map_marker.png",
+        "selectedIconPath": "images/map_marker.png"
+      },
+      {
+        "pagePath": "pages/appointment_new/appointment_new",
+        "text": "活动",
+        "iconPath": "images/map_marker.png",
+        "selectedIconPath": "images/map_marker.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "cloud": true,

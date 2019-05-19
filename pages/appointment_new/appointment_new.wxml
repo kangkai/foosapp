@@ -1,0 +1,44 @@
+<view class="c-minheight carditem01">
+    <view class="paddinghalfrem wx-view_QvvUkU">
+        <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+               style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+        <view class="wx-view_cPj0ok">
+            <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
+        </view>
+        <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
+    </view>
+    <!-- Form -->
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="paddinghalfrem">
+            <view class="tr-line">
+                <picker mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}" bindchange="bindDateChange">
+                    <view class="picker">日期：{{date}}（请点击选择）</view>
+                </picker>
+            </view>
+            <view class="tr-line">
+                <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+                    <view class="picker">时间：{{time}}（请点击选择）</view>
+                </picker>
+            </view>
+            <view class="tr-line">
+                <text class="td-left">地点：</text>
+                <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+                    <text style='{{ region[0]?"display: none":"display: block"}}' class='choosecity'>请选择城市</text>
+                    <text class="picker" name="provinceName">{{region[0]}}</text>
+                    <text class="picker" name="cityName">{{region[1]}}</text>
+                    <text class="picker" name="districtName">{{region[2]}}</text>
+                </picker>
+            </view>
+            <view class="tr-line">
+                <text class="td-left">描述：</text>
+                <textarea class="td-right" name="appoint_desc" placeholder="一起来玩吧！" bindblur="getDataBindTap"
+                           auto-height  />
+            </view>
+        </view>
+        <!-- Form submit 按钮 -->
+        <view class="saveAddress btn-area">
+            <button type="primary" size="{{primarySize}}" formType="submit">发起约球</button>
+            <button formType="reset">重置</button>
+        </view>
+    </form>
+</view>
