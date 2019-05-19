@@ -1,0 +1,41 @@
+<block wx:for-items="{{appointments}}" wx:key="{{item.id}}">
+    <view class="c-minheight carditem01">
+        <view class="paddinghalfrem wx-view_QvvUkU">
+            <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+                   style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+            <view class="wx-view_cPj0ok">
+                <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
+            </view>
+            <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
+        </view>
+        <view class="paddinghalfrem">
+            <view class="tr-line">
+                <view class="td-left">日期：</view>
+                <view class="td-right">{{item.date}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">时间：</view>
+                <view class="td-right">{{item.time}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">地点：</view>
+                <view class="td-right">{{item.bar_name}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">描述：</view>
+                <view class="td-right">{{item.desc}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">已加入：</view>
+                <view class="td-right">
+                    <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
+                    <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+<view class="paddinghalfrem">
+    <button class="btn" type="primary" size="mini" formType="submit">更多</button>
+</view>
