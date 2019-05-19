@@ -80,6 +80,10 @@ App({
         if (that.dataReadyCallback) {
           that.dataReadyCallback(res);
         }
+
+        if (that.dataReadyCallback_picker) {
+          that.dataReadyCallback_picker(res);
+        }
       },
       fail: function (err) {
         console.error(err);

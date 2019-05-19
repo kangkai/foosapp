@@ -22,7 +22,7 @@
                 </block>
             </swiper>
         </view>
-        <view class="paddinghalfrem wx-view_KedDbI">
+        <view class="paddinghalfrem">
             <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
             <view class="tr-line">
                 <view class="td-left">地址：</view>

@@ -11,34 +11,31 @@
     <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="paddinghalfrem">
             <view class="tr-line">
-                <picker mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}" bindchange="bindDateChange">
-                    <view class="picker">日期：{{date}}（请点击选择）</view>
+            <text class="td-left">日期：</text>
+                <picker class="td-right" mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}" bindchange="bindDateChange">
+                    <view class="picker">{{date}}（请点击选择）</view>
                 </picker>
             </view>
             <view class="tr-line">
-                <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
-                    <view class="picker">时间：{{time}}（请点击选择）</view>
+            <text class="td-left">时间：</text>
+                <picker class="td-right" mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+                    <view class="picker">{{time}}（请点击选择）</view>
                 </picker>
             </view>
             <view class="tr-line">
                 <text class="td-left">地点：</text>
-                <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
-                    <text style='{{ region[0]?"display: none":"display: block"}}' class='choosecity'>请选择城市</text>
-                    <text class="picker" name="provinceName">{{region[0]}}</text>
-                    <text class="picker" name="cityName">{{region[1]}}</text>
-                    <text class="picker" name="districtName">{{region[2]}}</text>
+                <picker class="td-right" mode="selector" range="{{bars}}" range-key="{{'name'}}"  value="{{bar_index}}" bindchange="bindPlaceChange">
+                    <text class="picker" name="provinceName">{{bars[bar_index].name}}（请点击选择）</text>
                 </picker>
             </view>
             <view class="tr-line">
                 <text class="td-left">描述：</text>
-                <textarea class="td-right" name="appoint_desc" placeholder="一起来玩吧！" bindblur="getDataBindTap"
-                           auto-height  />
+                <textarea class="td-right" name="appoint_desc" placeholder="一起来玩吧！" auto-height  />
             </view>
         </view>
         <!-- Form submit 按钮 -->
-        <view class="saveAddress btn-area">
-            <button type="primary" size="{{primarySize}}" formType="submit">发起约球</button>
-            <button formType="reset">重置</button>
+        <view class="paddinghalfrem">
+            <button class="btn" type="primary" size="mini" formType="submit">发起约球</button>
         </view>
     </form>
 </view>

@@ -15,13 +15,8 @@ Page({
    */
 
   data: {
-    swiperCurrent: 0,
-    indicatorDots: true,
-    autoplay: true,
-    interval: 3000,
-    duration: 800,
-    circular: true,
-    cur_bar: {},
+    bars: [],
+    bar_index: 0,
     date: '',
     date_end: '',
     time: ''
@@ -31,10 +26,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    var bar = app.globalData.bars[app.globalData.cur_bar];
+    var that = this;
+
+    if (!app.globalData.bars) {
+      app.dataReadyCallback_picker = res => {
+        that.setData({
+          bars: app.globalData.bars
+        })
+      }
+    }
 
     this.setData({
-      cur_bar: bar,
+      bars: app.globalData.bars,
       date: util.formatDate(new Date()),
       date_end: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
       time: util.formatTime2(new Date())
@@ -111,14 +114,9 @@ Page({
     })
   },
 
-  formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value);
 
-  },
-  formReset: function () {
-    console.log('form发生了reset事件')
-  },
-    bindDateChange(e) {
+
+  bindDateChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       date: e.detail.value
@@ -129,6 +127,56 @@ Page({
     this.setData({
       time: e.detail.value
     })
+  },
+  bindPlaceChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+
+    this.setData({
+      bar_index: e.detail.value
+    })
+  },
+
+  formSubmit: function (e) {
+
+    var desc = e.detail.value.appoint_desc;
+
+    var foos_appointment = {
+      "desc": desc,
+      "date": this.data.date,
+      "time": this.data.time,
+      "create_time": Date.now(),
+      "bar_index": this.data.bar_index,
+      "bar_name": this.data.bars[this.data.bar_index].name,
+      "admin_nick": app.globalData.userInfo.nickName,
+      "admin_avatarUrl": app.globalData.userInfo.avatarUrl,
+      "players": [
+        {
+          "id": 0,
+          "nick": app.globalData.userInfo.nickName,
+          "avatarUrl": app.globalData.userInfo.avatarUrl
+        }
+      ]
+    };
+
+    //console.log(foos_appointment);
+
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_appointment');
+
+    collection.add({
+      data: foos_appointment,
+      success: function (res) {
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+        console.log(res._id);
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    })
+  },
+
+  formReset: function () {
+    console.log('form发生了reset事件')
   },
 
 })

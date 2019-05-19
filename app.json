@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",
     "pages/list/list",
     "pages/map/map",
@@ -27,7 +28,7 @@
         "selectedIconPath": "images/map_marker.png"
       },
       {
-        "pagePath": "pages/appointment_new/appointment_new",
+        "pagePath": "pages/appointment/appointment",
         "text": "活动",
         "iconPath": "images/map_marker.png",
         "selectedIconPath": "images/map_marker.png"

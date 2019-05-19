@@ -9,11 +9,7 @@
 
 
 textarea {
-  width: 700rpx;
-  height: 500rpx;
-  margin-left: 10rpx;
-  margin-right: 10rpx;
-  margin-top: 10rpx;
+  height: 800rpx;
 }
  
 .textarea-bg {
