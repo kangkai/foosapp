@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/list/list",
     "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",
-    "pages/list/list",
     "pages/map/map",
     "pages/list/place/place",
     "pages/logs/logs",
@@ -20,19 +20,25 @@
     "color": "#a9a9a9",
     "selectedColor": "#1f1f1f",
     "backgroundColor": "#fefefe",
-    "borderStyle": "white",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/list/list",
         "text": "列表",
-        "iconPath": "images/map_marker.png",
-        "selectedIconPath": "images/map_marker.png"
+        "iconPath": "images/list22.png",
+        "selectedIconPath": "images/list11.png"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "text": "地图",
+        "iconPath": "images/map22.png",
+        "selectedIconPath": "images/map11.png"
       },
       {
         "pagePath": "pages/appointment/appointment",
         "text": "活动",
-        "iconPath": "images/map_marker.png",
-        "selectedIconPath": "images/map_marker.png"
+        "iconPath": "images/appoint2.png",
+        "selectedIconPath": "images/appoint1.png"
       }
     ]
   },

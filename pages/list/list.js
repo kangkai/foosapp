@@ -119,8 +119,8 @@ Page({
   },
 
   onFloatIconClick(e) {
-    wx.redirectTo({
-      url: '../map/map',
+    wx.navigateTo({
+      url: '../about/about',
       fail: function (err) {
         console.log(err);
       }

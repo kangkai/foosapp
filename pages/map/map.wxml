@@ -4,7 +4,7 @@
          bindregionchange="regionchange" show-location style="width: 100%; height: {{map_height}}px;">
 
         <cover-view bindtap="onFloatIconClick">
-            <cover-image class="floaticon" src="/images/map_marker.png"></cover-image>
+            <cover-image class="floaticon" src=""></cover-image>
         </cover-view>
     </map>
     <view class="poi-card-hide {{showCard?'poi-card-show':''}}">

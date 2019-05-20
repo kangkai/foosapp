@@ -1,6 +1,6 @@
 <view class="index">
     <view bindtap="onFloatIconClick">
-        <image class="floaticon" src="/images/map_marker.png"></image>
+        <image class="floaticon" src=""></image>
     </view>
     <view class="index-hd">
         <image class="index-logo" src="/images/table-foosball2.png"></image>
