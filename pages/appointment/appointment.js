@@ -40,6 +40,9 @@ Page({
         that.setData({
           db_total: db_total
         });
+      },
+      fail: function(err) {
+        console.log(err);
       }
     });
 
@@ -237,7 +240,7 @@ Page({
   },
 
   addme: function (e) {
-    console.log('addme clicked.', e);
+    //console.log('addme clicked.', e);
     var aid = e.currentTarget.id;
     var appointments = this.data.appointments;
 
@@ -253,9 +256,9 @@ Page({
           confirmText: "好的",
           success: function (res) {
             if (res.confirm) {
-              console.log('用户点击确定')
+              //console.log('用户点击确定')
             } else {
-              console.log('用户点击取消')
+              //console.log('用户点击取消')
             }
           }
         })
@@ -265,7 +268,7 @@ Page({
 
       var players = appointments[i].players;
       for (var j = 0; j < players.length; j++) {
-        if (players[j]._openid == app.globalData.userInfo._openid) {
+        if (players[j]._openid == app.globalData.openid) {
           // already in
           wx.showModal({
             title: '提示',
@@ -274,9 +277,9 @@ Page({
             confirmText: "好的",
             success: function (res) {
               if (res.confirm) {
-                console.log('用户点击确定')
+                //console.log('用户点击确定')
               } else {
-                console.log('用户点击取消')
+                //console.log('用户点击取消')
               }
 
             }
@@ -291,7 +294,7 @@ Page({
 
         "id": players.length,
         "nick": app.globalData.userInfo.nickName,
-        "_openid": app.globalData.userInfo._openid,
+        "_openid": app.globalData.openid,
         "avatarUrl": app.globalData.userInfo.avatarUrl
       }
 
@@ -328,22 +331,32 @@ Page({
 
   //获取用户信息
   onGotUserInfo: function (e) {
-    console.log("getUserInfo: ", e);
+    //console.log("getUserInfo: ", e);
     if (e.detail.userInfo) {
       var user = e.detail.userInfo;
-      console.log(user)
-      app._saveUserInfo(user);
+      //console.log(user)
+      app.userInfoReadyCallback(user);
     } else {
       console.log("用户拒绝了登陆");
+      wx.switchTab({
+        url: '/pages/appointment/appointment' // 希望跳转过去的页面
+      })
     }
   },
 
-  bindGetUserInfo: function (e) {
-    console.log(e)
+  onGotUserInfoAddme: function (e) {
+    //console.log("getUserInfo: ", e);
     if (e.detail.userInfo) {
-      //用户按了允许授权按钮
+      var user = e.detail.userInfo;
+      //console.log(user)
+      app.userInfoReadyCallback(user);
+
+      this.addme(e); 
     } else {
-      //用户按了拒绝按钮
+      console.log("用户拒绝了登陆");
+      wx.switchTab({
+        url: '/pages/appointment/appointment' // 希望跳转过去的页面
+      })
     }
   }
 

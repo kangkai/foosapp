@@ -1,6 +1,5 @@
 {
   "pages": [
-
     "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",
     "pages/list/list",
@@ -8,7 +7,7 @@
     "pages/list/place/place",
     "pages/logs/logs",
     "pages/about/about",
-            "pages/index/index",
+    "pages/index/index",
     "pages/setup/setup"
   ],
   "window": {
@@ -25,7 +24,7 @@
     "list": [
       {
         "pagePath": "pages/list/list",
-        "text": "地点",
+        "text": "列表",
         "iconPath": "images/map_marker.png",
         "selectedIconPath": "images/map_marker.png"
       },

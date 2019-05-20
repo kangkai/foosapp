@@ -153,7 +153,7 @@ Page({
         {
           "id": 0,
           "nick": app.globalData.userInfo.nickName,
-          "_openid": app.globalData.userInfo._openid,
+          "_openid": app.globalData.openid,
           "avatarUrl": app.globalData.userInfo.avatarUrl
         }
       ]

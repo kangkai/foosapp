@@ -2,6 +2,7 @@
 App({
   globalData: {
     userInfo: null,
+    openid: null,
     foobar: {},
     bars: null,
     cur_bar: 0,
@@ -15,13 +16,17 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.cloud.init()
+    wx.cloud.init({
+      env: 'foosball-test1',
+      traceUser: true
+    })
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log("login code: ", res.code);
+        //console.log("login code: ", res.code);
+        that.getOpenid();
       }
     })
 
@@ -95,6 +100,24 @@ App({
     });
 
 
+  },
+
+  userInfoReadyCallback: function (user) {
+    //console.log(user);
+    this.globalData.userInfo = user;
+  },
+
+  // 获取用户openid
+  getOpenid() {
+    let that = this;
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      complete: res => {
+        //console.log(res);
+        //console.log('云函数获取到的openid: ', res.result.openid)
+        that.globalData.openid = res.result.openid;
+      }
+    })
   }
 
 })

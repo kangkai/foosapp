@@ -1,3 +1,13 @@
+button{
+  margin-top: 0rpx;
+  margin-left: 0rpx;
+  margin-bottom: 0rpx;
+}
+
+button[size=mini] {
+  padding: 0;
+}
+
 .btn {
   width: 100%;
   margin-top: 10rpx;
@@ -5,6 +15,34 @@
 
 .btn::after {
   border: 0;
+}
+
+.btn-addme {
+  width: 30px; 
+  height: 30px; 
+  margin-left: 20rpx;
+  padding: 0;
+  border-radius: 50px; 
+  border-bottom-right-radius: 50px; 
+  border-bottom-left-radius: 50px; 
+  border-top-right-radius: 50px; 
+  border-top-left-radius: 50px;
+  background-image: "/images/addme2.png";      
+  background-color: transparent;
+  background-size: 30px 30px;
+  -webkit-background-size: 30px 30px;
+}
+
+.btn-addme::after{ border: none;} 
+
+.btn-image {
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50px; 
+  border-bottom-right-radius: 50px; 
+  border-bottom-left-radius: 50px; 
+  border-top-right-radius: 50px; 
+  border-top-left-radius: 50px; 
 }
 
 

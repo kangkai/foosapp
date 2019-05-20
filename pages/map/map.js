@@ -96,7 +96,7 @@ Page({
   },
 
   onFloatIconClick(e) {
-    wx.redirectTo({
+    wx.switchTab({
       url: '../list/list',
       fail: function (err) {
         console.log(err);
