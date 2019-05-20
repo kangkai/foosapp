@@ -5,7 +5,8 @@ App({
     foobar: {},
     bars: null,
     cur_bar: 0,
-    map_height: 300
+    map_height: 300,
+    appointment_needs_refresh: false
   },
 
   onLaunch: function () {
@@ -20,6 +21,7 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log("login code: ", res.code);
       }
     })
 
@@ -32,6 +34,7 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
+              //console.log(res.userInfo);
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -46,6 +49,7 @@ App({
 
     wx.getSystemInfo({
       success: function (res) {
+        //console.log(res);
         that.globalData.map_height = res.windowHeight;
       }
     })

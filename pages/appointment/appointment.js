@@ -15,34 +15,23 @@ Page({
    */
 
   data: {
-    bars: [],
     db_total: 0,
     db_done_read: 0,
     appointments: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad() {
-    var that = this;
-
-    if (!app.globalData.bars) {
-      app.dataReadyCallback_picker = res => {
-        that.setData({
-          bars: app.globalData.bars
-        })
-      }
-    }
-
+  refresh_list: function (that) {
     const db = wx.cloud.database();
     const collection = db.collection('foos_appointment');
     const PAGE_LIMIT = 3;
 
+    that.data.db_total = 0;
+    that.data.db_done_read = 0;
+
     collection.count({
       success: function (res) {
         const db_total = res.total;
-        console.log(db_total);
+        //console.log(db_total);
 
         if (that.dbTotalCallback) {
           that.dbTotalCallback(db_total);
@@ -54,24 +43,99 @@ Page({
       }
     });
 
-    if (!this.data.db_total) {
-      this.dbTotalCallback = res => {
-        collection.skip(this.data.db_done_read).limit(PAGE_LIMIT).get({
-          success: function (res) {
-            console.log(res.data);
+    if (!that.data.db_total) {
+      that.dbTotalCallback = res => {
+        collection
+          .orderBy('date', 'desc')
+          .orderBy('time', 'desc')
+          .skip(that.data.db_done_read)
+          .limit(PAGE_LIMIT)
+          .get({
+            success: function (res) {
+              //console.log(res.data);
+              for (var i = 0; i < res.data.length; i++) {
+                if (Date.parse(res.data[i].date + ' ' + res.data[i].time) > Date.now()) {
+                  res.data[i].due = false;
+                } else {
+                  res.data[i].due = true;
+                }
+                //console.log(res.data[i]);
+              }
 
-            that.setData({
-              db_done_read: that.data.db_done_read + res.data.length,
-              appointments: res.data
-            })
-          },
-          fail: function (err) {
-            console.log(err);
-          }
-        })
+              that.setData({
+                db_done_read: that.data.db_done_read + res.data.length,
+                appointments: res.data
+              })
+            },
+            fail: function (err) {
+              console.log(err);
+            }
+          })
       }
     }
+  },
 
+  more_list: function (that) {
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_appointment');
+    const PAGE_LIMIT = 3;
+
+    collection
+      .orderBy('date', 'desc')
+      .orderBy('time', 'desc')
+      .skip(that.data.db_done_read)
+      .limit(PAGE_LIMIT)
+      .get({
+        success: function (res) {
+          //console.log(res.data);
+
+          if (res.data.length == 0) {
+            wx.showModal({
+              title: '提示',
+              content: '没有更多了，谢谢。',
+              showCancel: false,
+              confirmText: "知道了",
+              success: function (res) {
+                if (res.confirm) {
+                  //console.log('用户点击确定')
+                } else {
+                  //console.log('用户点击取消')
+                }
+
+              }
+            });
+
+            return;
+          }
+
+          var appointments = that.data.appointments
+          //console.log(appointments);
+          for (var i = 0; i < res.data.length; i++) {
+            if (Date.parse(res.data[i].date + ' ' + res.data[i].time) > Date.now()) {
+              res.data[i].due = false;
+            } else {
+              res.data[i].due = true;
+            }
+            appointments.push(res.data[i]);
+          }
+          //console.log(appointments);
+
+          that.setData({
+            db_done_read: that.data.db_done_read + res.data.length,
+            appointments: appointments
+          })
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad() {
+    this.refresh_list(this);
   },
 
   /**
@@ -85,7 +149,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    if (app.globalData.appointment_needs_refresh) {
+      app.globalData.appointment_needs_refresh = false;
 
+      //refresh
+      this.refresh_list(this);
+    }
   },
 
   /**
@@ -112,7 +181,8 @@ Page({
 
   //以下为自定义点击事件
   getLocation(e) {
-    var bar = this.data.cur_bar;
+    var index = e.currentTarget.id;
+    var bar = app.globalData.bars[index];
 
     wx.getLocation({
       type: 'wgs84',
@@ -166,48 +236,116 @@ Page({
     })
   },
 
-  formSubmit: function (e) {
+  addme: function (e) {
+    console.log('addme clicked.', e);
+    var aid = e.currentTarget.id;
+    var appointments = this.data.appointments;
 
-    var desc = e.detail.value.appoint_desc;
+    for (var i = 0; i < appointments.length; i++) {
+      if (appointments[i]._id != aid)
+        continue;
 
-    var foos_appointment = {
-      "desc": desc,
-      "date": this.data.date,
-      "time": this.data.time,
-      "create_time": Date.now(),
-      "bar_index": this.data.bar_index,
-      "bar_name": this.data.bars[this.data.bar_index].name,
-      "admin_nick": app.globalData.userInfo.nickName,
-      "admin_avatarUrl": app.globalData.userInfo.avatarUrl,
-      "players": [
-        {
-          "id": 0,
-          "nick": app.globalData.userInfo.nickName,
-          "avatarUrl": app.globalData.userInfo.avatarUrl
-        }
-      ]
-    };
+      if (appointments[i].due) {
+        wx.showModal({
+          title: '提示',
+          content: '无法加入已经过期的约球',
+          showCancel: false,
+          confirmText: "好的",
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else {
+              console.log('用户点击取消')
+            }
+          }
+        })
 
-    //console.log(foos_appointment);
-
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_appointment');
-
-    collection.add({
-      data: foos_appointment,
-      success: function (res) {
-        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log(res._id);
-      },
-      fail: function (err) {
-        console.log(err);
+        return;
       }
-    })
+
+      var players = appointments[i].players;
+      for (var j = 0; j < players.length; j++) {
+        if (players[j]._openid == app.globalData.userInfo._openid) {
+          // already in
+          wx.showModal({
+            title: '提示',
+            content: '你已经加入',
+            showCancel: false,
+            confirmText: "好的",
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else {
+                console.log('用户点击取消')
+              }
+
+            }
+          })
+
+          return;
+        }
+      }
+
+      //push into players
+      appointments[i].players.push = {
+
+        "id": players.length,
+        "nick": app.globalData.userInfo.nickName,
+        "_openid": app.globalData.userInfo._openid,
+        "avatarUrl": app.globalData.userInfo.avatarUrl
+      }
+
+      //push to db
+      const db = wx.cloud.database();
+      const collection = db.collection('foos_appointment');
+      collection.doc('aid').update({
+        data: {
+          players: appointments[i].players
+        },
+        success: function (res) {
+          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+          console.log("db update success");
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      })
+
+      //no need to continue
+      break;
+    }
+
+    this.setData({
+      appointments
+    });
+
+
   },
 
-  formReset: function () {
-    console.log('form发生了reset事件')
+  moreClicked(e) {
+    this.more_list(this);
   },
+
+  //获取用户信息
+  onGotUserInfo: function (e) {
+    console.log("getUserInfo: ", e);
+    if (e.detail.userInfo) {
+      var user = e.detail.userInfo;
+      console.log(user)
+      app._saveUserInfo(user);
+    } else {
+      console.log("用户拒绝了登陆");
+    }
+  },
+
+  bindGetUserInfo: function (e) {
+    console.log(e)
+    if (e.detail.userInfo) {
+      //用户按了允许授权按钮
+    } else {
+      //用户按了拒绝按钮
+    }
+  }
 
 })
 

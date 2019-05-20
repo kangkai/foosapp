@@ -1,5 +1,6 @@
 {
   "pages": [
+
     "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",
     "pages/list/list",
@@ -7,6 +8,7 @@
     "pages/list/place/place",
     "pages/logs/logs",
     "pages/about/about",
+            "pages/index/index",
     "pages/setup/setup"
   ],
   "window": {

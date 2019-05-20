@@ -82,7 +82,7 @@ Page({
 
   //以下为自定义点击事件
   getLocation(e) {
-    var bar = this.data.cur_bar;
+    var bar = this.data.bars[this.data.bar_index];
 
     wx.getLocation({
       type: 'wgs84',
@@ -153,6 +153,7 @@ Page({
         {
           "id": 0,
           "nick": app.globalData.userInfo.nickName,
+          "_openid": app.globalData.userInfo._openid,
           "avatarUrl": app.globalData.userInfo.avatarUrl
         }
       ]
@@ -168,11 +169,19 @@ Page({
       success: function (res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res._id);
+
+        //redirect to appointment list page
+        app.globalData.appointment_needs_refresh = true;
+        wx.switchTab({
+          url: '/pages/appointment/appointment' // 希望跳转过去的页面
+        })
       },
       fail: function (err) {
         console.log(err);
       }
     })
+
+
   },
 
   formReset: function () {
