@@ -5,6 +5,7 @@ App({
     openid: null,
     foobar: {},
     bars: null,
+    idbars: {},
     cur_bar: 0,
     map_height: 300,
     appointment_needs_refresh: false
@@ -66,11 +67,14 @@ App({
       success: function (res) {
         var foobar = res.data;
         var bars = [];
+        var idbars = {};
         var index = 0;
 
         for (var i = 0; i < foobar.length; i++) {
           var places = foobar[i].places
           for (var j = 0; j < places.length; j++) {
+            var barid = places[j].barid; //barid = Math.random().toString(36).substr(2, 15)
+
             bars.push(places[j]);
 
             bars[index].id = index;
@@ -79,12 +83,16 @@ App({
             bars[index].height = 30;
             bars[index].callout = { content: bars[index].name };
 
-            index++;
+            idbars[barid] = bars[index];
+
+            index++;   
           }
         }
 
         that.globalData.foobar = foobar;
         that.globalData.bars = bars;
+        that.globalData.idbars = idbars;
+        //console.log(idbars);
 
         if (that.dataReadyCallback) {
           that.dataReadyCallback(res);

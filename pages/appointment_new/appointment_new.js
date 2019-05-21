@@ -17,6 +17,7 @@ Page({
   data: {
     bars: [],
     bar_index: 0,
+    barid: '',
     date: '',
     date_end: '',
     time: ''
@@ -31,17 +32,21 @@ Page({
     if (!app.globalData.bars) {
       app.dataReadyCallback_picker = res => {
         that.setData({
-          bars: app.globalData.bars
+          bars: app.globalData.bars,
+          bar_index: 0,
+          barid: app.globalData.bars[0].barid,
         })
       }
+    } else {
+      this.setData({
+        bars: app.globalData.bars,
+        bar_index: 0,
+        barid: app.globalData.bars[0].barid,
+        date: util.formatDate(new Date()),
+        date_end: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
+        time: util.formatTime2(new Date())
+      });
     }
-
-    this.setData({
-      bars: app.globalData.bars,
-      date: util.formatDate(new Date()),
-      date_end: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
-      time: util.formatTime2(new Date())
-    });
   },
 
   /**
@@ -130,9 +135,11 @@ Page({
   },
   bindPlaceChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    var bars = this.data.bars;
 
     this.setData({
-      bar_index: e.detail.value
+      bar_index: e.detail.value,
+      barid: bars[e.detail.value].barid
     })
   },
 
@@ -146,6 +153,7 @@ Page({
       "time": this.data.time,
       "create_time": Date.now(),
       "bar_index": this.data.bar_index,
+      "barid": this.data.barid,
       "bar_name": this.data.bars[this.data.bar_index].name,
       "admin_nick": app.globalData.userInfo.nickName,
       "admin_avatarUrl": app.globalData.userInfo.avatarUrl,
@@ -168,7 +176,7 @@ Page({
       data: foos_appointment,
       success: function (res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log(res._id);
+        console.log("数据库创建成功: ", res._id);
 
         //redirect to appointment list page
         app.globalData.appointment_needs_refresh = true;

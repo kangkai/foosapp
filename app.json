@@ -2,14 +2,14 @@
   "pages": [
     "pages/appointment/appointment",
     "pages/list/list",
-    
     "pages/appointment_new/appointment_new",
     "pages/map/map",
     "pages/list/place/place",
     "pages/logs/logs",
     "pages/about/about",
     "pages/index/index",
-    "pages/setup/setup"
+    "pages/setup/setup",
+    "pages/my/my"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -40,6 +40,12 @@
         "text": "活动",
         "iconPath": "images/appoint2.png",
         "selectedIconPath": "images/appoint1.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/map2.png",
+        "selectedIconPath": "images/map1.png"
       }
     ]
   },

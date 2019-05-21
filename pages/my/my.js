@@ -19,16 +19,16 @@ Page({
     interval: 3000,
     duration: 800,
     circular:true,
-    bar: {}
+    cur_bar: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    var bar = app.globalData.idbars[app.globalData.cur_barid];
+    var bar = app.globalData.bars[app.globalData.cur_bar];
     this.setData({
-      bar: bar
+      cur_bar: bar
     });
   },
 
@@ -70,7 +70,7 @@ Page({
 
   //以下为自定义点击事件
   getLocation(e) {
-    var bar = this.data.bar;
+    var bar = this.data.cur_bar;
 
     wx.getLocation({
       type: 'wgs84',

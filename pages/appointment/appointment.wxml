@@ -18,7 +18,7 @@
                 <view wx:else class="c-block wx-text_TvHPc9">错过的约球</view>
             </view>
             <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"
-                   id="{{item.bar_index}}"  />
+                   id="{{item.barid}}"  />
         </view>
         <view class="paddinghalfrem">
             <view class="tr-line">

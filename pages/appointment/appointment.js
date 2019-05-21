@@ -198,8 +198,8 @@ Page({
 
   //以下为自定义点击事件
   getLocation(e) {
-    var index = e.currentTarget.id;
-    var bar = app.globalData.bars[index];
+    var barid = e.currentTarget.id;
+    var bar = app.globalData.idbars[barid];
 
     wx.getLocation({
       type: 'wgs84',
@@ -228,28 +228,6 @@ Page({
           }
         })
       }
-    })
-  },
-
-
-
-  bindDateChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  bindTimeChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      time: e.detail.value
-    })
-  },
-  bindPlaceChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-
-    this.setData({
-      bar_index: e.detail.value
     })
   },
 

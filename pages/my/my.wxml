@@ -3,19 +3,19 @@
         <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
                style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
         <view class="wx-view_cPj0ok">
-            <text class="c-block wx-text_TvHPc9">{{bar.name}}</text>
+            <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
         </view>
         <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
     </view>
     <view>
-        <view wx:if="{{bar.pic.length==0}}">
+        <view wx:if="{{cur_bar.pic.length==0}}">
             <image class="wx-image_BEjy38" mode="aspectFill" src="/images/pic_default.jpg"/>
         </view>
         <view wx:else class="swiper-container">
             <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
                     duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}"
                     class="swiper">
-                <block wx:for="{{bar.pic}}" wx:key="unique">
+                <block wx:for="{{cur_bar.pic}}" wx:key="unique">
                     <swiper-item>
                         <image mode="aspectFill" src="{{item}}"/>
                     </swiper-item>
@@ -26,19 +26,19 @@
             <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
             <view class="tr-line">
                 <view class="td-left">地址：</view>
-                <view class="td-right">{{bar.address}}</view>
+                <view class="td-right">{{cur_bar.address}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">联系：</view>
-                <view class="td-right">{{bar.contacts}}</view>
+                <view class="td-right">{{cur_bar.contacts}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">桌子：</view>
-                <view class="td-right">{{bar.tables}}</view>
+                <view class="td-right">{{cur_bar.tables}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">详情：</view>
-                <view class="td-right">{{bar.intro}}</view>
+                <view class="td-right">{{cur_bar.intro}}</view>
             </view>
         </view>
     </view>

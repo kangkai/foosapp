@@ -22,7 +22,6 @@ Page({
   onLoad: function () {
     var list_bars = function(that) {
       const mylist = [];
-      var index = 0;
       var foobar = app.globalData.foobar;
 
       for (var i = 0; i < foobar.length; i++) {
@@ -31,10 +30,9 @@ Page({
         var places = foobar[i].places
         for (var j = 0; j < places.length; j++) {
           pages.push({
-            index: index,
+            index: places[j].barid,
             name: places[j].name
           });
-          index++;
         }
 
         mylist.push({
@@ -115,7 +113,7 @@ Page({
   },
 
   itemClick(e) {
-    app.globalData.cur_bar = e.currentTarget.id;
+    app.globalData.cur_barid = e.currentTarget.id;
   },
 
   onFloatIconClick(e) {

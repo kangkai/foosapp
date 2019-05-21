@@ -3,7 +3,7 @@
         <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
                style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
         <view class="wx-view_cPj0ok">
-            <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
+            <text class="c-block wx-text_TvHPc9">{{bars[bar_index].name}}</text>
         </view>
         <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
     </view>
