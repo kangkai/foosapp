@@ -35,7 +35,7 @@
         </view>
         <!-- Form submit 按钮 -->
         <view class="paddinghalfrem">
-            <button class="btn" type="primary" size="mini" formType="submit">发起约球</button>
+            <button class="btn" size="mini" formType="submit">发起约球</button>
         </view>
     </form>
 </view>

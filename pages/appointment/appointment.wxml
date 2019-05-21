@@ -1,9 +1,9 @@
 <view>
-    <image class="banner-image" mode="aspectFill" src="/images/banner1.jpg" />
+    <image class="banner-image" mode="aspectFit" src="/images/table1.png" />
 </view>
-<view class="paddinghalfrem">
+<view class="btnpadding">
     <navigator url="../appointment_new/appointment_new">
-        <button class="btn button-hover" type="primary" open-type="getUserInfo" size="mini" bindgetuserinfo="onGotUserInfo">
+        <button class="btn button-hover" open-type="getUserInfo" size="mini" bindgetuserinfo="onGotUserInfo">
         发起新约球
         </button>
     </navigator>
@@ -53,5 +53,5 @@
     </view>
 </block>
 <view class="paddinghalfrem">
-    <button class="btn button-hover" size="mini" bindtap="moreClicked">{{db_done_read == db_total ? '没有更多了' : '加载更多'}}</button>
+    <button class="btn2 button-hover" size="mini" bindtap="moreClicked">{{db_done_read == db_total ? '-- 没有更多了 --' : '加载更多'}}</button>
 </view>

@@ -1,6 +1,8 @@
+
 .btn {
   width: 100%;
-  margin-top: 10rpx;
+  margin-top: 0rpx;
+  color: #000 !important;
 }
 
 .btn::after {
