@@ -45,6 +45,11 @@ button[size=mini] {
   border-top-left-radius: 50px; 
 }
 
+.banner-image {
+  width: 100%;
+  height: 80px;
+  margin-top: 0rpx;
+}
 
 textarea {
   height: 800rpx;

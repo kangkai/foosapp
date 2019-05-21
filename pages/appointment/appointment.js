@@ -32,6 +32,8 @@ Page({
       success: function (res) {
         const db_total = res.total;
         //console.log(db_total);
+        if (db_total == 0)
+          return;
 
         if (that.dbTotalCallback) {
           that.dbTotalCallback(db_total);
@@ -41,7 +43,7 @@ Page({
           db_total: db_total
         });
       },
-      fail: function(err) {
+      fail: function (err) {
         console.log(err);
       }
     });
@@ -57,7 +59,10 @@ Page({
             success: function (res) {
               //console.log(res.data);
               for (var i = 0; i < res.data.length; i++) {
-                if (Date.parse(res.data[i].date + ' ' + res.data[i].time) > Date.now()) {
+                var mydate = res.data[i].date + ' ' + res.data[i].time;
+                mydate=mydate.replace(/-/g, '/');
+
+                if (Date.parse(mydate) > Date.now()) {
                   res.data[i].due = false;
                 } else {
                   res.data[i].due = true;
@@ -82,56 +87,65 @@ Page({
     const db = wx.cloud.database();
     const collection = db.collection('foos_appointment');
     const PAGE_LIMIT = 3;
+    var local_read = that.data.db_done_read;
 
-    collection
-      .orderBy('date', 'desc')
-      .orderBy('time', 'desc')
-      .skip(that.data.db_done_read)
-      .limit(PAGE_LIMIT)
-      .get({
-        success: function (res) {
-          //console.log(res.data);
+    that.data.db_total = 0;
+    that.data.db_done_read = 0;
 
-          if (res.data.length == 0) {
-            wx.showModal({
-              title: '提示',
-              content: '没有更多了，谢谢。',
-              showCancel: false,
-              confirmText: "知道了",
-              success: function (res) {
-                if (res.confirm) {
-                  //console.log('用户点击确定')
-                } else {
-                  //console.log('用户点击取消')
-                }
+    collection.count({
+      success: function (res) {
+        const db_total = res.total;
+        //console.log(db_total);
+        if (db_total == 0)
+          return;
 
-              }
-            });
-
-            return;
-          }
-
-          var appointments = that.data.appointments
-          //console.log(appointments);
-          for (var i = 0; i < res.data.length; i++) {
-            if (Date.parse(res.data[i].date + ' ' + res.data[i].time) > Date.now()) {
-              res.data[i].due = false;
-            } else {
-              res.data[i].due = true;
-            }
-            appointments.push(res.data[i]);
-          }
-          //console.log(appointments);
-
-          that.setData({
-            db_done_read: that.data.db_done_read + res.data.length,
-            appointments: appointments
-          })
-        },
-        fail: function (err) {
-          console.log(err);
+        if (that.dbTotalCallback) {
+          that.dbTotalCallback(db_total);
         }
-      })
+
+        that.setData({
+          db_total: db_total
+        });
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    });
+
+    if (!that.data.db_total) {
+      that.dbTotalCallback = res => {
+        collection
+          .orderBy('date', 'desc')
+          .orderBy('time', 'desc')
+          .skip(that.data.db_done_read)
+          .limit(local_read + PAGE_LIMIT)
+          .get({
+            success: function (res) {
+              //console.log(res.data);
+
+              for (var i = 0; i < res.data.length; i++) {
+                var mydate = res.data[i].date + ' ' + res.data[i].time;
+                mydate=mydate.replace(/-/g, '/');
+
+                if (Date.parse(mydate) > Date.now()) {
+                  res.data[i].due = false;
+                } else {
+                  res.data[i].due = true;
+                }
+                //console.log(res.data[i]);
+              }
+
+              that.setData({
+                db_done_read: res.data.length,
+                appointments: res.data
+              })
+            },
+            fail: function (err) {
+              console.log(err);
+            }
+          })
+      }
+    }
   },
 
   /**
@@ -290,27 +304,24 @@ Page({
       }
 
       //push into players
-      appointments[i].players.push = {
+      appointments[i].players.push({
 
         "id": players.length,
         "nick": app.globalData.userInfo.nickName,
         "_openid": app.globalData.openid,
         "avatarUrl": app.globalData.userInfo.avatarUrl
-      }
+      });
 
       //push to db
-      const db = wx.cloud.database();
-      const collection = db.collection('foos_appointment');
-      collection.doc('aid').update({
+      wx.cloud.callFunction({
+        name: 'appointPlayersUpdate',
         data: {
+          docid: aid,
           players: appointments[i].players
-        },
-        success: function (res) {
-          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-          console.log("db update success");
-        },
-        fail: function (err) {
-          console.log(err);
+        }, success: function (res) {
+          //console.log(res)
+        }, fail: function (res) {
+          console.log(res)
         }
       })
 
@@ -351,7 +362,7 @@ Page({
       //console.log(user)
       app.userInfoReadyCallback(user);
 
-      this.addme(e); 
+      this.addme(e);
     } else {
       console.log("用户拒绝了登陆");
       wx.switchTab({

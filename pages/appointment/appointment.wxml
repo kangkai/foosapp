@@ -1,3 +1,6 @@
+<view>
+    <image class="banner-image" mode="aspectFill" src="/images/banner1.jpg" />
+</view>
 <view class="paddinghalfrem">
     <navigator url="../appointment_new/appointment_new">
         <button class="btn button-hover" type="primary" open-type="getUserInfo" size="mini" bindgetuserinfo="onGotUserInfo">

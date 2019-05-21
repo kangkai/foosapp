@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/list/list",
     "pages/appointment/appointment",
+    "pages/list/list",
+    
     "pages/appointment_new/appointment_new",
     "pages/map/map",
     "pages/list/place/place",
