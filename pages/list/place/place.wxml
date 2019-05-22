@@ -42,8 +42,8 @@
             </view>
         </view>
     </view>
-    <view class="paddinghalfrem wx-view_adF7Mw poi-card-hide">
-        <view class="wx-view_2gazUr poi-card-hide">
+    <view class="paddinghalfrem wx-view_adF7Mw">
+        <view class="wx-view_2gazUr">
             <view class="wx-view_DKe6UT">
                 <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"
                        style="background-size: contain; background-position: center center; background-repeat: no-repeat;"  />
@@ -55,6 +55,6 @@
                 <text class="c-block wx-text_id0VJj">143</text>
             </view>
         </view>
-        <text class="c-block wx-text_9Wn0Di poi-card-hide">1小时前</text>
+        <text class="c-block wx-text_9Wn0Di">1小时前</text>
     </view>
 </view>
