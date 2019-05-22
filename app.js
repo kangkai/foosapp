@@ -6,7 +6,7 @@ App({
     foobar: {},
     bars: null,
     idbars: {},
-    cur_bar: 0,
+    cur_barid: "",
     map_height: 300,
     appointment_needs_refresh: false
   },
@@ -67,6 +67,7 @@ App({
       success: function (res) {
         var foobar = res.data;
         var bars = [];
+        var bardetail = {};
         var idbars = {};
         var index = 0;
 
@@ -85,14 +86,32 @@ App({
 
             idbars[barid] = bars[index];
 
-            index++;   
+            /* bardetail 
+            bardetail = bars[index];
+            bardetail.admin_openid = this.globalData.openid;
+            bardetail.admin_nick = this.globalData.UserInfo.nickName;
+            bardetail.admin_avatarUrl = this.globalData.UserInfo.avatarUrl;
+            bardetail.like.push({
+              openid: this.globalData.openid,
+              nick: this.globalData.UserInfo.nickName,
+              avatarUrl: this.globalData.UserInfo.avatarUrl
+            });
+            bardetail.discusstion.push({
+              openid: this.globalData.openid,
+              nick: this.globalData.UserInfo.nickName,
+              avatarUrl: this.globalData.UserInfo.avatarUrl,
+              content: "I this this bar!"
+            });
+            console.log(bardetail); */
+
+            index++;
           }
         }
 
         that.globalData.foobar = foobar;
         that.globalData.bars = bars;
         that.globalData.idbars = idbars;
-        //console.log(idbars);
+        //console.log(bars);
 
         if (that.dataReadyCallback) {
           that.dataReadyCallback(res);

@@ -13,23 +13,23 @@
                 <image class="wx-image_tBcdCT" mode="aspectFill"
                        src="/images/foosball2.png"  />
                 <view class="wx-view_cPj0ok">
-                    <text class="c-block wx-text_TvHPc9">{{cur_bar.name}}</text>
+                    <text class="c-block wx-text_TvHPc9">{{bar.name}}</text>
                 </view>
                 <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"  />
             </view>
-            <navigator id="{{cur_bar.id}}" url="../list/place/place" bindtap="navitap">
+            <navigator id="{{bar.barid}}" url="../list/place/place" bindtap="navitap">
                 <view class="paddinghalfrem">
                     <view class="tr-line">
                         <view class="td-left">地址：</view>
-                        <view class="td-right">{{cur_bar.address}}</view>
+                        <view class="td-right">{{bar.address}}</view>
                     </view>
                     <view class="tr-line">
                         <view class="td-left">联系：</view>
-                        <view class="td-right">{{cur_bar.contacts}}</view>
+                        <view class="td-right">{{bar.contacts}}</view>
                     </view>
                     <view class="tr-line">
                         <view class="td-left">桌子：</view>
-                        <view class="td-right">{{cur_bar.tables}}</view>
+                        <view class="td-right">{{bar.tables}}</view>
                     </view>
                 </view>
             </navigator>

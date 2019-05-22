@@ -17,7 +17,7 @@ Page({
 
     //map 标记数据
     markers: [],
-    cur_bar: {},
+    bar: {},
     map_height: 0,
     mapcard_height: 0
   },
@@ -74,9 +74,10 @@ Page({
     var query = wx.createSelectorQuery();
     var that = this;
 
+    //console.log(e);
     that.setData({
       showCard: true,
-      cur_bar: that.data.markers[e.markerId]
+      bar: that.data.markers[e.markerId]
     });
 
     query.select('#mapcard').boundingClientRect()
@@ -92,7 +93,7 @@ Page({
   },
 
   navitap(e) {
-    app.globalData.cur_bar = e.currentTarget.id;
+    app.globalData.cur_barid = e.currentTarget.id;
   },
 
   onFloatIconClick(e) {
@@ -105,7 +106,7 @@ Page({
   },
 
   getLocation(e) {
-    var bar = this.data.cur_bar;
+    var bar = this.data.bar;
 
     wx.getLocation({
       type: 'wgs84',

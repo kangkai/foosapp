@@ -18,18 +18,21 @@ Page({
     autoplay: true,
     interval: 3000,
     duration: 800,
-    circular:true,
-    cur_bar: {}
+    circular: true,
+    bar: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    var bar = app.globalData.bars[app.globalData.cur_bar];
-    this.setData({
-      cur_bar: bar
-    });
+    if (app.globalData.cur_barid) {
+      var bar = app.globalData.idbars[app.globalData.cur_barid];
+      //console.log(bar);
+      this.setData({
+        bar: bar
+      });
+    }
   },
 
   /**
@@ -43,7 +46,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    if (app.globalData.cur_barid) {
+      var bar = app.globalData.idbars[app.globalData.cur_barid];
+      //console.log(bar);
+      this.setData({
+        bar: bar
+      });
+    }
   },
 
   /**
@@ -70,7 +79,7 @@ Page({
 
   //以下为自定义点击事件
   getLocation(e) {
-    var bar = this.data.cur_bar;
+    var bar = this.data.bar;
 
     wx.getLocation({
       type: 'wgs84',
