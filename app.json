@@ -1,18 +1,15 @@
 {
   "pages": [
+    "pages/my/my",    
     "pages/list/list",
     "pages/list/place/place",
-    "pages/my/myappointments/myappointments",
     "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",
     "pages/map/map",
     "pages/logs/logs",
     "pages/about/about",
     "pages/index/index",
-    "pages/setup/setup",
-    "pages/my/my",
-    "pages/my/likebars/likebars"
-
+    "pages/setup/setup"
   ],
   "window": {
     "backgroundTextStyle": "light",

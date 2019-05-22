@@ -1,42 +1,34 @@
-button{
-  margin-top: 0rpx;
-  margin-left: 0rpx;
-  margin-bottom: 0rpx;
+.tab {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 10rpx 0;
 }
-
-button[size=mini] {
-  padding: 0;
+ 
+.topTabSwiper {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  zoom: 1;
 }
-
-.btn {
+ 
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+ 
+.tabBorer {
+  border-bottom: 1px solid #f00;
+  color: #f00;
+}
+ 
+.swiper {
   width: 100%;
-  margin-top: 10rpx;
 }
-
-.btn::after {
-  border: 0;
-}
-
-swiper {
-    height: 450rpx;
-}
-swiper-item image {
-    width: 100%;
-    height: 100%;
-}
-.swiper-container{
-  position: relative;
-}
-.swiper-container .swiper{
-  height: 450rpx;
-}
-.swiper-container .swiper .img{
+ 
+.swiper_con {
+  text-align: center;
   width: 100%;
   height: 100%;
-}
-
-.cardtitle{
-  padding-left: 18.75rpx;
-  padding-top: 10rpx;
-  padding-bottom: 0rpx; 
+  padding: 80rpx 0;
 }

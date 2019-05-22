@@ -1,4 +1,91 @@
-<view class="paddinghalfrem wx-view_QvvUkU">
-<button class="btn" size="mini" type="primary" bindtap="likeClicked">最爱地点</button>
-<button class="btn" size="mini" type="primary" bindtap="appointClicked">我的约球</button>
+<view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>最爱地点</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>我的约球 (3)</view>
 </view>
+<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+    <swiper-item>
+        <block wx:for-items="{{fbars}}" wx:key="{{item._id}}">
+            <view class="c-minheight carditem01">
+                <view class="paddinghalfrem wx-view_QvvUkU">
+                    <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+                           style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+                    <view class="wx-view_cPj0ok">
+                        <text class="c-block wx-text_TvHPc9">{{item.name}}</text>
+                    </view>
+                    <image id="{{item.barid}}" class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png"
+                           bindtap="getLocation"  />
+                </view>
+                <view>
+                    <view class="paddinghalfrem">
+                        <navigator id="{{item.barid}}" url="../../list/place/place" bindtap="navitap">
+                            <view class="tr-line">
+                                <view class="td-left">地址：</view>
+                                <view class="td-right">{{item.address}}</view>
+                            </view>
+                            <view class="tr-line">
+                                <view class="td-left">联系：</view>
+                                <view class="td-right">{{item.contacts}}</view>
+                            </view>
+                            <view class="tr-line">
+                                <view class="td-left">桌子：</view>
+                                <view class="td-right">{{item.tables}}</view>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+                <view class="paddinghalfrem wx-view_adF7Mw">
+                    <view class="wx-view_2gazUr">
+                        <view class="wx-view_DKe6UT">
+                            <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"  />
+                            <text class="c-block wx-text_id0VJj">{{item.likeNumber}}</text>
+                        </view>
+                        <view class="wx-view_DKe6UT">
+                            <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png"  />
+                            <text class="c-block wx-text_id0VJj">{{item.discussionNumber}}</text>
+                        </view>
+                    </view>
+                    <text class="c-block wx-text_9Wn0Di">最近更新：{{item.lastUpdateTime ? item.lastUpdateTime : '未知'}}</text>
+                </view>
+            </view>
+        </block>
+    </swiper-item>
+    <swiper-item>
+        <block wx:for-items="{{myappointments}}" wx:key="{{item._id}}">
+            <view class="c-minheight carditem01">
+                <view class="paddinghalfrem wx-view_QvvUkU">
+                    <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+                           style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+                    <view class="wx-view_cPj0ok">
+                        <view wx:if="{{!item.due}}" class="c-block wx-text_TvHPc9">{{item.bar_name}}（约吗）</view>
+                        <view wx:else class="c-block wx-text_TvHPc9">{{item.bar_name}}（错过）</view>
+                    </view>
+                    <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"
+                           id="{{item.barid}}"  />
+                </view>
+                <view class="paddinghalfrem">
+                    <view class="tr-line">
+                        <view class="td-left">日期：</view>
+                        <view class="td-right">{{item.date}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">时间：</view>
+                        <view class="td-right">{{item.time}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">描述：</view>
+                        <view class="td-right">{{item.desc}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">加入：</view>
+                        <view class="td-right">
+                            <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
+                                <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </swiper-item>
+</swiper>
+
