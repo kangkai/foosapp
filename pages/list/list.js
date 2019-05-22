@@ -23,15 +23,17 @@ Page({
     var list_bars = function(that) {
       const mylist = [];
       var foobar = app.globalData.foobar;
+      var idbars = app.globalData.idbars;
 
       for (var i = 0; i < foobar.length; i++) {
         var pages = [];
 
         var places = foobar[i].places
         for (var j = 0; j < places.length; j++) {
+          var barid = places[j];
           pages.push({
-            index: places[j].barid,
-            name: places[j].name
+            index: barid,
+            name: idbars[barid].name
           });
         }
 

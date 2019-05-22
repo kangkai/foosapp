@@ -45,7 +45,7 @@ App({
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
+                this.userInfoReadyCallback(res.userInfo)
               }
             }
           })
@@ -61,77 +61,51 @@ App({
     })
 
     // 获取数据库内容
-    const db = wx.cloud.database();
-
-    db.collection('foos_place').get({
-      success: function (res) {
-        var foobar = res.data;
-        var bars = [];
-        var bardetail = {};
-        var idbars = {};
-        var index = 0;
-
-        for (var i = 0; i < foobar.length; i++) {
-          var places = foobar[i].places
-          for (var j = 0; j < places.length; j++) {
-            var barid = places[j].barid; //barid = Math.random().toString(36).substr(2, 15)
-
-            bars.push(places[j]);
-
-            bars[index].id = index;
-            bars[index].iconPath = '/images/poi80.png';
-            bars[index].width = 30;
-            bars[index].height = 30;
-            bars[index].callout = { content: bars[index].name };
-
-            idbars[barid] = bars[index];
-
-            /* bardetail 
-            bardetail = bars[index];
-            bardetail.admin_openid = this.globalData.openid;
-            bardetail.admin_nick = this.globalData.UserInfo.nickName;
-            bardetail.admin_avatarUrl = this.globalData.UserInfo.avatarUrl;
-            bardetail.like.push({
-              openid: this.globalData.openid,
-              nick: this.globalData.UserInfo.nickName,
-              avatarUrl: this.globalData.UserInfo.avatarUrl
-            });
-            bardetail.discusstion.push({
-              openid: this.globalData.openid,
-              nick: this.globalData.UserInfo.nickName,
-              avatarUrl: this.globalData.UserInfo.avatarUrl,
-              content: "I this this bar!"
-            });
-            console.log(bardetail); */
-
-            index++;
-          }
-        }
-
-        that.globalData.foobar = foobar;
-        that.globalData.bars = bars;
-        that.globalData.idbars = idbars;
-        //console.log(bars);
-
-        if (that.dataReadyCallback) {
-          that.dataReadyCallback(res);
-        }
-
-        if (that.dataReadyCallback_picker) {
-          that.dataReadyCallback_picker(res);
-        }
-      },
-      fail: function (err) {
-        console.error(err);
-      }
-    });
-
-
+    that.getBarListDetail();
   },
 
   userInfoReadyCallback: function (user) {
     //console.log(user);
     this.globalData.userInfo = user;
+  },
+
+  bardetailDB: function () {
+    var that = this;
+    var bardetail = that.globalData.bars;
+    const db = wx.cloud.database();
+
+    for (var index = 0; index < bardetail.length; index++) {
+      bardetail[index].admin_openid = that.globalData.openid;
+      bardetail[index].admin_nick = that.globalData.userInfo.nickName;
+      bardetail[index].admin_avatarUrl = that.globalData.userInfo.avatarUrl;
+      /*
+      bardetail[index].like = [];
+      bardetail[index].like.push({
+        openid: that.globalData.openid,
+        nick: that.globalData.userInfo.nickName,
+        avatarUrl: that.globalData.userInfo.avatarUrl
+      });
+
+      bardetail[index].discusstion = [];
+      bardetail[index].discusstion.push({
+        openid: that.globalData.openid,
+        nick: that.globalData.userInfo.nickName,
+        avatarUrl: that.globalData.userInfo.avatarUrl,
+        createTime: 0,
+        content: "I like this bar!"
+      }); */
+
+
+      db.collection('foos_bardetail').add({
+        data: bardetail[index],
+        success: function (res) {
+          console.log(res);
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      });
+    }
   },
 
   // 获取用户openid
@@ -143,6 +117,90 @@ App({
         //console.log(res);
         //console.log('云函数获取到的openid: ', res.result.openid)
         that.globalData.openid = res.result.openid;
+      }
+    })
+  },
+
+  constructIdBars(foobar, bars) {
+    var that = this;
+    var idbars = {};
+
+    for (var i = 0; i < bars.length; i++) {
+      var barid = bars[i].barid; //barid = Math.random().toString(36).substr(2, 15)
+      idbars[barid] = bars[i];
+    }
+
+    that.globalData.foobar = foobar;
+    that.globalData.bars = bars;
+    that.globalData.idbars = idbars;
+    /*
+    console.log(foobar);
+    console.log(bars);
+    console.log(idbars);
+    */
+    if (that.dataReadyCallback) {
+      that.dataReadyCallback();
+    }
+
+    if (that.dataReadyCallback_picker) {
+      that.dataReadyCallback_picker();
+    }
+
+    /* foos_barlist
+    var newfoobar = [];
+    var newplaces = [];
+    for (var i = 0; i < foobar.length; i++) {
+      newfoobar[i] = foobar[i];
+      var places = foobar[i].places;
+      newplaces = [];
+      for (var j = 0; j < places.length; j++) {
+        var barid = places[j].barid; //barid = Math.random().toString(36).substr(2, 15)
+
+        newplaces.push(barid);
+      }
+      newfoobar[i].places = newplaces;
+
+      wx.cloud.callFunction({
+        name: 'foosDB',
+        data: {
+          db: 'foos_barlist',
+          type: 'insert',
+          data: newfoobar[i]
+        },
+        complete: res2 => {
+          
+        }
+      })
+    }
+    //console.log(newfoobar);
+    */
+
+  },
+
+  getBarListDetail() {
+    var that = this;
+    wx.cloud.callFunction({
+      name: 'foosDB',
+      data: {
+        db: 'foos_barlist',
+        type: 'get',
+        skip: 0,
+        limit: 100
+      },
+      complete: res => {
+        //console.log(res);
+        wx.cloud.callFunction({
+          name: 'foosDB',
+          data: {
+            db: 'foos_bardetail',
+            type: 'get',
+            skip: 0,
+            limit: 100
+          },
+          complete: res2 => {
+            that.constructIdBars(res.result.data, res2.result.data)
+          }
+        })
       }
     })
   }
