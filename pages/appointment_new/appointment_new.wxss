@@ -2,7 +2,8 @@
 .btn {
   width: 100%;
   margin-top: 0rpx;
-  color: #000 !important;
+  color: #fff !important;
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
 }
 
 .btn::after {

@@ -11,7 +11,11 @@ button[size=mini] {
 .btn {
   width: 100%;
   margin-top: 0rpx;
-  color: #000 !important;
+  color: #fff !important;
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
+}
+.btn[size=mini] {
+  padding: 0 18.75rpx;
 }
 
 
@@ -40,6 +44,7 @@ button[size=mini] {
   background-color: transparent;
   background-size: 30px 30px;
   -webkit-background-size: 30px 30px;
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
 }
 
 .btn-addme::after{ border: none;} 
@@ -74,4 +79,11 @@ textarea {
   padding: 18.75rpx; 
   padding-top: 0; 
   padding-bottom: 0;
+}
+
+
+.floaticon {
+    position: fixed;
+    top: 100rpx;
+    right: 18.75rpx;
 }

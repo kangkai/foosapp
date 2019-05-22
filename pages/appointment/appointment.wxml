@@ -1,9 +1,9 @@
 <view>
     <image class="banner-image" mode="aspectFit" src="/images/table1.png" />
 </view>
-<view class="btnpadding">
+<view class="floaticon">
     <navigator url="../appointment_new/appointment_new">
-        <button class="btn button-hover" open-type="getUserInfo" size="mini" bindgetuserinfo="onGotUserInfo">
+        <button class="btn button-hover" type="primary" open-type="getUserInfo" size="mini" bindgetuserinfo="onGotUserInfo">
         发起新约球
         </button>
     </navigator>
