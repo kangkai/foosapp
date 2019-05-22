@@ -19,20 +19,23 @@ Page({
     interval: 3000,
     duration: 800,
     circular: true,
-    bar: {}
+    bar: {},
+    barappointments: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    if (app.globalData.cur_barid) {
-      var bar = app.globalData.idbars[app.globalData.cur_barid];
-      //console.log(bar);
-      this.setData({
-        bar: bar
-      });
-    }
+    /*
+    var bar = app.globalData.idbars[app.globalData.cur_barid];
+
+    this.getBarAppointments(bar);
+
+    this.setData({
+      bar: bar
+    });
+    */
   },
 
   /**
@@ -46,13 +49,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    if (app.globalData.cur_barid) {
-      var bar = app.globalData.idbars[app.globalData.cur_barid];
-      //console.log(bar);
-      this.setData({
-        bar: bar
-      });
-    }
+
   },
 
   /**
@@ -76,6 +73,42 @@ Page({
 
   },
 
+  getMyAppointments() {
+    var that = this;
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_appointment');
+
+    collection
+      .orderBy('date', 'desc')
+      .orderBy('time', 'desc')
+      .where({
+        barid: bar.barid
+      })
+      .get({
+        success: function (res) {
+          //console.log(res.data);
+          for (var i = 0; i < res.data.length; i++) {
+            var mydate = res.data[i].date + ' ' + res.data[i].time;
+            mydate = mydate.replace(/-/g, '/');
+
+            if (Date.parse(mydate) > Date.now()) {
+              res.data[i].due = false;
+            } else {
+              res.data[i].due = true;
+            }
+            //console.log(res.data[i]);
+          }
+
+          that.setData({
+            barappointments: res.data
+          })
+
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      })
+  },
 
   //以下为自定义点击事件
   getLocation(e) {
@@ -108,6 +141,18 @@ Page({
           }
         })
       }
+    })
+  },
+
+  likeClicked(e) {
+    wx.navigateTo({
+      url: 'likebars/likebars'
+    })
+  },
+
+  appointClicked(e) {
+    wx.navigateTo({
+      url: 'myappointments/myappointments'
     })
   }
 

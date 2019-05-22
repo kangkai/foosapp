@@ -1,0 +1,89 @@
+button{
+  margin-top: 0rpx;
+  margin-left: 0rpx;
+  margin-bottom: 0rpx;
+}
+
+button[size=mini] {
+  padding: 0;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 0rpx;
+  color: #fff !important;
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
+}
+.btn[size=mini] {
+  padding: 0 18.75rpx;
+}
+
+
+.btn2 {
+  width: 100%;
+  margin-top: 0rpx;
+  background: none !important;
+  color: #000 !important;
+}
+
+.btn2::after {
+  border: 0;
+}
+
+.btn-addme {
+  width: 30px; 
+  height: 30px; 
+  margin-left: 20rpx;
+  padding: 0;
+  border-radius: 50px; 
+  border-bottom-right-radius: 50px; 
+  border-bottom-left-radius: 50px; 
+  border-top-right-radius: 50px; 
+  border-top-left-radius: 50px;
+  background-image: "/images/addme2.png";      
+  background-color: transparent;
+  background-size: 30px 30px;
+  -webkit-background-size: 30px 30px;
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
+}
+
+.btn-addme::after{ border: none;} 
+
+.btn-image {
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50px; 
+  border-bottom-right-radius: 50px; 
+  border-bottom-left-radius: 50px; 
+  border-top-right-radius: 50px; 
+  border-top-left-radius: 50px; 
+}
+
+.banner-image {
+  width: 100%;
+  height: 180rpx;
+  margin: 0rpx;
+}
+
+textarea {
+  height: 800rpx;
+}
+ 
+.textarea-bg {
+  background-color: #999;
+  padding: 10rpx;
+  font-size: 32rpx;
+}
+
+.btnpadding{
+  padding: 18.75rpx; 
+  padding-top: 0; 
+  padding-bottom: 0;
+}
+
+
+.floaticon {
+    position: fixed;
+    top: 100rpx;
+    right: 18.75rpx;
+}

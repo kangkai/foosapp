@@ -2,7 +2,7 @@
 // 获取全局应用程序实例对象
 var app = getApp();
 
-var util = require('../../utils/util.js');
+var util = require('../../../utils/util.js');
 
 // 创建页面实例对象
 Page({
@@ -15,9 +15,7 @@ Page({
    */
 
   data: {
-    db_total: 0,
-    db_done_read: 0,
-    appointments: []
+    myappointments: []
   },
 
   refresh_list: function (that) {
@@ -152,7 +150,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    this.refresh_list(this);
+    var that = this;
+
+    if (app.globalData.openid) {
+      console.log("openid ready: ", app.globalData.openid)
+      this.openidAppointments(app.globalData.openid);
+    } else {
+      console.log("openid not ready")
+      app.openidReadyCallback = function (openid) {
+        console.log("openid ready now: ", openid)
+        that.openidAppointments(openid);
+      }
+    }
   },
 
   /**
@@ -166,12 +175,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    if (app.globalData.appointment_needs_refresh) {
-      app.globalData.appointment_needs_refresh = false;
 
-      //refresh
-      this.refresh_list(this);
-    }
   },
 
   /**
@@ -347,7 +351,80 @@ Page({
         url: '/pages/appointment/appointment' // 希望跳转过去的页面
       })
     }
+  },
+
+  listMyappoints(appointIds) {
+    var that = this;
+    var my = [];
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_appointment');
+
+    for (var i = 0; i < appointIds.length; i++) {
+      collection
+        .orderBy('date', 'desc')
+        .orderBy('time', 'desc')
+        .where({
+          _id: appointIds[i]
+        })
+        .get({
+          success: function (res) {
+            //console.log(res.data);
+            for (var i = 0; i < res.data.length; i++) {
+              var mydate = res.data[i].date + ' ' + res.data[i].time;
+              mydate = mydate.replace(/-/g, '/');
+
+              if (Date.parse(mydate) > Date.now()) {
+                res.data[i].due = false;
+              } else {
+                res.data[i].due = true;
+              }
+              //console.log(res.data[i]);
+            }
+            my = that.data.myappointments;
+            my.push(res.data[0]);
+            that.setData({
+              myappointments: my
+            })
+          },
+          fail: function (err) {
+            console.log(err);
+          }
+        })
+    }
+
+  },
+
+
+  openidAppointments(openid) {
+    var that = this;
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_appointment');
+    const PAGE_LIMIT = 3;
+
+    collection.where({
+      "players._openid": openid
+    })
+      .orderBy('date', 'desc')
+      .orderBy('time', 'desc')
+      .limit(PAGE_LIMIT)
+      .get({
+        success: function (res) {
+          var appointIds = [];
+          //console.log(res.data);
+          if (res.data.length) {
+            for (var i = 0; i < res.data.length; i++) {
+              appointIds.push(res.data[i]._id);
+            }
+
+            that.listMyappoints(appointIds);
+          }
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      });
   }
+
 
 })
 

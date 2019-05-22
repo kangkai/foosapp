@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/my/myappointments/myappointments",
     "pages/list/list",
     "pages/appointment/appointment",
 
@@ -10,7 +11,9 @@
     "pages/about/about",
     "pages/index/index",
     "pages/setup/setup",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/my/likebars/likebars"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
