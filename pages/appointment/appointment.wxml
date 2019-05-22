@@ -1,5 +1,5 @@
 <view>
-    <image class="banner-image" mode="aspectFit" src="/images/table1.png" />
+    <image class="banner-image" mode="aspectFit" src="/images/table1.png"  />
 </view>
 <view class="floaticon">
     <navigator url="../appointment_new/appointment_new">
@@ -14,8 +14,8 @@
             <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
                    style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
             <view class="wx-view_cPj0ok">
-                <view wx:if="{{!item.due}}" class="c-block wx-text_TvHPc9">等待加入</view>
-                <view wx:else class="c-block wx-text_TvHPc9">错过的约球</view>
+                <view wx:if="{{!item.due}}" class="c-block wx-text_TvHPc9">{{item.bar_name}}（约吗）</view>
+                <view wx:else class="c-block wx-text_TvHPc9">{{item.bar_name}}（错过）</view>
             </view>
             <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"
                    id="{{item.barid}}"  />
@@ -30,8 +30,8 @@
                 <view class="td-right">{{item.time}}</view>
             </view>
             <view class="tr-line">
-                <view class="td-left">地点：</view>
-                <view class="td-right">{{item.bar_name}}</view>
+                <view class="td-left">描述：</view>
+                <view class="td-right">{{item.desc}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">加入：</view>
@@ -45,13 +45,11 @@
                     </button>
                 </view>
             </view>
-            <view class="tr-line">
-                <view class="td-left">描述：</view>
-                <view class="td-right">{{item.desc}}</view>
-            </view>
         </view>
     </view>
 </block>
 <view class="paddinghalfrem">
-    <button class="btn2 button-hover" size="mini" bindtap="moreClicked">{{db_done_read == db_total ? '-- 没有更多了 --' : '加载更多'}}</button>
+    <button class="btn2 button-hover" size="mini" bindtap="moreClicked">
+    {{db_done_read == db_total ? '-- 没有更多了 --' : '加载更多'}}
+    </button>
 </view>
