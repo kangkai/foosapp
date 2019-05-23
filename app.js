@@ -86,8 +86,8 @@ App({
         avatarUrl: that.globalData.userInfo.avatarUrl
       });
 
-      bardetail[index].discusstion = [];
-      bardetail[index].discusstion.push({
+      bardetail[index].discussion = [];
+      bardetail[index].discussion.push({
         openid: that.globalData.openid,
         nick: that.globalData.userInfo.nickName,
         avatarUrl: that.globalData.userInfo.avatarUrl,

@@ -29,17 +29,8 @@
                     <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
                         <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
-                    <button class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
-                            bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
-                        <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
-                    </button>
                 </view>
             </view>
         </view>
     </view>
 </block>
-<view class="paddinghalfrem">
-    <button class="btn2 button-hover" size="mini" bindtap="moreClicked">
-    {{db_done_read == db_total ? '-- 没有更多了 --' : '加载更多'}}
-    </button>
-</view>
