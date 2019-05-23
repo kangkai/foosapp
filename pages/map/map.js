@@ -26,8 +26,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
+    var markers = app.globalData.bars;
+
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].id = i;
+    }
+
     this.setData({
-      markers: app.globalData.bars,
+      markers: markers,
       map_height: app.globalData.map_height
     })
 
