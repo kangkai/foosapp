@@ -5,7 +5,7 @@
             <view class="tr-line">
                 <view class="td-left">名称：</view>
                 <view class="td-right">
-                    <input class="input" name="name" disabled="true" value="{{bar.name}}"  />
+                    <input class="input" name="name" disabled="{{name_disabled}}" value="{{bar.name}}"  />
                 </view>
             </view>
             <view class="tr-line">

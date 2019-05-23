@@ -15,6 +15,7 @@ Page({
    */
 
   data: {
+    name_disabled: true,
     bar: []
   },
 
@@ -22,9 +23,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    var that = this;
+    var disabled = true;
 
-    that.setData({
+    /* super admin */
+    if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
+      // console.log("super: ", app.globalData.openid);
+      disabled = false;
+    } else {
+      // console.log("normal user: ", app.globalData.openid)
+    }
+
+    this.setData({
+      name_disabled: disabled,
       bar: app.globalData.idbars[app.globalData.cur_barid]
     })
   },
@@ -83,8 +93,10 @@ Page({
 
     // console.log(e);
 
-    newbar.name = e.detail.value.name;
-    newbar.callout.content = newbar.name;
+    if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
+      newbar.name = e.detail.value.name;
+      newbar.callout.content = newbar.name;
+    }
     newbar.address = e.detail.value.address;
     newbar.longitude = e.detail.value.longitude;
     newbar.latitude = e.detail.value.latitude;
