@@ -107,6 +107,7 @@ Page({
             return;
           }
 
+          res.data[0].discussion.reverse();
           res.data[0].likeNumber = res.data[0].like.length;
           res.data[0].discussionNumber = res.data[0].discussion.length;
           res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));

@@ -314,6 +314,17 @@ radio-group{
 .wx-view_QvvUkU{justify-content: space-between; align-items:  center; display:  flex; }
 .carditem01{border-radius: 6px; background-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px; margin: 10rpx 18.75rpx 37.5rpx; }
 .wx-image_tBcdCT{width: 30px; height: 30px; border-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; border-top-right-radius: 50px; border-top-left-radius: 50px; }
+.icon-round {
+  width: 30px; 
+  height: 30px;
+  margin-right: 5rpx; 
+  border-radius: 50px; 
+  border-bottom-right-radius: 50px; 
+  border-bottom-left-radius: 50px; 
+  border-top-right-radius: 50px; 
+  border-top-left-radius: 50px; 
+}
+
 .wx-view_cPj0ok{margin-left:  20px; margin-right: 20px; }
 .wx-text_TvHPc9{margin-bottom: 3px; }
 .wx-text_LS2Jup{font-size: 13px; color: #a1a1a1; }

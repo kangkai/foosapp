@@ -153,6 +153,10 @@ App({
       that.dataReadyCallback_my(idbars);
     }
 
+    if (that.dataReadyCallback_map) {
+      that.dataReadyCallback_map();
+    }
+
     /* foos_barlist
     var newfoobar = [];
     var newplaces = [];
@@ -210,6 +214,102 @@ App({
         })
       }
     })
+  },
+
+  /* get location */
+  commonGetLocation(bar) {
+
+    // console.log("common: ", bar);
+
+    wx.getLocation({
+      type: 'wgs84',
+
+      success: function (res) {
+        wx.openLocation({//​使用微信内置地图查看位置。
+          latitude: bar.latitude,//要去的纬度-地址
+          longitude: bar.longitude,//要去的经度-地址
+          name: bar.name,
+          address: bar.address
+        })
+      },
+
+      fail: function (err) {
+        // console.log("getlocation fail: ", err)
+
+        wx.getSetting({
+
+
+          success: function (res) {
+            var status = res.authSetting;
+
+            // console.log("getSetting: ", res)
+
+            if (status['scope.userLocation']) {
+              wx.showModal({
+                title: '提示',
+                content: '请在设置中打开定位服务',
+                showCancel: false,
+                confirmText: "知道了",
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  } else {
+                    console.log('用户点击取消')
+                  }
+
+                }
+              })
+
+            } else {
+              wx.showModal({
+                title: '是否授权当前位置',
+                content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+
+                success: function (tip) {
+                  if (tip.confirm) {
+                    wx.openSetting({
+                      success: function (data) {
+                        if (data.authSetting["scope.userLocation"] === true) {
+                          wx.showToast({
+                            title: '授权成功',
+                            icon: 'success',
+                            duration: 1000
+                          })
+                          //授权成功之后，再调用chooseLocation选择地方
+                          wx.openLocation({//​使用微信内置地图查看位置。
+                            latitude: bar.latitude,//要去的纬度-地址
+                            longitude: bar.longitude,//要去的经度-地址
+                            name: bar.name,
+                            address: bar.address
+                          })
+
+                        } else {
+                          wx.showToast({
+                            title: '授权失败',
+                            icon: 'success',
+                            duration: 1000
+                          })
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          },
+
+          fail: function (res) {
+            wx.showToast({
+              title: '调用授权窗口失败',
+              icon: 'success',
+              duration: 1000
+            })
+          }
+        })
+
+      }
+    })
+
   }
 
 })

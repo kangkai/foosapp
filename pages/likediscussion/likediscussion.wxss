@@ -59,3 +59,8 @@ button{
 button[size=mini] {
   padding: 0;
 }
+
+.view_flex_left {
+  align-items:  center;
+  display:  flex;
+}

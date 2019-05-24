@@ -9,9 +9,9 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
     <swiper-item>
         <view class="c-minheight carditem01">
-            <view class="paddinghalfrem wx-view_QvvUkU">
+            <view class="paddinghalfrem view_flex_left">
                 <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
-                    <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                    <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                 </block>
             </view>
             <view class="paddinghalfrem wx-view_adF7Mw">

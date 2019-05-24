@@ -201,34 +201,7 @@ Page({
     var barid = e.currentTarget.id;
     var bar = app.globalData.idbars[barid];
 
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        wx.openLocation({//​使用微信内置地图查看位置。
-          latitude: bar.latitude,//要去的纬度-地址
-          longitude: bar.longitude,//要去的经度-地址
-          name: bar.name,
-          address: bar.address
-        })
-      },
-
-      fail: function (err) {
-        wx.showModal({
-          title: '提示',
-          content: '请在设置中打开定位服务',
-          showCancel: false,
-          confirmText: "知道了",
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else {
-              console.log('用户点击取消')
-            }
-
-          }
-        })
-      }
-    })
+    app.commonGetLocation(bar);
   },
 
   addme: function (e) {
