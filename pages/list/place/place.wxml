@@ -80,7 +80,7 @@
                 <view class="td-left">加入：</view>
                 <view class="td-right">
                     <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
-                        <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                        <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
                     <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
                             bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
