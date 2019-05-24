@@ -299,6 +299,14 @@ Page({
 
   },
 
+  discussClicked(e) {
+    console.log(e);
+    app.globalData.cur_barid = e.currentTarget.id;
+    wx.navigateTo({
+      url: "/pages/likediscussion/likediscussion"
+    })
+  },
+
   countLike(bar) {
     var that = this;
     var barid = bar.barid;
@@ -348,9 +356,9 @@ Page({
             return;
           }
           var discussion = res.data[0].discussion;
-
+          // console.log("discussionNumber: ", discussion.length);
           that.setData({
-            disscussionNumber: discussion.length,
+            discussionNumber: discussion.length,
             lastUpdateTime: util.formatDate(new Date(res.data[0].lastUpdateTime))
           })
 
@@ -359,25 +367,6 @@ Page({
           console.log(err);
         }
       });
-
-
-    db.collection('foos_barlikediscussion').get({
-      success: function (res) {
-        console.log(barid)
-        console.log("test: ", barid, res);
-        if (res.data.length == 0) {
-          /* false */
-          //that.insertRecord(barid);
-        } else {
-          /* true */
-          console.log("already liked");
-        }
-
-      },
-      fail: function (err) {
-        console.log(err);
-      }
-    });
   }
 
 })

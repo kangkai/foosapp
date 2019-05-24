@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/my/my",    
     "pages/list/list",
+    "pages/my/my",    
+    "pages/likediscussion/likediscussion",
     "pages/list/place/place",
     "pages/appointment/appointment",
     "pages/appointment_new/appointment_new",

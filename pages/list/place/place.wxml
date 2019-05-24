@@ -49,8 +49,8 @@
                 <text class="c-block wx-text_id0VJj">{{likeNumber}}</text>
             </view>
             <view class="wx-view_DKe6UT">
-                <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png" bindtap="discussClicked"/>
-                <text class="c-block wx-text_id0VJj">{{discussionNumber}}</text>
+                <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png" bindtap="discussClicked"/>
+                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="discussClicked">{{discussionNumber}}</text>
             </view>
         </view>
         <text class="c-block wx-text_9Wn0Di">最近更新：{{lastUpdateTime ? lastUpdateTime : '未知'}}</text>
@@ -59,8 +59,8 @@
 <block wx:for-items="{{barappointments}}" wx:key="{{item._id}}">
     <view class="c-minheight carditem01">
         <view class="cardtitle">
-                <view wx:if="{{!item.due}}">等你加入</view>
-                <view wx:else>已经错过</view>
+                <view wx:if="{{!item.due}}">约球（等你加入）</view>
+                <view wx:else>约球（已经错过）</view>
         </view>
         <view class="paddinghalfrem">
             <view class="tr-line">
