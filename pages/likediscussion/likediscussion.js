@@ -101,9 +101,9 @@ Page({
       })
       .get({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.length == 0) {
-            console.log("no record!");
+            // console.log("no record!");
             return;
           }
 

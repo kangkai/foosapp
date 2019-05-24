@@ -308,7 +308,7 @@ Page({
   },
 
   discussClicked(e) {
-    console.log(e);
+    // console.log(e);
     app.globalData.cur_barid = e.currentTarget.id;
     wx.navigateTo({
       url: "/pages/likediscussion/likediscussion"
@@ -327,9 +327,9 @@ Page({
       })
       .get({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.length == 0) {
-            console.log("no record!");
+            // console.log("no record!");
             return;
           }
           var like = res.data[0].like;
@@ -358,9 +358,9 @@ Page({
       })
       .get({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.length == 0) {
-            console.log("no record!");
+            // console.log("no record!");
             return;
           }
           var discussion = res.data[0].discussion;
@@ -378,7 +378,7 @@ Page({
   },
 
   editBar(e) {
-    console.log(e);
+    // console.log(e);
     app.globalData.cur_barid = e.currentTarget.id;
     wx.navigateTo({
       url: "/pages/placeedit/placeedit"
