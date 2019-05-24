@@ -6,9 +6,10 @@
 }
  
 .topTabSwiper {
-  border-top: 1px solid #ccc;
+  /* border-top: 1px solid #ccc; */
   border-bottom: 1px solid #ccc;
   zoom: 1;
+  color: #ccc;
 }
  
 .topTabSwiper:after {
@@ -18,8 +19,8 @@
 }
  
 .tabBorer {
-  border-bottom: 1px solid #f00;
-  color: #f00;
+  border-bottom: 1px solid #000;
+  color: #000;
 }
  
 .swiper {

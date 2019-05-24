@@ -5,7 +5,7 @@ App({
     openid: null,
     foobar: {},
     bars: null,
-    idbars: {},
+    idbars: null,
     cur_barid: "",
     map_height: 300,
     appointment_needs_refresh: false
@@ -146,6 +146,10 @@ App({
 
     if (that.dataReadyCallback_picker) {
       that.dataReadyCallback_picker();
+    }
+
+    if (that.dataReadyCallback_my) {
+      that.dataReadyCallback_my(idbars);
     }
 
     /* foos_barlist

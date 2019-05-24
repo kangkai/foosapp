@@ -126,37 +126,50 @@ Page({
     })
   },
 
+  constructFbars(idbars, like) {
+    var fbars = [];
+    // console.log(idbars, like);
+    for (var i = 0; i < like.length; i++) {
+      var bar = idbars[like[i].barid];
+
+      bar.likeNumber = like[i].like.length;
+      bar.discussionNumber = like[i].discussion.length;
+      bar.lastUpdateTime = util.formatDate(new Date(like[i].lastUpdateTime));
+
+      fbars.push(bar);
+    }
+    //console.log(fbars);
+    this.setData({
+      fbars: fbars
+    })
+  },
+
   favariteBars(openid) {
     var that = this;
     const db = wx.cloud.database();
     const collection = db.collection('foos_barlikediscussion');
-    var fbars = [];
 
-    console.log("favariteBars: ", openid)
+    //console.log("favariteBars: ", openid)
     collection.where({
       "like.openid": openid
     })
       .get({
         success: function (res) {
+          // console.log(res);
+
           if (res.data.length == 0) {
             /* false */
-          } else {
-            /* true */
-            for (var i = 0; i < res.data.length; i++) {
-              var bar = app.globalData.idbars[res.data[i].barid];
-
-              bar.likeNumber = res.data[i].like.length;
-              bar.discussionNumber = res.data[i].discussion.length;
-              bar.lastUpdateTime = util.formatDate(new Date(res.data[i].lastUpdateTime));
-
-              fbars.push(bar);
-            }
+            console.log("no record");
+            return;
           }
 
-          console.log(fbars);
-          that.setData({
-            fbars: fbars
-          })
+          if (app.globalData.idbars) {
+            that.constructFbars(app.globalData.idbars, res.data);
+          } else {
+            app.dataReadyCallback_my = function (idbars) {
+              that.constructFbars(idbars, res.data);
+            }
+          }
 
         },
         fail: function (err) {
