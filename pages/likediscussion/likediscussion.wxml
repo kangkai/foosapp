@@ -25,7 +25,7 @@
         <form bindsubmit="formSubmit" bindreset="formReset">
             <view class="c-minheight carditem01">
                 <view class="paddinghalfrem wx-view_QvvUkU">
-                    <textarea class="td-right" name="content" placeholder="想说点啥？"  auto-height  />
+                    <textarea class="td-right" name="content" placeholder-class="textarea-ph" placeholder="想说点啥？"  auto-height  />
                 </view>
                 <view class="paddinghalfrem wx-view_adF7Mw">
                     <view class="wx-view_2gazUr">

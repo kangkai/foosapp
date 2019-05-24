@@ -17,7 +17,7 @@
                 </view>
                 <view>
                     <view class="paddinghalfrem">
-                        <navigator id="{{item.barid}}" url="../../list/place/place" bindtap="navitap">
+                        <navigator id="{{item.barid}}" url="/pages/list/place/place" bindtap="navitap">
                             <view class="tr-line">
                                 <view class="td-left">地址：</view>
                                 <view class="td-right">{{item.address}}</view>

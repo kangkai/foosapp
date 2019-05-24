@@ -8,7 +8,8 @@ App({
     idbars: null,
     cur_barid: "",
     map_height: 300,
-    appointment_needs_refresh: false
+    appointment_needs_refresh: false,
+    bar_refresh: false
   },
 
   onLaunch: function () {

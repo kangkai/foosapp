@@ -1,0 +1,74 @@
+<view class="c-minheight carditem01">
+    <!-- Form -->
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="paddinghalfrem">
+            <view class="tr-line">
+                <view class="td-left">名称：</view>
+                <view class="td-right">
+                    <input class="input" name="name" disabled="true" value="{{bar.name}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">地址：</view>
+                <view class="td-right">
+                    <input class="input" name="address" value="{{bar.address}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">经度：</view>
+                <view class="td-right">
+                    <input name="longitude" value="{{bar.longitude}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">纬度：</view>
+                <view class="td-right">
+                    <input name="latitude" value="{{bar.latitude}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">联系：</view>
+                <view class="td-right">
+                    <input name="contacts" value="{{bar.contacts}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">桌子：</view>
+                <view class="td-right">
+                    <input name="tables" value="{{bar.tables}}"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">介绍：</view>
+                <view class="td-right">
+                    <textarea name="intro" placeholder-class="textarea-ph" value="{{bar.intro}}"  auto-height  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">图片：</view>
+                <view class="td-right">
+                    <block wx:for="{{bar.pic}}" wx:key="{{this}}">
+                        <input name="pic{{index}}" value="{{item}}"  />
+                    </block>
+                    <!-- max 5 pic -->
+                    <input wx:if="{{5 - bar.pic.length > 0}}" name="pic4" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 1}}" name="pic3" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 2}}" name="pic2" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 3}}" name="pic1" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 4}}" name="pic0" placeholder="地址" placeholder-class="input-ph"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">管理员</view>
+                <view class="td-right">
+                    <input class="input-warning" name="admin_openid" value="{{bar.admin_openid}}"  />
+                </view>
+            </view>
+            <!--  -->
+        </view>
+        <!-- Form submit 按钮 -->
+        <view class="paddinghalfrem">
+            <button class="btn" size="mini" type="warn" formType="submit">提交修改</button>
+        </view>
+    </form>
+</view>

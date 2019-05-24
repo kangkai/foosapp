@@ -23,6 +23,7 @@
             </swiper>
         </view>
         <view class="paddinghalfrem">
+            <button id="{{bar.barid}}" wx:if="{{myopenid == bar.admin_openid || myopenid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0'}}" class="btn" size="mini" type="warn" bindtap="editBar">点击编辑</button>
             <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
             <view class="tr-line">
                 <view class="td-left">地址：</view>
@@ -81,7 +82,7 @@
                     <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
                         <image class="wx-image_tBcdCT" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
-                    <button class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
+                    <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
                             bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
                         <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
                     </button>

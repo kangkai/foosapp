@@ -18,6 +18,19 @@ form{
 }
 input {
   width: 100%;
+  /* padding-left: 10rpx;
+  padding-right: 10rpx; */
+  margin-bottom: 5px;
+  /* border: 1px solid #0a0; */
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
+}
+
+.input-ph {
+  color: #0a0
+}
+
+.input-warning {
+  border: 1px solid #a00;
 }
 
 /* lib */
@@ -425,3 +438,22 @@ radio-group{
 }
 
 .btn-addme::after{ border: none;}
+
+
+textarea {
+  width: 100%;
+  height: 800rpx;
+  padding: 10rpx;
+  font-size: 32rpx;
+  margin-bottom: 1px;
+  /* border: 1px solid #0a0; */
+  box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
+}
+ 
+.textarea-bg {
+  background-color: #fff;
+}
+
+.textarea-ph {
+  color: #0a0
+}

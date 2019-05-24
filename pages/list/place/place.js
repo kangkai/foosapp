@@ -34,6 +34,7 @@ Page({
   onLoad() {
     var bar = app.globalData.idbars[app.globalData.cur_barid];
     this.setData({
+      myopenid: app.globalData.openid,
       bar: bar
     });
 
@@ -53,7 +54,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    if (app.globalData.bar_refresh) {
+      app.globalData.bar_refresh = false;
 
+      //refresh
+      this.setData({
+        bar: app.globalData.idbars[app.globalData.cur_barid]
+      })
+    }
   },
 
   /**
@@ -367,6 +375,14 @@ Page({
           console.log(err);
         }
       });
+  },
+
+  editBar(e) {
+    console.log(e);
+    app.globalData.cur_barid = e.currentTarget.id;
+    wx.navigateTo({
+      url: "/pages/placeedit/placeedit"
+    })
   }
 
 })
