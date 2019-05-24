@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/list/list",
-    "pages/my/my",    
+    "pages/my/my",
     "pages/likediscussion/likediscussion",
     "pages/list/place/place",
     "pages/appointment/appointment",
@@ -11,6 +11,7 @@
     "pages/about/about",
     "pages/index/index",
     "pages/placeedit/placeedit",
+    "pages/placeadd/placeadd",
     "pages/setup/setup"
   ],
   "window": {

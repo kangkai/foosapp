@@ -20,7 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    var list_bars = function(that) {
+    var list_bars = function (that) {
       const mylist = [];
       var foobar = app.globalData.foobar;
       var idbars = app.globalData.idbars;
@@ -119,12 +119,14 @@ Page({
   },
 
   onFloatIconClick(e) {
-    wx.navigateTo({
-      url: '../about/about',
-      fail: function (err) {
-        console.log(err);
-      }
-    })
+    if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
+      wx.navigateTo({
+        url: '../placeadd/placeadd',
+        fail: function (err) {
+          console.log(err);
+        }
+      })
+    }
   }
 
 })

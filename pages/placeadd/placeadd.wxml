@@ -1,0 +1,77 @@
+<view class="c-minheight carditem01">
+    <!-- Form -->
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="paddinghalfrem">
+            <view class="tr-line">
+                <view class="td-left">名称：</view>
+                <view class="td-right">
+                    <input class="input" name="name"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">城市：</view>
+                <view class="td-right">
+                    <input class="input" name="city"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">地址：</view>
+                <view class="td-right">
+                    <input class="input" name="address"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">经度：</view>
+                <view class="td-right">
+                    <input name="longitude" placeholder="longitude" placeholder-class="input-ph" />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">纬度：</view>
+                <view class="td-right">
+                    <input name="latitude" placeholder="latitude" placeholder-class="input-ph" />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">联系：</view>
+                <view class="td-right">
+                    <input name="contacts" />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">桌子：</view>
+                <view class="td-right">
+                    <input name="tables" />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">介绍：</view>
+                <view class="td-right">
+                    <textarea name="intro" placeholder-class="textarea-ph"  auto-height  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">图片：</view>
+                <view class="td-right">
+                    <!-- max 5 pic -->
+                    <input name="pic0" placeholder="地址" placeholder-class="input-ph"  />
+                    <input name="pic1" placeholder="地址" placeholder-class="input-ph"  />
+                    <input name="pic2" placeholder="地址" placeholder-class="input-ph"  />
+                    <input name="pic3" placeholder="地址" placeholder-class="input-ph"  />
+                    <input name="pic4" placeholder="地址" placeholder-class="input-ph"  />
+                </view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">管理员</view>
+                <view class="td-right">
+                    <input class="input-warning" name="admin_openid" value="{{openid}}"  />
+                </view>
+            </view>
+            <!--  -->
+        </view>
+        <!-- Form submit 按钮 -->
+        <view class="paddinghalfrem">
+            <button class="btn" size="mini" type="warn" formType="submit">提交修改</button>
+        </view>
+    </form>
+</view>

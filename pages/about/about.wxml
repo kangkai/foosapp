@@ -1,4 +1,4 @@
-<!--about.wxml-->
+<!-- about.wxml -->
 <view>
   <image class="index-logo" src="/images/foosman1.png"></image>
 </view>
@@ -25,7 +25,9 @@ Credit：
 2019/05/18 Version 1.0.1:
 上线发布。
 
-Copyright (c) Yin Kangkai (kai at kangkai.in) 2019
-  </text>
+Copyright (c) Yin Kangkai (kai at kangkai.in) 2019</text>
+  <view>
+    Your openid: <input value="{{openid}}"  />
+  </view>
 </view>
 
