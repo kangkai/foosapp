@@ -5,13 +5,13 @@
             <view class="tr-line">
                 <view class="td-left">名称：</view>
                 <view class="td-right">
-                    <input class="input" name="name"  />
+                    <input class="input-warning" name="name"  />
                 </view>
             </view>
             <view class="tr-line">
                 <view class="td-left">城市：</view>
                 <view class="td-right">
-                    <input class="input" name="city"  />
+                    <input class="input-warning" name="city"  />
                 </view>
             </view>
             <view class="tr-line">

@@ -82,6 +82,13 @@ Page({
     // console.log(e);
 
     newbar.name = e.detail.value.name;
+    newbar.city = e.detail.value.city;
+    if (newbar.name.length == 0 ||
+    newbar.city.length == 0) {
+      console.warn("name and city should not be null.");
+      return;
+    }
+    newbar.callout = {};
     newbar.callout.content = newbar.name;
     newbar.address = e.detail.value.address;
     newbar.longitude = e.detail.value.longitude;
@@ -94,24 +101,31 @@ Page({
       newbar.admin_nick = '';
       newbar.admin_avatarUrl = '';
     }
+    newbar.pic = [];
     if (e.detail.value.pic0.length) newbar.pic[0] = e.detail.value.pic0;
     if (e.detail.value.pic1.length) newbar.pic[1] = e.detail.value.pic1;
     if (e.detail.value.pic2.length) newbar.pic[2] = e.detail.value.pic2;
     if (e.detail.value.pic3.length) newbar.pic[3] = e.detail.value.pic3;
     if (e.detail.value.pic4.length) newbar.pic[4] = e.detail.value.pic4;
     newbar.lastChangeTime = util.formatTime(new Date());
+    newbar.barid = Math.random().toString(36).substr(2, 15);
+    newbar.iconPath = "/images/poi80.png";
+    newbar.width = 30;
+    newbar.height = 30;
+    newbar.logo = "";
 
     // console.log("newbar: ", newbar);
 
     wx.cloud.callFunction({
-      name: 'foosUpdateBarDetail',
+      name: 'foosAddBarDetail',
       data: {
         bar: newbar
       },
       complete: res => {
-        // console.log("foosUpdateBarDetail: ", res)
+        // console.log("foosAddBarDetail: ", res)
         app.globalData.idbars[newbar.barid] = newbar;
         app.globalData.bar_refresh = true;
+        
         wx.navigateBack({
           delta: 1
         })
