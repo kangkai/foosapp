@@ -416,7 +416,7 @@ radio-group{
 .tr-line {
     display: flex;
     width: 100%;
-    font-size: 14px;
+    font-size: 30rpx;
     color: rgb(110, 110, 110);
     line-height: 1.7em; 
 }
@@ -428,6 +428,16 @@ radio-group{
 
 .td-right {
   width: 85%;
+  text-align: left;
+}
+
+.td-left-30 {
+  width: 30%;
+  text-align: left;
+}
+
+.td-right-70 {
+  width: 70%;
   text-align: left;
 }
 

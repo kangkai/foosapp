@@ -11,27 +11,28 @@
     <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="paddinghalfrem">
             <view class="tr-line">
-            <text class="td-left">日期：</text>
-                <picker class="td-right" mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}" bindchange="bindDateChange">
-                    <view class="picker">{{date}}（请点击选择）</view>
+                <text class="td-left-30">选择日期：</text>
+                <picker class="td-right-70" mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}"
+                        bindchange="bindDateChange">
+                    <view class="picker">{{date}}</view>
                 </picker>
             </view>
             <view class="tr-line">
-            <text class="td-left">时间：</text>
-                <picker class="td-right" mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
-                    <view class="picker">{{time}}（请点击选择）</view>
+                <text class="td-left-30">选择时间：</text>
+                <picker class="td-right-70" mode="time" value="{{time}}" start="00:00" end="23:59"
+                        bindchange="bindTimeChange">
+                    <view class="picker">{{time}}</view>
                 </picker>
             </view>
             <view class="tr-line">
-                <text class="td-left">地点：</text>
-                <picker class="td-right" mode="selector" range="{{bars}}" range-key="{{'name'}}"  value="{{bar_index}}" bindchange="bindPlaceChange">
-                    <text class="picker" name="provinceName">{{bars[bar_index].name}}（请点击选择）</text>
+                <text class="td-left-30">选择地点：</text>
+                <picker class="td-right-70" mode="selector" range="{{bars}}" range-key="{{'name'}}" value="{{bar_index}}"
+                        bindchange="bindPlaceChange">
+                    <text class="picker" name="provinceName">{{bars[bar_index].name}}</text>
                 </picker>
             </view>
-            <view class="tr-line">
-                <text class="td-left">描述：</text>
-                <textarea class="td-right" name="appoint_desc" placeholder-class="textarea-ph" placeholder="一起来玩吧！" auto-height  />
-            </view>
+            <textarea class="tr-line" name="appoint_desc" placeholder-class="textarea-ph" placeholder="说点什么吧！"
+                       auto-height  />
         </view>
         <!-- Form submit 按钮 -->
         <view class="paddinghalfrem">
