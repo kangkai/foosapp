@@ -225,7 +225,15 @@ Page({
         })
     }
 
-  }
+  },
+
+  likeDiscussClicked(e) {
+    // console.log(e);
+    app.globalData.cur_barid = e.currentTarget.id;
+    wx.navigateTo({
+      url: "/pages/likediscussion/likediscussion"
+    })
+  },
 
 
 })

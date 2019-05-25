@@ -13,6 +13,10 @@
                 <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
                     <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                 </block>
+                <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
+                        bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
+                    <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
+                </button>
             </view>
             <view class="paddinghalfrem wx-view_adF7Mw">
                 <view class="wx-view_2gazUr">

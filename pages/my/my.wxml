@@ -36,15 +36,15 @@
                 <view class="paddinghalfrem wx-view_adF7Mw">
                     <view class="wx-view_2gazUr">
                         <view class="wx-view_DKe6UT">
-                            <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"  />
-                            <text class="c-block wx-text_id0VJj">{{item.likeNumber}}</text>
+                            <image id="{{item.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png" bindtap="likeDiscussClicked" />
+                            <text id="{{item.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{item.likeNumber}}</text>
                         </view>
                         <view class="wx-view_DKe6UT">
-                            <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png"  />
-                            <text class="c-block wx-text_id0VJj">{{item.discussionNumber}}</text>
+                            <image id="{{item.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png" bindtap="likeDiscussClicked" />
+                            <text id="{{item.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{item.discussionNumber}}</text>
                         </view>
                     </view>
-                    <text class="c-block wx-text_9Wn0Di">最近更新：{{item.lastUpdateTime ? item.lastUpdateTime : '未知'}}</text>
+                    <text id="{{item.barid}}"  class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">最近更新：{{item.lastUpdateTime ? item.lastUpdateTime : '未知'}}</text>
                 </view>
             </view>
         </block>

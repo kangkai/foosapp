@@ -204,13 +204,12 @@ Page({
     app.commonGetLocation(bar);
   },
 
-  addme: function (e) {
+  addme: function (docid) {
     //console.log('addme clicked.', e);
-    var aid = e.currentTarget.id;
     var appointments = this.data.appointments;
 
     for (var i = 0; i < appointments.length; i++) {
-      if (appointments[i]._id != aid)
+      if (appointments[i]._id != docid)
         continue;
 
       if (appointments[i].due) {
@@ -267,7 +266,7 @@ Page({
       wx.cloud.callFunction({
         name: 'appointPlayersUpdate',
         data: {
-          docid: aid,
+          docid: docid,
           players: appointments[i].players
         }, success: function (res) {
           //console.log(res)
@@ -313,12 +312,10 @@ Page({
       //console.log(user)
       app.userInfoReadyCallback(user);
 
-      this.addme(e);
+      this.addme(e.currentTarget.id);
     } else {
       console.log("用户拒绝了登陆");
-      wx.switchTab({
-        url: '/pages/appointment/appointment' // 希望跳转过去的页面
-      })
+      return;
     }
   }
 

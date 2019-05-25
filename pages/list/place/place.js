@@ -356,6 +356,105 @@ Page({
     wx.navigateTo({
       url: "/pages/placeedit/placeedit"
     })
+  },
+
+
+  addme: function (docid) {
+    //console.log('addme clicked.', e);
+    var appointments = this.data.barappointments;
+
+    for (var i = 0; i < appointments.length; i++) {
+      if (appointments[i]._id != docid)
+        continue;
+
+      if (appointments[i].due) {
+        /* should not be here */
+        wx.showModal({
+          title: '提示',
+          content: '无法加入已经过期的约球',
+          showCancel: false,
+          confirmText: "好的",
+          success: function (res) {
+            if (res.confirm) {
+              //console.log('用户点击确定')
+            } else {
+              //console.log('用户点击取消')
+            }
+          }
+        })
+
+        return;
+      }
+
+      var players = appointments[i].players;
+      for (var j = 0; j < players.length; j++) {
+        if (players[j]._openid == app.globalData.openid) {
+          // already in
+          wx.showModal({
+            title: '提示',
+            content: '你已经加入',
+            showCancel: false,
+            confirmText: "好的",
+            success: function (res) {
+              if (res.confirm) {
+                //console.log('用户点击确定')
+              } else {
+                //console.log('用户点击取消')
+              }
+
+            }
+          })
+
+          return;
+        }
+      }
+
+      //push into players
+      appointments[i].players.push({
+
+        "id": players.length,
+        "nick": app.globalData.userInfo.nickName,
+        "_openid": app.globalData.openid,
+        "avatarUrl": app.globalData.userInfo.avatarUrl
+      });
+
+      //push to db
+      wx.cloud.callFunction({
+        name: 'appointPlayersUpdate',
+        data: {
+          docid: docid,
+          players: appointments[i].players
+        }, success: function (res) {
+          //console.log(res)
+        }, fail: function (res) {
+          console.log(res)
+        }
+      })
+
+      //no need to continue
+      break;
+    }
+
+    this.setData({
+      barappointments: appointments
+    });
+
+
+  },
+
+  // TODO
+  onGotUserInfoAddme: function (e) {
+    //console.log("getUserInfo: ", e);
+    if (e.detail.userInfo) {
+      var user = e.detail.userInfo;
+      //console.log(user)
+      app.userInfoReadyCallback(user);
+
+      this.addme(e.currentTarget.id);
+    } else {
+      console.log("用户拒绝了登陆");
+      return;
+    }
   }
 
 })
