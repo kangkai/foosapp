@@ -63,6 +63,9 @@ Page({
               that.setData({
                 db_done_read: that.data.db_done_read + res.data.length
               })
+
+              wx.hideNavigationBarLoading() //完成停止加载
+              wx.stopPullDownRefresh() //停止下拉刷新   
             },
             fail: function (err) {
               console.log(err);
@@ -203,8 +206,7 @@ Page({
     console.log("on pulldown refresh.");
     wx.showNavigationBarLoading(); //在标题栏中显示加载
 
-    wx.hideNavigationBarLoading() //完成停止加载
-    wx.stopPullDownRefresh() //停止下拉刷新   
+    this.refresh_list(this); 
   },
 
   onReachBottom() {
