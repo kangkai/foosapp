@@ -178,15 +178,11 @@ Page({
       .limit(PAGE_LIMIT)
       .get({
         success: function (res) {
-          var appointIds = [];
-          //console.log(res.data);
-          if (res.data.length) {
-            for (var i = 0; i < res.data.length; i++) {
-              appointIds.push(res.data[i]._id);
-            }
+          // console.log("openidAppointments", res.data);
 
-            that.listMyappoints(appointIds);
-          }
+          that.setData({
+            myappointments: res.data
+          })
 
           wx.hideNavigationBarLoading() //完成停止加载
           wx.stopPullDownRefresh() //停止下拉刷新
@@ -195,47 +191,6 @@ Page({
           console.log(err);
         }
       });
-  },
-
-  listMyappoints(appointIds) {
-    var that = this;
-    var my = [];
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_appointment');
-
-    for (var i = 0; i < appointIds.length; i++) {
-      collection
-        .orderBy('date', 'desc')
-        .orderBy('time', 'desc')
-        .where({
-          _id: appointIds[i]
-        })
-        .get({
-          success: function (res) {
-            //console.log(res.data);
-            for (var i = 0; i < res.data.length; i++) {
-              var mydate = res.data[i].date + ' ' + res.data[i].time;
-              mydate = mydate.replace(/-/g, '/');
-
-              if (Date.parse(mydate) > Date.now()) {
-                res.data[i].due = false;
-              } else {
-                res.data[i].due = true;
-              }
-              //console.log(res.data[i]);
-            }
-            my = that.data.myappointments;
-            my.push(res.data[0]);
-            that.setData({
-              myappointments: my
-            })
-          },
-          fail: function (err) {
-            console.log(err);
-          }
-        })
-    }
-
   },
 
   likeDiscussClicked(e) {

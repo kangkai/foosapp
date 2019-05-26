@@ -79,7 +79,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    wx.stopPullDownRefresh() //停止下拉刷新 
   },
 
   getBarAppointments(bar) {
@@ -175,7 +175,7 @@ Page({
       });
   },
 
-//TODO
+  //TODO
   editBar(e) {
     // console.log(e);
     app.globalData.cur_barid = e.currentTarget.id;

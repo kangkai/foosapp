@@ -59,7 +59,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    wx.stopPullDownRefresh() //停止下拉刷新 
   },
 
 
@@ -84,7 +84,7 @@ Page({
     newbar.name = e.detail.value.name;
     newbar.city = e.detail.value.city;
     if (newbar.name.length == 0 ||
-    newbar.city.length == 0) {
+      newbar.city.length == 0) {
       console.warn("name and city should not be null.");
       return;
     }
@@ -125,7 +125,7 @@ Page({
         // console.log("foosAddBarDetail: ", res)
         app.globalData.idbars[newbar.barid] = newbar;
         app.globalData.bar_refresh = true;
-        
+
         wx.navigateBack({
           delta: 1
         })

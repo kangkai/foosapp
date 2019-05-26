@@ -66,7 +66,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    wx.stopPullDownRefresh() //停止下拉刷新 
   },
 
   bindchange(e) {
@@ -199,7 +199,7 @@ Page({
 
     if (barlikediscussion._id != docid) {
       console.warn("docid not match: ", barlikediscussion, docid);
-      /*
+
       wx.showModal({
         title: '提示',
         content: 'docid not match',
@@ -213,7 +213,7 @@ Page({
           }
         }
       })
-      */
+
       return;
     }
 
