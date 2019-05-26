@@ -115,7 +115,9 @@ Page({
 
               that.setData({
                 db_done_read: res.data.length
-              })
+              });
+
+              wx.hideNavigationBarLoading() //完成停止加载
             },
             fail: function (err) {
               console.log(err);
@@ -205,6 +207,11 @@ Page({
     wx.stopPullDownRefresh() //停止下拉刷新   
   },
 
+  onReachBottom() {
+    console.log("on reach bottom.");
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
+    this.more_list(this);
+  },
 
   //以下为自定义点击事件
   getLocation(e) {
