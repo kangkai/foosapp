@@ -58,21 +58,10 @@ Page({
           .get({
             success: function (res) {
               //console.log(res.data);
-              for (var i = 0; i < res.data.length; i++) {
-                var mydate = res.data[i].end_date + ' ' + res.data[i].end_time;
-                mydate = mydate.replace(/-/g, '/');
-
-                if (Date.parse(mydate) > Date.now()) {
-                  res.data[i].due = false;
-                } else {
-                  res.data[i].due = true;
-                }
-                //console.log(res.data[i]);
-              }
+              that.markAppointments(res.data);
 
               that.setData({
-                db_done_read: that.data.db_done_read + res.data.length,
-                appointments: res.data
+                db_done_read: that.data.db_done_read + res.data.length
               })
             },
             fail: function (err) {
@@ -122,22 +111,10 @@ Page({
           .get({
             success: function (res) {
               //console.log(res.data);
-
-              for (var i = 0; i < res.data.length; i++) {
-                var mydate = res.data[i].date + ' ' + res.data[i].time;
-                mydate = mydate.replace(/-/g, '/');
-
-                if (Date.parse(mydate) > Date.now()) {
-                  res.data[i].due = false;
-                } else {
-                  res.data[i].due = true;
-                }
-                //console.log(res.data[i]);
-              }
+              that.markAppointments(res.data);
 
               that.setData({
-                db_done_read: res.data.length,
-                appointments: res.data
+                db_done_read: res.data.length
               })
             },
             fail: function (err) {
@@ -146,6 +123,35 @@ Page({
           })
       }
     }
+  },
+
+  markAppointments(appointments) {
+
+    for (var i = 0; i < appointments.length; i++) {
+
+      /* check due */
+      var mydate = appointments[i].end_date + ' ' + appointments[i].end_time;
+      mydate = mydate.replace(/-/g, '/');
+
+      if (Date.parse(mydate) > Date.now()) {
+        appointments[i].due = false;
+      } else {
+        appointments[i].due = true;
+      }
+
+      /* check meAlreadyJoined */
+      appointments[i].meAlreadyJoined = false;
+      var players = appointments[i].players;
+      for (var j = 0; j < players.length; j++) {
+        if (players[j]._openid == app.globalData.openid) {
+          appointments[i].meAlreadyJoined = true;
+        }
+      }
+    }
+
+    this.setData({
+      appointments
+    })
   },
 
   /**
@@ -208,59 +214,63 @@ Page({
     app.commonGetLocation(bar);
   },
 
-  addme: function (docid) {
-    //console.log('addme clicked.', e);
-    var appointments = this.data.appointments;
 
-    for (var i = 0; i < appointments.length; i++) {
-      if (appointments[i]._id != docid)
-        continue;
 
-      if (appointments[i].due) {
-        wx.showModal({
-          title: '提示',
-          content: '无法加入已经过期的约球',
-          showCancel: false,
-          confirmText: "好的",
-          success: function (res) {
-            if (res.confirm) {
-              //console.log('用户点击确定')
-            } else {
-              //console.log('用户点击取消')
-            }
+  addDelMe: function (index, docid) {
+    var appointment = this.data.appointments[index];
+
+    if (appointment.due) {
+      wx.showModal({
+        title: '提示',
+        content: '无法加入已经过期的约球',
+        showCancel: false,
+        confirmText: "好的",
+        success: function (res) {
+          if (res.confirm) {
+            //console.log('用户点击确定')
+          } else {
+            //console.log('用户点击取消')
           }
-        })
-
-        return;
-      }
-
-      var players = appointments[i].players;
-      for (var j = 0; j < players.length; j++) {
-        if (players[j]._openid == app.globalData.openid) {
-          // already in
-          wx.showModal({
-            title: '提示',
-            content: '你已经加入',
-            showCancel: false,
-            confirmText: "好的",
-            success: function (res) {
-              if (res.confirm) {
-                //console.log('用户点击确定')
-              } else {
-                //console.log('用户点击取消')
-              }
-
-            }
-          })
-
-          return;
         }
+      })
+
+      return;
+    }
+
+
+    if (appointment.meAlreadyJoined) {
+      // to del me
+      console.warn("to del me");
+
+      function matchopenid(element) {
+        return element.openid == app.globalData.openid;
       }
 
-      //push into players
-      appointments[i].players.push({
+      // console.log(appointment.players);
+      var pindex = appointment.players.findIndex(matchopenid);
+      // console.log("pindex: ", pindex);
+      appointment.players.splice(pindex, 1);
+      // console.log(appointment.players);
 
-        "id": players.length,
+      wx.cloud.callFunction({
+        name: 'foosDB',
+        data: {
+          db: 'foos_appointment',
+          type: 'update',
+          indexKey: appointment._id,
+          data: {
+            players: appointment.players
+          }
+        },
+        complete: res2 => {
+          console.log("appointment del me done");
+        }
+      })
+
+      appointment.meAlreadyJoined = false;
+    } else {
+      //to add me
+      appointment.players.push({
         "nick": app.globalData.userInfo.nickName,
         "_openid": app.globalData.openid,
         "avatarUrl": app.globalData.userInfo.avatarUrl
@@ -270,8 +280,8 @@ Page({
       wx.cloud.callFunction({
         name: 'appointPlayersUpdate',
         data: {
-          docid: docid,
-          players: appointments[i].players
+          docid: appointment._id,
+          players: appointment.players
         }, success: function (res) {
           //console.log(res)
         }, fail: function (res) {
@@ -279,10 +289,11 @@ Page({
         }
       })
 
-      //no need to continue
-      break;
+      appointment.meAlreadyJoined = true;
     }
 
+    var appointments = this.data.appointments;
+    appointments[index] = appointment;
     this.setData({
       appointments
     });
@@ -295,19 +306,6 @@ Page({
   },
 
   //获取用户信息
-  onGotUserInfo: function (e) {
-    //console.log("getUserInfo: ", e);
-    if (e.detail.userInfo) {
-      var user = e.detail.userInfo;
-      //console.log(user)
-      app.userInfoReadyCallback(user);
-    } else {
-      console.log("用户拒绝了登陆");
-      wx.switchTab({
-        url: '/pages/appointment/appointment' // 希望跳转过去的页面
-      })
-    }
-  },
 
   onGotUserInfoAddme: function (e) {
     // console.log("onGotUserInfoAddme: ", e);
@@ -316,7 +314,7 @@ Page({
       //console.log(user)
       app.userInfoReadyCallback(user);
 
-      this.addme(e.currentTarget.id);
+      this.addDelMe(e.currentTarget.dataset.index, e.currentTarget.dataset.docid);
     } else {
       console.log("用户拒绝了登陆");
       return;

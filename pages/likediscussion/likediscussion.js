@@ -225,11 +225,11 @@ Page({
         return element.openid == app.globalData.openid;
       }
 
-      console.log(barlikediscussion.like);
+      // console.log(barlikediscussion.like);
       var index = barlikediscussion.like.findIndex(matchopenid);
-      console.log("index: ", index);
+      // console.log("index: ", index);
       barlikediscussion.like.splice(index, 1);
-      console.log(barlikediscussion.like);
+      // console.log(barlikediscussion.like);
 
       wx.cloud.callFunction({
         name: 'foosDB',

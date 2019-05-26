@@ -9,21 +9,21 @@
     </view>
     <view>
         <view wx:if="{{bar.pic.length==0}}">
-            <image class="wx-image_BEjy38" mode="aspectFill" src="/images/pic_default.jpg"/>
+            <image class="wx-image_BEjy38" mode="aspectFill" src="/images/pic_default.jpg"  />
         </view>
         <view wx:else class="swiper-container">
             <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
-                    duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}"
-                    class="swiper">
+                    duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}" class="swiper">
                 <block wx:for="{{bar.pic}}" wx:key="unique">
                     <swiper-item>
-                        <image mode="aspectFill" src="{{item}}"/>
+                        <image mode="aspectFill" src="{{item}}"  />
                     </swiper-item>
                 </block>
             </swiper>
         </view>
         <view class="paddinghalfrem">
-            <button id="{{bar.barid}}" wx:if="{{myopenid == bar.admin_openid || myopenid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0'}}" class="btn" size="mini" type="warn" bindtap="editBar">点击编辑</button>
+            <button id="{{bar.barid}}" wx:if="{{myopenid == bar.admin_openid || myopenid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0'}}"
+                    class="btn" size="mini" type="warn" bindtap="editBar">点击编辑</button>
             <button class="btn" size="mini" bindtap="getLocation">点击导航</button>
             <view class="tr-line">
                 <view class="td-left">地址：</view>
@@ -46,22 +46,28 @@
     <view class="paddinghalfrem wx-view_adF7Mw">
         <view class="wx-view_2gazUr">
             <view class="wx-view_DKe6UT">
-                <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png" bindtap="likeDiscussClicked" />
-                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{barlikediscussion.likeNumber}}</text>
+                <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"
+                       bindtap="likeDiscussClicked"  />
+                <view id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{barlikediscussion.likeNumber}}</view>
             </view>
             <view class="wx-view_DKe6UT">
-                <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png" bindtap="likeDiscussClicked"/>
-                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{barlikediscussion.discussionNumber}}</text>
+                <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png"
+                       bindtap="likeDiscussClicked"  />
+                <view id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">
+                {{barlikediscussion.discussionNumber}}
+                </view>
             </view>
         </view>
-        <text id="{{bar.barid}}" class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
+        <view id="{{bar.barid}}" class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">
+        最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}
+        </view>
     </view>
 </view>
 <block wx:for-items="{{barappointments}}" wx:key="{{item._id}}">
     <view class="c-minheight carditem01">
         <view class="cardtitle">
-                <view wx:if="{{!item.due}}">约球（等你加入）</view>
-                <view wx:else>约球（已经错过）</view>
+            <view wx:if="{{!item.due}}">约球（开放中）</view>
+            <view wx:else>约球（已过时）</view>
         </view>
         <view class="paddinghalfrem">
             <view class="tr-line">
@@ -82,9 +88,11 @@
                     <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
                         <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
-                    <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
-                            bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
-                        <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
+                    <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo"
+                            size="mini" bindgetuserinfo="onGotUserInfoAddme" data-docid="{{item._id}}"
+                            data-index="{{index}}">
+                        <image wx:if="{{item.meAlreadyJoined}}" class="wx-image_tBcdCT" mode="aspectFill" src="/images/delme3.png"></image>
+                        <image wx:else class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
                     </button>
                 </view>
             </view>
