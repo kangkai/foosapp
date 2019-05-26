@@ -65,12 +65,12 @@
         </view>
         <view class="paddinghalfrem">
             <view class="tr-line">
-                <view class="td-left">日期：</view>
-                <view class="td-right">{{item.date}}</view>
+                <view class="td-left">开始：</view>
+                <view class="td-right">{{item.date}} {{item.time}}</view>
             </view>
             <view class="tr-line">
-                <view class="td-left">时间：</view>
-                <view class="td-right">{{item.time}}</view>
+                <view class="td-left">结束：</view>
+                <view class="td-right">{{item.end_date}} {{item.end_time}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">描述：</view>

@@ -173,8 +173,8 @@ Page({
     collection.where({
       "players._openid": openid
     })
-      .orderBy('date', 'desc')
-      .orderBy('time', 'desc')
+      .orderBy('end_date', 'desc')
+      .orderBy('end_time', 'desc')
       .limit(PAGE_LIMIT)
       .get({
         success: function (res) {

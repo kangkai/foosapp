@@ -25,8 +25,10 @@ Page({
     bar_index: 0,
     barid: '',
     date: '',
-    date_end: '',
-    time: ''
+    end_date: '',
+    date_limit: '',
+    time: '',
+    end_time: ''
   },
 
   /**
@@ -41,6 +43,11 @@ Page({
           bars: app.globalData.bars,
           bar_index: 0,
           barid: app.globalData.bars[0].barid,
+          date: util.formatDate(new Date()),
+          date_limit: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
+          time: util.formatTime2(new Date()),
+          end_date: util.formatDate(new Date()),
+          end_time: util.formatTime2(new Date(Date.now() + 3600000)) //1小时后
         })
       }
     } else {
@@ -49,8 +56,10 @@ Page({
         bar_index: 0,
         barid: app.globalData.bars[0].barid,
         date: util.formatDate(new Date()),
-        date_end: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
-        time: util.formatTime2(new Date())
+        date_limit: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
+        time: util.formatTime2(new Date()),
+        end_date: util.formatDate(new Date()),
+        end_time: util.formatTime2(new Date(Date.now() + 3600000)) //1小时后
       });
     }
   },
@@ -112,6 +121,18 @@ Page({
       time: e.detail.value
     })
   },
+  bindEndDateChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      end_date: e.detail.value
+    })
+  },
+  bindEndTimeChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      end_time: e.detail.value
+    })
+  },
   bindPlaceChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     var bars = this.data.bars;
@@ -130,6 +151,8 @@ Page({
       "desc": desc,
       "date": this.data.date,
       "time": this.data.time,
+      "end_date": this.data.end_date,
+      "end_time": this.data.end_time,
       "create_time": Date.now(),
       "bar_index": this.data.bar_index,
       "barid": this.data.barid,

@@ -22,12 +22,12 @@
         </view>
         <view class="paddinghalfrem">
             <view class="tr-line">
-                <view class="td-left">日期：</view>
-                <view class="td-right">{{item.date}}</view>
+                <view class="td-left">开始：</view>
+                <view class="td-right">{{item.date}} {{item.time}}</view>
             </view>
             <view class="tr-line">
-                <view class="td-left">时间：</view>
-                <view class="td-right">{{item.time}}</view>
+                <view class="td-left">结束：</view>
+                <view class="td-right">{{item.end_date}} {{item.end_time}}</view>
             </view>
             <view class="tr-line">
                 <view class="td-left">描述：</view>
@@ -39,8 +39,8 @@
                     <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
                         <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
-                    <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
-                            bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
+                    <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo"
+                            size="mini" bindgetuserinfo="onGotUserInfoAddme" id="{{item._id}}">
                         <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
                     </button>
                 </view>

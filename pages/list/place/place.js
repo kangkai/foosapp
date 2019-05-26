@@ -88,8 +88,8 @@ Page({
     const collection = db.collection('foos_appointment');
 
     collection
-      .orderBy('date', 'desc')
-      .orderBy('time', 'desc')
+      .orderBy('end_date', 'desc')
+      .orderBy('end_time', 'desc')
       .where({
         barid: bar.barid
       })
@@ -97,7 +97,7 @@ Page({
         success: function (res) {
           //console.log(res.data);
           for (var i = 0; i < res.data.length; i++) {
-            var mydate = res.data[i].date + ' ' + res.data[i].time;
+            var mydate = res.data[i].end_date + ' ' + res.data[i].end_time;
             mydate = mydate.replace(/-/g, '/');
 
             if (Date.parse(mydate) > Date.now()) {

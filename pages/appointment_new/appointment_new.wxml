@@ -11,17 +11,31 @@
     <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="paddinghalfrem">
             <view class="tr-line">
-                <text class="td-left-30">选择日期：</text>
-                <picker class="td-right-70" mode="date" value="{{date}}" start="{{date}}" end="{{date_end}}"
+                <text class="td-left-30">开始日期：</text>
+                <picker class="td-right-70" mode="date" value="{{date}}" start="{{date}}" end="{{date_limit}}"
                         bindchange="bindDateChange">
                     <view class="picker">{{date}}</view>
                 </picker>
             </view>
             <view class="tr-line">
-                <text class="td-left-30">选择时间：</text>
+                <text class="td-left-30">开始时间：</text>
                 <picker class="td-right-70" mode="time" value="{{time}}" start="00:00" end="23:59"
                         bindchange="bindTimeChange">
                     <view class="picker">{{time}}</view>
+                </picker>
+            </view>
+            <view class="tr-line">
+                <text class="td-left-30">结束日期：</text>
+                <picker class="td-right-70" mode="date" value="{{end_date}}" start="{{end_date}}" end="{{date_limit}}"
+                        bindchange="bindEndDateChange">
+                    <view class="picker">{{end_date}}</view>
+                </picker>
+            </view>
+            <view class="tr-line">
+                <text class="td-left-30">结束时间：</text>
+                <picker class="td-right-70" mode="time" value="{{end_time}}" start="00:00" end="23:59"
+                        bindchange="bindEndTimeChange">
+                    <view class="picker">{{end_time}}</view>
                 </picker>
             </view>
             <view class="tr-line">
