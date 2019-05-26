@@ -47,14 +47,14 @@
         <view class="wx-view_2gazUr">
             <view class="wx-view_DKe6UT">
                 <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png" bindtap="likeDiscussClicked" />
-                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{likeNumber}}</text>
+                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{barlikediscussion.likeNumber}}</text>
             </view>
             <view class="wx-view_DKe6UT">
                 <image id="{{bar.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png" bindtap="likeDiscussClicked"/>
-                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{discussionNumber}}</text>
+                <text id="{{bar.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{barlikediscussion.discussionNumber}}</text>
             </view>
         </view>
-        <text id="{{bar.barid}}" class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">最近更新：{{lastUpdateTime ? lastUpdateTime : '未知'}}</text>
+        <text id="{{bar.barid}}" class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
     </view>
 </view>
 <block wx:for-items="{{barappointments}}" wx:key="{{item._id}}">

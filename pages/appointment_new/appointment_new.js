@@ -15,6 +15,12 @@ Page({
    */
 
   data: {
+    swiperCurrent: 0,
+    indicatorDots: true,
+    autoplay: true,
+    interval: 3000,
+    duration: 800,
+    circular: true,
     bars: [],
     bar_index: 0,
     barid: '',

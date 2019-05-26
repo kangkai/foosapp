@@ -306,7 +306,7 @@ Page({
   },
 
   onGotUserInfoAddme: function (e) {
-    //console.log("getUserInfo: ", e);
+    // console.log("onGotUserInfoAddme: ", e);
     if (e.detail.userInfo) {
       var user = e.detail.userInfo;
       //console.log(user)

@@ -2,6 +2,7 @@
 .btn {
   width: 100%;
   margin-top: 0rpx;
+  margin-bottom: 0;
   color: #fff !important;
   box-shadow: rgba(0, 0, 0, 0.239216) 0px 2px 5px 0px;
 }
@@ -10,3 +11,9 @@
   border: 0;
 }
 
+.ta {
+    width: 100%;
+    font-size: 30rpx;
+    color: rgb(110, 110, 110);
+    margin-bottom: 18.75rpx;
+}

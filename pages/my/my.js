@@ -69,7 +69,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    console.log("on pulldown refresh.");
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
 
+    this.favariteBars(app.globalData.openid);
+    this.openidAppointments(app.globalData.openid);
+  },
+
+  onReachBottom() {
+    console.log("on reach bottom.")
   },
 
   bindchange(e) {
@@ -179,6 +187,9 @@ Page({
 
             that.listMyappoints(appointIds);
           }
+
+          wx.hideNavigationBarLoading() //完成停止加载
+          wx.stopPullDownRefresh() //停止下拉刷新
         },
         fail: function (err) {
           console.log(err);
@@ -228,7 +239,7 @@ Page({
   },
 
   likeDiscussClicked(e) {
-    // console.log(e);
+    // console.log(e.currentTarget.id);
     app.globalData.cur_barid = e.currentTarget.id;
     wx.navigateTo({
       url: "/pages/likediscussion/likediscussion"

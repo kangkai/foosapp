@@ -25,6 +25,7 @@ Page({
   onLoad() {
     var that = this;
 
+    // console.log("likediscussion onLoad: ", app.globalData.cur_barid);
     this.getBarLikeDiscussion(app.globalData.cur_barid);
 
     this.setData({
@@ -88,8 +89,6 @@ Page({
     }
   },
 
-
-  /* new */
   getBarLikeDiscussion(barid) {
     var that = this;
     const db = wx.cloud.database();
@@ -104,15 +103,43 @@ Page({
           // console.log(res);
           if (res.data.length == 0) {
             // console.log("no record!");
-            return;
+            // insert record, TODO: race and several records with same barid??
+            wx.cloud.callFunction({
+              name: 'foosDB',
+              data: {
+                db: 'foos_barlikediscussion',
+                type: 'insert',
+                data: {
+                  barid: barid,
+                  like: [],
+                  discussion: [],
+                  createTime: Date.now(),
+                  lastUpdateTime: Date.now()
+                }
+              },
+              complete: res2 => {
+                console.log("insertRecord insert: ", res2);
+              }
+            })
           }
 
           res.data[0].discussion.reverse();
           res.data[0].likeNumber = res.data[0].like.length;
           res.data[0].discussionNumber = res.data[0].discussion.length;
           res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
+
+          var barlikediscussion = res.data[0];
+
+          barlikediscussion.meAlreadyLiked = false;
+          for (var i = 0; i < barlikediscussion.like.length; i++) {
+            if (barlikediscussion.like[i].openid == app.globalData.openid) {
+              barlikediscussion.meAlreadyLiked = true;
+              break;
+            }
+          }
+
           that.setData({
-            barlikediscussion: res.data[0]
+            barlikediscussion: barlikediscussion
           })
 
         },
@@ -165,6 +192,266 @@ Page({
     })
 
   },
+
+  addDelMe: function (docid) {
+    //console.log('addme clicked.', e);
+    var barlikediscussion = this.data.barlikediscussion;
+
+    if (barlikediscussion._id != docid) {
+      console.warn("docid not match: ", barlikediscussion, docid);
+      /*
+      wx.showModal({
+        title: '提示',
+        content: 'docid not match',
+        showCancel: false,
+        confirmText: "好的",
+        success: function (res) {
+          if (res.confirm) {
+            //console.log('用户点击确定')
+          } else {
+            //console.log('用户点击取消')
+          }
+        }
+      })
+      */
+      return;
+    }
+
+    if (barlikediscussion.meAlreadyLiked) {
+      /* del */
+      console.warn("to del me");
+
+      function matchopenid(element) {
+        return element.openid == app.globalData.openid;
+      }
+
+      console.log(barlikediscussion.like);
+      var index = barlikediscussion.like.findIndex(matchopenid);
+      console.log("index: ", index);
+      barlikediscussion.like.splice(index, 1);
+      console.log(barlikediscussion.like);
+
+      wx.cloud.callFunction({
+        name: 'foosDB',
+        data: {
+          db: 'foos_barlikediscussion',
+          type: 'update',
+          indexKey: docid,
+          data: {
+            like: barlikediscussion.like,
+            lastUpdateTime: Date.now()
+          }
+        },
+        complete: res2 => {
+          console.log("like del done");
+        }
+      })
+
+      barlikediscussion.meAlreadyLiked = false;
+      this.setData({
+        barlikediscussion: barlikediscussion
+      });
+
+    } else {
+      /* add */
+      console.warn("to add me");
+      barlikediscussion.like.push({
+        openid: app.globalData.openid,
+        nick: app.globalData.userInfo.nickName,
+        avatarUrl: app.globalData.userInfo.avatarUrl,
+        createTime: Date.now(),
+      });
+
+      wx.cloud.callFunction({
+        name: 'foosDB',
+        data: {
+          db: 'foos_barlikediscussion',
+          type: 'update',
+          indexKey: docid,
+          data: {
+            like: barlikediscussion.like,
+            lastUpdateTime: Date.now()
+          }
+        },
+        complete: res2 => {
+          console.log("like update done");
+        }
+      })
+
+      barlikediscussion.meAlreadyLiked = true;
+      this.setData({
+        barlikediscussion: barlikediscussion
+      });
+    }
+  },
+
+  onGotUserInfoAddme: function (e) {
+    // console.log("onGotUserInfoAddme: ", e);
+    if (e.detail.userInfo) {
+      var user = e.detail.userInfo;
+      //console.log(user)
+      app.userInfoReadyCallback(user);
+
+      this.addDelMe(e.currentTarget.id);
+    } else {
+      console.log("用户拒绝了登陆");
+      return;
+    }
+  },
+
+  // TODO to delete
+  checkLiked(barid, openid) {
+    /* check liked or not */
+    var that = this;
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_barlikediscussion');
+
+    collection.where({
+      barid: barid,
+      "like.openid": openid
+    })
+      .get({
+        success: function (res) {
+          console.log("checkLiked: ", barid, res);
+          if (res.data.length == 0) {
+            /* false */
+            that.insertRecord(barid);
+          } else {
+            /* true */
+            console.log("already liked");
+          }
+
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      });
+  },
+
+  insertRecord(barid) {
+    var that = this;
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_barlikediscussion');
+
+    /* insert record if not already there */
+    collection
+      .where({
+        barid: barid
+      })
+      .get({
+        success: function (res) {
+          console.log("insertRecord: ", barid, res);
+          if (res.data.length == 0) {
+            /* false */
+            wx.cloud.callFunction({
+              name: 'foosDB',
+              data: {
+                db: 'foos_barlikediscussion',
+                type: 'insert',
+                data: {
+                  barid: barid,
+                  like: [],
+                  discussion: [],
+                  createTime: Date.now(),
+                  lastUpdateTime: Date.now()
+                }
+              },
+              complete: res2 => {
+                console.log("insertRecord insert: ", res2);
+                that.insertLike(barid);
+              }
+            })
+
+          } else {
+            /* true */
+            console.log("already there");
+            that.insertLike(barid);
+          }
+
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      });
+  },
+
+
+  insertLike(barid) {
+    var that = this;
+    const db = wx.cloud.database();
+    const collection = db.collection('foos_barlikediscussion');
+
+
+    collection
+      .where({
+        barid: barid
+      })
+      .get({
+        success: function (res) {
+          console.log("insertLike: ", barid, res);
+          if (res.data.length == 0) {
+            console.log("impossible, no record!");
+            return;
+          }
+
+          var rid = res.data[0]._id;
+          var like = res.data[0].like;
+          like.push({
+            openid: app.globalData.openid,
+            nick: app.globalData.userInfo.nickName,
+            avatarUrl: app.globalData.userInfo.avatarUrl,
+            createTime: Date.now(),
+          });
+
+          wx.cloud.callFunction({
+            name: 'foosDB',
+            data: {
+              db: 'foos_barlikediscussion',
+              type: 'update',
+              indexKey: rid,
+              data: {
+                like: like,
+                lastUpdateTime: Date.now()
+              }
+            },
+            complete: res2 => {
+              console.log("like update done");
+              that.countLike(that.data.bar);
+            }
+          })
+
+        },
+        fail: function (err) {
+          console.log(err);
+        }
+      });
+
+  },
+
+  likeClicked(e) {
+    /*
+    bardetail[index].like = [];
+    bardetail[index].like.push({
+      openid: app.globalData.openid,
+      nick: app.globalData.userInfo.nickName,
+      avatarUrl: app.globalData.userInfo.avatarUrl
+    });
+  
+    bardetail[index].discussion = [];
+    bardetail[index].discussion.push({
+      openid: app.globalData.openid,
+      nick: app.globalData.userInfo.nickName,
+      avatarUrl: app.globalData.userInfo.avatarUrl,
+      createTime: 0,
+      content: "I like this bar!"
+    }); */
+
+    this.checkLiked(this.data.bar.barid, app.globalData.openid);
+
+
+  },
+
+
 
 
 })

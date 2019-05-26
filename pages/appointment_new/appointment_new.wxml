@@ -26,17 +26,32 @@
             </view>
             <view class="tr-line">
                 <text class="td-left-30">选择地点：</text>
-                <picker class="td-right-70" mode="selector" range="{{bars}}" range-key="{{'name'}}" value="{{bar_index}}"
-                        bindchange="bindPlaceChange">
+                <picker class="td-right-70" mode="selector" range="{{bars}}" range-key="{{'name'}}"
+                        value="{{bar_index}}" bindchange="bindPlaceChange">
                     <text class="picker" name="provinceName">{{bars[bar_index].name}}</text>
                 </picker>
             </view>
-            <textarea class="tr-line" name="appoint_desc" placeholder-class="textarea-ph" placeholder="说点什么吧！"
-                       auto-height  />
         </view>
-        <!-- Form submit 按钮 -->
-        <view class="paddinghalfrem">
-            <button class="btn" size="mini" type="primary" formType="submit">发起约球</button>
+        <view>
+            <view wx:if="{{bars[bar_index].pic.length==0}}">
+                <image class="wx-image_BEjy38" mode="aspectFill" src="/images/pic_default.jpg"  />
+            </view>
+            <view wx:else class="swiper-container">
+                <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+                        duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}" class="swiper">
+                    <block wx:for="{{bars[bar_index].pic}}" wx:key="unique">
+                        <swiper-item>
+                            <image mode="aspectFill" src="{{item}}"  />
+                        </swiper-item>
+                    </block>
+                </swiper>
+            </view>
+            <view class="paddinghalfrem">
+                <textarea class="ta" name="appoint_desc" placeholder-class="textarea-ph" placeholder="约一个球？说点什么吧！"
+                           auto-height  />
+                <!-- Form submit 按钮 -->
+                <button class="btn" size="mini" type="primary" formType="submit">发起约球</button>
+            </view>
         </view>
     </form>
 </view>
