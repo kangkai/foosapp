@@ -168,6 +168,26 @@ Page({
     app.globalData.cur_barid = e.currentTarget.id;
   },
 
+  markAppointments(appointments) {
+
+    for (var i = 0; i < appointments.length; i++) {
+
+      /* check due */
+      var mydate = appointments[i].end_date + ' ' + appointments[i].end_time;
+      mydate = mydate.replace(/-/g, '/');
+
+      if (Date.parse(mydate) > Date.now()) {
+        appointments[i].due = false;
+      } else {
+        appointments[i].due = true;
+      }
+    }
+
+    this.setData({
+      myappointments: appointments
+    })
+  },
+
   /* swiper myappointments */
   openidAppointments(openid) {
     var that = this;
@@ -184,10 +204,7 @@ Page({
       .get({
         success: function (res) {
           // console.log("openidAppointments", res.data);
-
-          that.setData({
-            myappointments: res.data
-          })
+          that.markAppointments(res.data);
 
           wx.hideNavigationBarLoading() //完成停止加载
           wx.stopPullDownRefresh() //停止下拉刷新
