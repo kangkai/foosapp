@@ -1,3 +1,5 @@
+var util = require('/utils/util.js');
+
 //app.js
 App({
   globalData: {
@@ -61,6 +63,21 @@ App({
       }
     })
 
+    // get cached data
+    wx.getStorage({
+      key: "foobar",
+      success: function (res) {
+        // console.log("cached foobar: ", util.formatTime(new Date()), res);
+        wx.getStorage({
+          key: "bars",
+          success: function (res2) {
+            // console.log("cached bars: ", util.formatTime(new Date()), res);
+            that.constructIdBars(res.data, res2.data, "cache");
+          }
+        })
+      }
+    });
+
     // 获取数据库内容
     that.getBarListDetail();
   },
@@ -115,7 +132,7 @@ App({
     wx.cloud.callFunction({
       name: 'getOpenid',
       complete: res => {
-        console.log('云函数获取到的openid: ', res.result.openid)
+        // console.log('云函数获取到的openid: ', res.result.openid)
         that.globalData.openid = res.result.openid;
         if (that.openidReadyCallback) {
           that.openidReadyCallback(res.result.openid);
@@ -124,9 +141,11 @@ App({
     })
   },
 
-  constructIdBars(foobar, bars) {
+  constructIdBars(foobar, bars, from) {
     var that = this;
     var idbars = {};
+
+    // console.log("from: ", from, util.formatTime(new Date()));
 
     for (var i = 0; i < bars.length; i++) {
       var barid = bars[i].barid; //barid = Math.random().toString(36).substr(2, 15)
@@ -136,6 +155,21 @@ App({
     that.globalData.foobar = foobar;
     that.globalData.bars = bars;
     that.globalData.idbars = idbars;
+
+    if (from == "cloud") {
+      /* setStorage cache to speed up launch time */
+      // console.log("cache data: ", util.formatTime(new Date()));
+      wx.setStorage({
+        key: "foobar",
+        data: foobar
+      });
+
+      wx.setStorage({
+        key: "bars",
+        data: bars
+      });
+    }
+
     /*
     console.log(foobar);
     console.log(bars);
@@ -166,11 +200,11 @@ App({
       newplaces = [];
       for (var j = 0; j < places.length; j++) {
         var barid = places[j].barid; //barid = Math.random().toString(36).substr(2, 15)
-
+  
         newplaces.push(barid);
       }
       newfoobar[i].places = newplaces;
-
+  
       wx.cloud.callFunction({
         name: 'foosDB',
         data: {
@@ -209,7 +243,7 @@ App({
             limit: 100
           },
           complete: res2 => {
-            that.constructIdBars(res.result.data, res2.result.data)
+            that.constructIdBars(res.result.data, res2.result.data, "cloud")
           }
         })
       }
