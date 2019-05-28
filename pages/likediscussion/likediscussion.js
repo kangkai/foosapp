@@ -123,7 +123,6 @@ Page({
             })
           }
 
-          res.data[0].discussion.reverse();
           res.data[0].likeNumber = res.data[0].like.length;
           res.data[0].discussionNumber = res.data[0].discussion.length;
           res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
@@ -159,16 +158,20 @@ Page({
       return;
     }
 
-    var rid = this.data.barlikediscussion._id;
-    discussion = this.data.barlikediscussion.discussion;
-    discussion.push({
+    var barlikediscussion = that.data.barlikediscussion
+    var rid = barlikediscussion._id;
+    barlikediscussion.discussion.unshift({
       openid: app.globalData.openid,
       nick: app.globalData.userInfo.nickName,
       avatarUrl: app.globalData.userInfo.avatarUrl,
       createTime: util.formatTime(new Date()),
       content: content
     });
-
+    barlikediscussion.discussionNumber++;
+    
+    that.setData({
+      barlikediscussion
+    });
 
     wx.cloud.callFunction({
       name: 'foosDB',
@@ -177,17 +180,12 @@ Page({
         type: 'update',
         indexKey: rid,
         data: {
-          discussion: discussion,
+          discussion: barlikediscussion.discussion,
           lastUpdateTime: Date.now()
         }
       },
       complete: res => {
         console.log("discussion update done");
-        var barlikediscussion = that.data.barlikediscussion;
-        barlikediscussion.discussionNumber++;
-        that.setData({
-          barlikediscussion
-        })
       }
     })
 
