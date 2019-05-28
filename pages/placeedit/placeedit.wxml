@@ -51,11 +51,11 @@
                         <input name="pic{{index}}" value="{{item}}"  />
                     </block>
                     <!-- max 5 pic -->
-                    <input wx:if="{{5 - bar.pic.length > 0}}" name="pic4" placeholder="地址" placeholder-class="input-ph"  />
-                    <input wx:if="{{5 - bar.pic.length > 1}}" name="pic3" placeholder="地址" placeholder-class="input-ph"  />
-                    <input wx:if="{{5 - bar.pic.length > 2}}" name="pic2" placeholder="地址" placeholder-class="input-ph"  />
-                    <input wx:if="{{5 - bar.pic.length > 3}}" name="pic1" placeholder="地址" placeholder-class="input-ph"  />
                     <input wx:if="{{5 - bar.pic.length > 4}}" name="pic0" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 3}}" name="pic1" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 2}}" name="pic2" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 1}}" name="pic3" placeholder="地址" placeholder-class="input-ph"  />
+                    <input wx:if="{{5 - bar.pic.length > 0}}" name="pic4" placeholder="地址" placeholder-class="input-ph"  />
                 </view>
             </view>
             <view class="tr-line">
