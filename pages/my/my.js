@@ -16,7 +16,8 @@ Page({
   data: {
     fbars: [],
     myappointments: [],
-    currentData: 0
+    currentData: 0,
+    winHeight: 0
   },
 
   /**
@@ -24,6 +25,19 @@ Page({
    */
   onLoad() {
     var that = this;
+
+    this.setData({
+      winHeight: app.globalData.map_height
+    })
+
+    wx.getSystemInfo({
+      success: function (res) {
+        //console.log(res);
+        this.setData({
+          winHeight: res.windowHeight
+        })
+      }
+    })
 
     if (app.globalData.openid) {
       this.favariteBars(app.globalData.openid);

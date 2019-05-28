@@ -6,65 +6,72 @@
     讨论 ({{barlikediscussion.discussionNumber}})
     </view>
 </view>
-<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+<swiper current="{{currentData}}" class='swiper' style="height: {{winHeight?winHeight+'px':'auto'}};" duration="300"
+        bindchange="bindchange">
     <swiper-item>
-        <view class="c-minheight carditem01">
-            <view class="paddinghalfrem view_flex_left">
-                <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
-                    <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
-                </block>
-                <button class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
-                        bindgetuserinfo="onGotUserInfoAddme" id="{{barlikediscussion._id}}">
-                    <image wx:if="{{barlikediscussion.meAlreadyLiked}}" class="wx-image_tBcdCT" mode="aspectFill" src="/images/delme3.png"></image>
-                    <image wx:else class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
-                </button>
-            </view>
-            <view class="paddinghalfrem wx-view_adF7Mw">
-                <view class="wx-view_2gazUr">
-                    <view class="wx-view_DKe6UT">
-                        <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"  />
-                        <text class="c-block wx-text_id0VJj">共计：{{barlikediscussion.likeNumber}}</text>
-                    </view>
+        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}"
+                     bindscrolltolower="scrollbot">
+            <view class="c-minheight carditem01">
+                <view class="paddinghalfrem view_flex_left">
+                    <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
+                        <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                    </block>
+                    <button class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
+                            bindgetuserinfo="onGotUserInfoAddme" id="{{barlikediscussion._id}}">
+                        <image wx:if="{{barlikediscussion.meAlreadyLiked}}" class="wx-image_tBcdCT" mode="aspectFill" src="/images/delme3.png"></image>
+                        <image wx:else class="wx-image_tBcdCT" mode="aspectFill" src="/images/addme2.png"></image>
+                    </button>
                 </view>
-                <text class="c-block wx-text_9Wn0Di">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
+                <view class="paddinghalfrem wx-view_adF7Mw">
+                    <view class="wx-view_2gazUr">
+                        <view class="wx-view_DKe6UT">
+                            <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"  />
+                            <text class="c-block wx-text_id0VJj">共计：{{barlikediscussion.likeNumber}}</text>
+                        </view>
+                    </view>
+                    <text class="c-block wx-text_9Wn0Di">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
+                </view>
             </view>
-        </view>
+        </scroll-view>
     </swiper-item>
     <swiper-item>
-        <form bindsubmit="formSubmit" bindreset="formReset">
-            <view class="c-minheight carditem01">
-                <view class="paddinghalfrem wx-view_QvvUkU">
-                    <textarea class="td-line" name="content" placeholder-class="textarea-ph" placeholder="想说点啥？"
-                               auto-height  />
-                </view>
-                <view class="paddinghalfrem wx-view_adF7Mw">
-                    <view class="wx-view_2gazUr">
-                        <view class="wx-view_DKe6UT">
-                            <image class="wx-image_6E2A1o" mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
-                            <text class="c-block wx-text_id0VJj">{{userInfo.nickName}}</text>
-                        </view>
+        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}"
+                     bindscrolltolower="scrollbot">
+            <form bindsubmit="formSubmit" bindreset="formReset">
+                <view class="c-minheight carditem01">
+                    <view class="paddinghalfrem wx-view_QvvUkU">
+                        <textarea class="td-line" name="content" placeholder-class="textarea-ph" placeholder="想说点啥？"
+                                   auto-height  />
                     </view>
-                    <text class="c-block wx-text_9Wn0Di">{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
-                </view>
-                <view class="paddinghalfrem">
-                    <button class="btn" size="mini" type="primary" formType="submit">提交</button>
-                </view>
-            </view>
-        </form>
-        <block wx:for-items="{{barlikediscussion.discussion}}" wx:key="{{item.openid}}">
-            <view class="c-minheight carditem01">
-                <view class="paddinghalfrem wx-view_QvvUkU">{{item.content}}</view>
-                <view class="paddinghalfrem wx-view_adF7Mw">
-                    <view class="wx-view_2gazUr">
-                        <view class="wx-view_DKe6UT">
-                            <image class="wx-image_6E2A1o" mode="aspectFill" src="{{item.avatarUrl}}"></image>
-                            <text class="c-block wx-text_id0VJj">{{item.nick}}</text>
+                    <view class="paddinghalfrem wx-view_adF7Mw">
+                        <view class="wx-view_2gazUr">
+                            <view class="wx-view_DKe6UT">
+                                <image class="wx-image_6E2A1o" mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
+                                <text class="c-block wx-text_id0VJj">{{userInfo.nickName}}</text>
+                            </view>
                         </view>
+                        <text class="c-block wx-text_9Wn0Di">{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
                     </view>
-                    <text class="c-block wx-text_9Wn0Di">{{item.createTime}}</text>
+                    <view class="paddinghalfrem">
+                        <button class="btn" size="mini" type="primary" formType="submit">提交</button>
+                    </view>
                 </view>
-            </view>
-        </block>
+            </form>
+            <block wx:for-items="{{barlikediscussion.discussion}}" wx:key="{{item.openid}}">
+                <view class="c-minheight carditem01">
+                    <view class="paddinghalfrem wx-view_QvvUkU">{{item.content}}</view>
+                    <view class="paddinghalfrem wx-view_adF7Mw">
+                        <view class="wx-view_2gazUr">
+                            <view class="wx-view_DKe6UT">
+                                <image class="wx-image_6E2A1o" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                                <text class="c-block wx-text_id0VJj">{{item.nick}}</text>
+                            </view>
+                        </view>
+                        <text class="c-block wx-text_9Wn0Di">{{item.createTime}}</text>
+                    </view>
+                </view>
+            </block>
+        </scroll-view>
     </swiper-item>
 </swiper>
 

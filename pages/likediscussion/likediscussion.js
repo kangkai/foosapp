@@ -16,7 +16,8 @@ Page({
   data: {
     userInfo: null,
     barlikediscussion: null,
-    currentData: 0
+    currentData: 0,
+    winHeight: 0
   },
 
   /**
@@ -29,7 +30,17 @@ Page({
     this.getBarLikeDiscussion(app.globalData.cur_barid);
 
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      winHeight: app.globalData.map_height
+    })
+
+    wx.getSystemInfo({
+      success: function (res) {
+        //console.log(res);
+        this.setData({
+          winHeight: res.windowHeight
+        })
+      }
     })
 
   },
@@ -168,7 +179,7 @@ Page({
       content: content
     });
     barlikediscussion.discussionNumber++;
-    
+
     that.setData({
       barlikediscussion
     });
