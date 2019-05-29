@@ -1,4 +1,4 @@
-<view class='topTabSwiper'>
+<view id='swipertab' class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>
     喜欢 ({{barlikediscussion.likeNumber}})
     </view>
@@ -9,8 +9,7 @@
 <swiper current="{{currentData}}" class='swiper' style="height: {{winHeight?winHeight+'px':'auto'}};" duration="300"
         bindchange="bindchange">
     <swiper-item>
-        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}"
-                     bindscrolltolower="scrollbot">
+        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}">
             <view class="c-minheight carditem01">
                 <view class="paddinghalfrem view_flex_left">
                     <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
@@ -35,8 +34,7 @@
         </scroll-view>
     </swiper-item>
     <swiper-item>
-        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}"
-                     bindscrolltolower="scrollbot">
+        <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}">
             <form bindsubmit="formSubmit" bindreset="formReset">
                 <view class="c-minheight carditem01">
                     <view class="paddinghalfrem wx-view_QvvUkU">

@@ -25,6 +25,7 @@ Page({
    */
   onLoad() {
     var that = this;
+    var query = wx.createSelectorQuery();
 
     this.setData({
       winHeight: app.globalData.map_height
@@ -33,9 +34,13 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         //console.log(res);
-        this.setData({
-          winHeight: res.windowHeight
-        })
+        query.select('#swipertab').boundingClientRect()
+        query.exec(function (res2) {
+          // console.log(res.windowHeight, res2[0].height);
+          that.setData({
+            winHeight: res.windowHeight - res2[0].height
+          });
+        });
       }
     })
 
