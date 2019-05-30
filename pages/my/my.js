@@ -47,7 +47,7 @@ Page({
       })
     } else {
       app.cb_userInfo_my = function () {
-        this.setData({
+        that.setData({
           userInfo: app.globalData.userInfo
         })
       }
