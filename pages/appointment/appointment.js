@@ -164,6 +164,10 @@ Page({
    */
   onLoad() {
     this.refresh_list(this);
+
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
 
   /**
@@ -206,7 +210,7 @@ Page({
     console.log("on pulldown refresh.");
     wx.showNavigationBarLoading(); //在标题栏中显示加载
 
-    this.refresh_list(this); 
+    this.refresh_list(this);
   },
 
   onReachBottom() {

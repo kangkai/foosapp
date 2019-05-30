@@ -9,6 +9,10 @@ Page({
     this.setData({
       openid: app.globalData.openid
     })
+
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
   onPullDownRefresh() {
     console.log("on pulldown refresh.");

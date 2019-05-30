@@ -58,6 +58,10 @@ Page({
       that.setData({
         list: mylist
       })
+
+      wx.showShareMenu({
+        withShareTicket: true
+      })
     };
 
     if (!app.globalData.bars) {

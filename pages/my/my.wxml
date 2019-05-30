@@ -19,10 +19,6 @@
         <view class="navigator-text">意见反馈</view>
         <view class="navigator-arrow"></view>
     </navigator>
-    <navigator id="{{page.index}}" url="place/place" class="navigator" bindtap="itemClick">
-        <view class="navigator-text">分享给朋友</view>
-        <view class="navigator-arrow"></view>
-    </navigator>
 </view>
 <view class="navigator-box navigator-box-show">
     <navigator id="{{page.index}}" url="/pages/about/about" class="navigator">

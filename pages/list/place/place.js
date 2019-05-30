@@ -31,6 +31,11 @@ Page({
    */
   onLoad() {
     var bar = app.globalData.idbars[app.globalData.cur_barid];
+
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     this.setData({
       myopenid: app.globalData.openid,
       bar: bar

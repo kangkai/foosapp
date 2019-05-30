@@ -37,6 +37,10 @@ Page({
   onLoad() {
     var that = this;
 
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     if (!app.globalData.bars) {
       app.dataReadyCallback_picker = res => {
         that.setData({

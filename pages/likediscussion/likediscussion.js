@@ -27,6 +27,10 @@ Page({
     var that = this;
     var query = wx.createSelectorQuery();
 
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     // console.log("likediscussion onLoad: ", app.globalData.cur_barid);
     this.getBarLikeDiscussion(app.globalData.cur_barid);
 

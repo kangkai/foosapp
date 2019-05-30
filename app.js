@@ -21,6 +21,11 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     wx.cloud.init({
       env: 'foosball-test1',
       traceUser: true
@@ -241,7 +246,7 @@ App({
         limit: 100
       },
       complete: res => {
-        //console.log(res);
+        console.log("res: ", res);
         wx.cloud.callFunction({
           name: 'foosDB',
           data: {
@@ -251,6 +256,7 @@ App({
             limit: 100
           },
           complete: res2 => {
+            console.log("res2: ", res2)
             that.constructIdBars(res.result.data, res2.result.data, "cloud")
           }
         })

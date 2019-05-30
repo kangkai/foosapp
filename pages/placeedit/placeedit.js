@@ -25,6 +25,10 @@ Page({
   onLoad() {
     var disabled = true;
 
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     /* super admin */
     if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
       // console.log("super: ", app.globalData.openid);

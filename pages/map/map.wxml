@@ -2,10 +2,6 @@
     <map id="map" latitude="39.940690" longitude="116.403350" scale="5" controls="{{controls}}"
          bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}"
          bindregionchange="regionchange" show-location style="width: 100%; height: {{map_height}}px;">
-
-        <cover-view bindtap="onFloatIconClick">
-            <cover-image class="floaticon" src=""></cover-image>
-        </cover-view>
     </map>
     <view class="poi-card-hide {{showCard?'poi-card-show':''}}">
         <view id="mapcard" class="c-minheight carditem01">

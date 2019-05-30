@@ -25,6 +25,10 @@ Page({
     this.setData({
       openid: app.globalData.openid
     })
+
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
 
   /**

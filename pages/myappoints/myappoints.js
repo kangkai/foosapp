@@ -23,6 +23,10 @@ Page({
   onLoad() {
     var that = this;
 
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     if (app.globalData.openid) {
       this.openidAppointments(app.globalData.openid);
     } else {

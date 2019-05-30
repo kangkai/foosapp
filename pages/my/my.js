@@ -33,6 +33,10 @@ Page({
       }
     };
 
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+
     this.setData({
       extraData: extraData
     });
