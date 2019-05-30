@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/list/list",
+    "pages/myfbars/myfbars",
+    "pages/myappoints/myappoints",
     "pages/my/my",
     "pages/likediscussion/likediscussion",
     "pages/list/place/place",
@@ -19,8 +21,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Foosball",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh" : true
-
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#a9a9a9",
@@ -60,5 +61,8 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于地图导航"
     }
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx8abaf00ee8c3202e"
+  ]
 }

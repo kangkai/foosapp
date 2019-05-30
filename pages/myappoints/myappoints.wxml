@@ -1,0 +1,37 @@
+<block wx:for-items="{{myappointments}}" wx:key="{{item._id}}">
+    <view class="c-minheight carditem01">
+        <view class="paddinghalfrem wx-view_QvvUkU">
+            <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+                   style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+            <view class="wx-view_cPj0ok">
+                <view wx:if="{{!item.due}}" class="c-block wx-text_TvHPc9">{{item.bar_name}}（开放中）</view>
+                <view wx:else class="c-block wx-text_TvHPc9">{{item.bar_name}}（已过时）</view>
+            </view>
+            <image class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png" bindtap="getLocation"
+                   id="{{item.barid}}"  />
+        </view>
+        <view class="paddinghalfrem">
+            <view class="tr-line">
+                <view class="td-left">开始：</view>
+                <view class="td-right">{{item.date}} {{item.time}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">结束：</view>
+                <view class="td-right">{{item.end_date}} {{item.end_time}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">描述：</view>
+                <view class="td-right">{{item.desc}}</view>
+            </view>
+            <view class="tr-line">
+                <view class="td-left">加入：</view>
+                <view class="td-right">
+                    <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
+                        <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+            

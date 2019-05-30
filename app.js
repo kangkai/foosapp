@@ -10,6 +10,7 @@ App({
     idbars: null,
     cur_barid: "",
     map_height: 300,
+    model: "",
     appointment_needs_refresh: false,
     bar_refresh: false
   },
@@ -60,6 +61,7 @@ App({
       success: function (res) {
         //console.log(res);
         that.globalData.map_height = res.windowHeight;
+        that.globalData.model = res.model;
       }
     })
 
@@ -85,6 +87,9 @@ App({
   userInfoReadyCallback: function (user) {
     //console.log(user);
     this.globalData.userInfo = user;
+    if (this.cb_userInfo_my) {
+      this.cb_userInfo_my();
+    }
   },
 
   bardetailDB: function () {

@@ -13,7 +13,7 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.4.0",
 	"appid": "wxc6e5bae87168194a",
 	"projectname": "foosball1",
 	"debugOptions": {

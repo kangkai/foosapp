@@ -14,10 +14,9 @@ Page({
    */
 
   data: {
-    fbars: [],
-    myappointments: [],
-    currentData: 0,
-    winHeight: 0
+    userInfo: null,
+    appId: "wx8abaf00ee8c3202e",
+    extraData: null
   },
 
   /**
@@ -25,34 +24,40 @@ Page({
    */
   onLoad() {
     var that = this;
-    var query = wx.createSelectorQuery();
+    var extraData = {
+      // 把1221数字换成你的产品ID，否则会跳到别的产品
+      id: "62699",
+      // 自定义参数，具体参考文档
+      customData: {
+        clientInfo: "unknown"
+      }
+    };
 
     this.setData({
-      winHeight: app.globalData.map_height
-    })
+      extraData: extraData
+    });
+
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
+    } else {
+      app.cb_userInfo_my = function () {
+        this.setData({
+          userInfo: app.globalData.userInfo
+        })
+      }
+    }
 
     wx.getSystemInfo({
       success: function (res) {
         //console.log(res);
-        query.select('#swipertab').boundingClientRect()
-        query.exec(function (res2) {
-          // console.log(res.windowHeight, res2[0].height);
-          that.setData({
-            winHeight: res.windowHeight - res2[0].height
-          });
+        extraData.customData.clientInfo = res.model;
+        that.setData({
+          extraData: extraData
         });
       }
     })
-
-    if (app.globalData.openid) {
-      this.favariteBars(app.globalData.openid);
-      this.openidAppointments(app.globalData.openid);
-    } else {
-      app.openidReadyCallback = function (openid) {
-        that.favariteBars(openid);
-        that.openidAppointments(openid);
-      }
-    }
 
   },
 
@@ -89,159 +94,12 @@ Page({
    */
   onPullDownRefresh() {
     console.log("on pulldown refresh.");
-    wx.showNavigationBarLoading(); //在标题栏中显示加载
-
-    if (app.globalData.openid) {
-      this.favariteBars(app.globalData.openid);
-      this.openidAppointments(app.globalData.openid);
-    } else {
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }
+    wx.stopPullDownRefresh() //停止下拉刷新
   },
 
   onReachBottom() {
     console.log("on reach bottom.")
-  },
-
-  bindchange(e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
-    })
-  },
-
-  checkCurrent(e) {
-    const that = this;
-
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
-  },
-
-  getLocation(e) {
-    app.globalData.cur_barid = e.currentTarget.id;
-    var bar = app.globalData.idbars[e.currentTarget.id];
-
-    app.commonGetLocation(bar);
-  },
-
-  constructFbars(idbars, like) {
-    var fbars = [];
-    // console.log(idbars, like);
-    for (var i = 0; i < like.length; i++) {
-      var bar = idbars[like[i].barid];
-
-      bar.likeNumber = like[i].like.length;
-      bar.discussionNumber = like[i].discussion.length;
-      bar.lastUpdateTime = util.formatDate(new Date(like[i].lastUpdateTime));
-
-      fbars.push(bar);
-    }
-    //console.log(fbars);
-    this.setData({
-      fbars: fbars
-    })
-  },
-
-  favariteBars(openid) {
-    var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
-
-    //console.log("favariteBars: ", openid)
-    collection.where({
-      "like.openid": openid
-    })
-      .get({
-        success: function (res) {
-          // console.log(res);
-
-          if (res.data.length == 0) {
-            /* false */
-            console.log("no record");
-            return;
-          }
-
-          if (app.globalData.idbars) {
-            that.constructFbars(app.globalData.idbars, res.data);
-          } else {
-            app.dataReadyCallback_my = function (idbars) {
-              that.constructFbars(idbars, res.data);
-            }
-          }
-
-        },
-        fail: function (err) {
-          console.log(err);
-        }
-      });
-  },
-
-  navitap(e) {
-    app.globalData.cur_barid = e.currentTarget.id;
-  },
-
-  markAppointments(appointments) {
-
-    for (var i = 0; i < appointments.length; i++) {
-
-      /* check due */
-      var mydate = appointments[i].end_date + ' ' + appointments[i].end_time;
-      mydate = mydate.replace(/-/g, '/');
-
-      if (Date.parse(mydate) > Date.now()) {
-        appointments[i].due = false;
-      } else {
-        appointments[i].due = true;
-      }
-    }
-
-    this.setData({
-      myappointments: appointments
-    })
-  },
-
-  /* swiper myappointments */
-  openidAppointments(openid) {
-    var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_appointment');
-    const PAGE_LIMIT = 3;
-
-    collection.where({
-      "players._openid": openid
-    })
-      .orderBy('end_date', 'desc')
-      .orderBy('end_time', 'desc')
-      .limit(PAGE_LIMIT)
-      .get({
-        success: function (res) {
-          // console.log("openidAppointments", res.data);
-          that.markAppointments(res.data);
-
-          wx.hideNavigationBarLoading() //完成停止加载
-          wx.stopPullDownRefresh() //停止下拉刷新
-        },
-        fail: function (err) {
-          console.log(err);
-        }
-      });
-  },
-
-  likeDiscussClicked(e) {
-    // console.log(e.currentTarget.id);
-    app.globalData.cur_barid = e.currentTarget.id;
-    wx.navigateTo({
-      url: "/pages/likediscussion/likediscussion"
-    })
-  },
-
+  }
 
 })
 

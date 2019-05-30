@@ -1,0 +1,48 @@
+<block wx:for-items="{{fbars}}" wx:key="{{item._id}}">
+    <view class="c-minheight carditem01">
+        <view class="paddinghalfrem wx-view_QvvUkU">
+            <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
+                   style="background-size:  cover; background-position:  center center; background-repeat:  no-repeat; "  />
+            <view class="wx-view_cPj0ok">
+                <text class="c-block wx-text_TvHPc9">{{item.name}}</text>
+            </view>
+            <image id="{{item.barid}}" class="wx-image_rqGA98" mode="scaleToFill" src="/images/gothere96.png"
+                   bindtap="getLocation"  />
+        </view>
+        <view>
+            <view class="paddinghalfrem">
+                <navigator id="{{item.barid}}" url="/pages/list/place/place" bindtap="navitap">
+                    <view class="tr-line">
+                        <view class="td-left">地址：</view>
+                        <view class="td-right">{{item.address}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">联系：</view>
+                        <view class="td-right">{{item.contacts}}</view>
+                    </view>
+                    <view class="tr-line">
+                        <view class="td-left">桌子：</view>
+                        <view class="td-right">{{item.tables}}</view>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+        <view class="paddinghalfrem wx-view_adF7Mw">
+            <view class="wx-view_2gazUr">
+                <view class="wx-view_DKe6UT">
+                    <image id="{{item.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"
+                           bindtap="likeDiscussClicked"  />
+                    <text id="{{item.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{item.likeNumber}}</text>
+                </view>
+                <view class="wx-view_DKe6UT">
+                    <image id="{{item.barid}}" class="wx-image_6E2A1o" mode="aspectFit" src="/images/discuss.png"
+                           bindtap="likeDiscussClicked"  />
+                    <text id="{{item.barid}}" class="c-block wx-text_id0VJj" bindtap="likeDiscussClicked">{{item.discussionNumber}}</text>
+                </view>
+            </view>
+            <text id="{{item.barid}}" class="c-block wx-text_9Wn0Di" bindtap="likeDiscussClicked">
+            最近更新：{{item.lastUpdateTime ? item.lastUpdateTime : '未知'}}
+            </text>
+        </view>
+    </view>
+</block>
