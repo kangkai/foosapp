@@ -37,6 +37,12 @@ Page({
           });
         }
 
+        // console.log("before sort: ", pages);
+        pages.sort(function (a, b) {
+          return a.name.localeCompare(b.name, 'zh');
+        })
+        // console.log("after sort: ", pages);
+
         mylist.push({
           id: 'test' + i,
           name: foobar[i].city,
@@ -44,6 +50,10 @@ Page({
           pages: pages
         })
       }
+
+      mylist.sort(function (a, b) {
+        return a.name.localeCompare(b.name, 'zh');
+      })
 
       that.setData({
         list: mylist

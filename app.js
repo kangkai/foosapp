@@ -146,6 +146,9 @@ App({
     var idbars = {};
 
     // console.log("from: ", from, util.formatTime(new Date()));
+    bars.sort(function (a, b) {
+      return a.name.localeCompare(b.name, 'zh');
+    })
 
     for (var i = 0; i < bars.length; i++) {
       var barid = bars[i].barid; //barid = Math.random().toString(36).substr(2, 15)
