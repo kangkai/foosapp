@@ -25,10 +25,10 @@
                     <view class="wx-view_2gazUr">
                         <view class="wx-view_DKe6UT">
                             <image class="wx-image_6E2A1o" mode="aspectFit" src="/images/like.png"  />
-                            <text class="c-block wx-text_id0VJj">共计：{{barlikediscussion.likeNumber}}</text>
+                            <view class="c-block wx-text_id0VJj">共计：{{barlikediscussion.likeNumber}}</view>
                         </view>
                     </view>
-                    <text class="c-block wx-text_9Wn0Di">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</text>
+                    <view class="c-block wx-text_9Wn0Di">最近更新：{{barlikediscussion.lastUpdateTime ? barlikediscussion.lastUpdateTime : '未知'}}</view>
                 </view>
             </view>
         </scroll-view>
@@ -62,10 +62,10 @@
                         <view class="wx-view_2gazUr">
                             <view class="wx-view_DKe6UT">
                                 <image class="wx-image_6E2A1o" mode="aspectFill" src="{{item.avatarUrl}}"></image>
-                                <text class="c-block wx-text_id0VJj">{{item.nick}}</text>
+                                <view class="c-block wx-text_id0VJj">{{item.nick}}</view>
                             </view>
                         </view>
-                        <text class="c-block wx-text_9Wn0Di">{{item.createTime}}</text>
+                        <view class="c-block wx-text_9Wn0Di">{{item.createTime}}</view>
                     </view>
                 </view>
             </block>
