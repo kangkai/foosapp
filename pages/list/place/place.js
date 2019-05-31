@@ -121,6 +121,10 @@ Page({
     const db = wx.cloud.database();
     const collection = db.collection('foos_appointment');
 
+    if (!bar) {
+      return;
+    }
+
     collection
       .orderBy('end_date', 'desc')
       .orderBy('end_time', 'desc')
@@ -149,6 +153,10 @@ Page({
     var that = this;
     const db = wx.cloud.database();
     const collection = db.collection('foos_barlikediscussion');
+
+    if (!barid) {
+      return;
+    }
 
     /* TODO:
      * wx.setStorage...
