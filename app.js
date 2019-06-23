@@ -266,16 +266,21 @@ App({
 
   /* get location */
   commonGetLocation(bar) {
-
-    // console.log("common: ", bar);
-
+    if (!(bar.latitude && bar.longitude)) {
+      wx.showToast({
+        title: '地址为空，暂时不能导航',
+        icon: 'none',
+        duration: 1000
+      })
+      return;
+    }
     wx.getLocation({
       type: 'wgs84',
 
       success: function (res) {
         wx.openLocation({//​使用微信内置地图查看位置。
-          latitude: bar.latitude,//要去的纬度-地址
-          longitude: bar.longitude,//要去的经度-地址
+          latitude: bar.latitude * 1,//要去的纬度-地址
+          longitude: bar.longitude * 1,//要去的经度-地址
           name: bar.name,
           address: bar.address
         })

@@ -145,7 +145,6 @@ Page({
   //以下为自定义点击事件
   getLocation(e) {
     var bar = this.data.bar;
-
     app.commonGetLocation(bar);
   },
 
