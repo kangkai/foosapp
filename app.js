@@ -237,11 +237,13 @@ App({
 
   getBarListDetail() {
     var that = this;
+
     wx.cloud.callFunction({
       name: 'foosDB',
       data: {
         db: 'foos_barlist',
         type: 'get',
+        condition: {},
         skip: 0,
         limit: 100
       },
@@ -252,6 +254,7 @@ App({
           data: {
             db: 'foos_bardetail',
             type: 'get',
+            condition: {},
             skip: 0,
             limit: 100
           },
