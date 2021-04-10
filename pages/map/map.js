@@ -102,7 +102,7 @@ Page({
     //console.log(e);
     that.setData({
       showCard: true,
-      bar: that.data.markers[e.markerId]
+      bar: that.data.markers[e.detail.markerId]
     });
 
     query.select('#mapcard').boundingClientRect()
