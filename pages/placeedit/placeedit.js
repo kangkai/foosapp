@@ -112,11 +112,33 @@ Page({
       newbar.admin_nick = '';
       newbar.admin_avatarUrl = '';
     }
-    if (e.detail.value.pic0.length) newbar.pic[0] = e.detail.value.pic0;
-    if (e.detail.value.pic1.length) newbar.pic[1] = e.detail.value.pic1;
-    if (e.detail.value.pic2.length) newbar.pic[2] = e.detail.value.pic2;
-    if (e.detail.value.pic3.length) newbar.pic[3] = e.detail.value.pic3;
-    if (e.detail.value.pic4.length) newbar.pic[4] = e.detail.value.pic4;
+
+    // in reverse order
+    if (e.detail.value.pic4.length)
+      newbar.pic[4] = e.detail.value.pic4;
+    else
+      newbar.pic.splice(4, 1);
+
+    if (e.detail.value.pic3.length)
+      newbar.pic[3] = e.detail.value.pic3;
+    else
+      newbar.pic.splice(3, 1);
+
+    if (e.detail.value.pic2.length)
+      newbar.pic[2] = e.detail.value.pic2;
+    else
+      newbar.pic.splice(2, 1);
+
+    if (e.detail.value.pic1.length)
+      newbar.pic[1] = e.detail.value.pic1;
+    else
+      newbar.pic.splice(1, 1);
+
+    if (e.detail.value.pic0.length)
+      newbar.pic[0] = e.detail.value.pic0;
+    else
+      newbar.pic.splice(0, 1);
+
     newbar.lastChangeTime = util.formatTime(new Date());
 
     // console.log("newbar: ", newbar);
