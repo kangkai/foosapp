@@ -1,4 +1,4 @@
-<block wx:for-items="{{fbars}}" wx:key="{{item._id}}">
+<block wx:for-items="{{fbars}}" wx:key="_id">
     <view class="c-minheight carditem01">
         <view class="paddinghalfrem wx-view_QvvUkU">
             <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"

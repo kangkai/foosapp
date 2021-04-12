@@ -12,7 +12,7 @@
         <scroll-view scroll-y="{{true}}" style="height: {{winHeight?winHeight+'px':'auto'}}">
             <view class="c-minheight carditem01">
                 <view class="paddinghalfrem view_flex_left">
-                    <block wx:for-items="{{barlikediscussion.like}}" wx:key="{{item.openid}}">
+                    <block wx:for-items="{{barlikediscussion.like}}" wx:key="openid">
                         <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
                     <button class="btn-addme" hover-class="none" open-type="getUserInfo" size="mini"
@@ -55,7 +55,7 @@
                     </view>
                 </view>
             </form>
-            <block wx:for-items="{{barlikediscussion.discussion}}" wx:key="{{item.openid}}">
+            <block wx:for-items="{{barlikediscussion.discussion}}" wx:key="openid">
                 <view class="c-minheight carditem01">
                     <view class="paddinghalfrem wx-view_QvvUkU">{{item.content}}</view>
                     <view class="paddinghalfrem wx-view_adF7Mw">

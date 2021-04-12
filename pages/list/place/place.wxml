@@ -63,7 +63,7 @@
         </view>
     </view>
 </view>
-<block wx:for-items="{{barappointments}}" wx:key="{{item._id}}">
+<block wx:for-items="{{barappointments}}" wx:key="_id">
     <view class="c-minheight carditem01">
         <view class="cardtitle">
             <view wx:if="{{!item.due}}">约球（开放中）</view>

@@ -7,7 +7,7 @@
     </view>
     <view class="index-bd">
         <view class="kind-list">
-            <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+            <block wx:for-items="{{list}}" wx:key="id">
                 <view class="kind-list-item">
                     <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
                         <view class="kind-list-text">{{item.name}}</view>

@@ -47,7 +47,7 @@
             <view class="tr-line">
                 <view class="td-left">图片：</view>
                 <view class="td-right">
-                    <block wx:for="{{bar.pic}}" wx:key="{{this}}">
+                    <block wx:for="{{bar.pic}}" wx:key="this">
                         <input name="pic{{index}}" value="{{item}}"  />
                     </block>
                     <!-- max 5 pic -->

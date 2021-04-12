@@ -8,7 +8,7 @@
         </button>
     </navigator>
 </view>
-<block wx:for-items="{{appointments}}" wx:key="{{item._id}}">
+<block wx:for-items="{{appointments}}" wx:key="_id">
     <view class="c-minheight carditem01">
         <view class="paddinghalfrem wx-view_QvvUkU">
             <image class="wx-image_tBcdCT" mode="aspectFill" src="/images/foosball2.png"
@@ -36,7 +36,7 @@
             <view class="tr-line">
                 <view class="td-left">加入：</view>
                 <view class="td-right">
-                    <block wx:for-items="{{item.players}}" wx:key="{{item.id}}">
+                    <block wx:for-items="{{item.players}}" wx:key="id">
                         <image class="icon-round" mode="aspectFill" src="{{item.avatarUrl}}"></image>
                     </block>
                     <button wx:if="{{!item.due}}" class="btn-addme" hover-class="none" open-type="getUserInfo"
