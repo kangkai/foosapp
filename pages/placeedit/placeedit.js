@@ -97,6 +97,28 @@ Page({
 
     // console.log(e);
 
+    /* check if we want to del this bar */
+    if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0' &&
+    e.detail.value.name.length == 0 &&
+    e.detail.value.address.length == 0) {
+      wx.cloud.callFunction({
+        name: 'foosDelBar',
+        data: {
+          bar: newbar
+        },
+        complete: res => {
+          // console.log("foosDelBar: ", res)
+          /* TODO: update idbars. app.globalData.idbars[newbar.barid] = newbar; */
+          app.globalData.bar_refresh = true;
+          wx.navigateBack({
+            delta: 2
+          })
+        }
+      })
+
+      return;
+    }
+
     if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
       newbar.name = e.detail.value.name;
       newbar.callout.content = newbar.name;
