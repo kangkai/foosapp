@@ -118,28 +118,25 @@ Page({
 
   getBarAppointments(bar) {
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_appointment');
+    const collection = app.mpserverless.db.collection('foos_appointment');
 
     if (!bar) {
       return;
     }
 
-    collection
-      .orderBy('end_date', 'desc')
-      .orderBy('end_time', 'desc')
-      .where({
-        barid: bar.barid
-      })
-      .get({
-        success: function (res) {
-          //console.log(res.data);
-          that.markAppointments(res.data);
-        },
-        fail: function (err) {
-          console.log(err);
+    collection.find(
+      { barid: bar.barid },
+      {
+        sort: {
+          end_date: -1,
+          end_time: -1
         }
+      }
+    )
+      .then(res => {
+        that.markAppointments(res.data);
       })
+      .catch(console.error);
   },
 
   //以下为自定义点击事件
