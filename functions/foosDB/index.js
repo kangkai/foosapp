@@ -1,3 +1,39 @@
+/*
+ * Aliyun EMAS serverless
+ */
+module.exports = async (ctx) => {
+  const targetDB = ctx.mpserverless.db.collection(ctx.args.db)
+  try {
+    // ctx.logger.info('invoke args: %j', ctx.args);
+
+    if (ctx.args.type == "insert") {
+      return await targetDB.insertOne(ctx.args.data)
+    }
+
+    if (ctx.args.type == "update") {
+      return await targetDB.updateOne(
+        {_id: ctx.args._id},
+        {$set: ctx.args.data}
+      )
+    }
+
+    if (ctx.args.type == "delete") {
+      return await targetDB.deleteOne(ctx.args.condition)
+    }
+
+    if (ctx.args.type == "get") {
+      // ctx.logger.info('db find: %j', ctx.args);
+      return await targetDB.find(ctx.args.condition,
+        {limit: ctx.args.limit, skip: ctx.args.limit * ctx.args.skip})
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+/*
+ * Tencent cloud serverless
+ *
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
@@ -35,3 +71,4 @@ exports.main = async (event, context) => {
     console.error(e)
   }
 }
+*/

@@ -111,61 +111,52 @@ Page({
 
   getBarLikeDiscussion(barid) {
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
 
-    collection
-      .where({
-        barid: barid
-      })
-      .get({
-        success: function (res) {
-          // console.log(res);
-          if (res.data.length == 0) {
-            // console.log("no record!");
-            // insert record, TODO: race and several records with same barid??
-            wx.cloud.callFunction({
-              name: 'foosDB',
-              data: {
-                db: 'foos_barlikediscussion',
-                type: 'insert',
-                data: {
-                  barid: barid,
-                  like: [],
-                  discussion: [],
-                  createTime: Date.now(),
-                  lastUpdateTime: Date.now()
-                }
-              },
-              complete: res2 => {
-                console.log("insertRecord insert: ", res2);
-              }
-            })
-          }
+    collection.find(
+      { barid: barid }
+    )
+      .then(res => {
+        // console.log(res);
+        if (res.data.length == 0) {
+          // console.log("no record!");
+          // insert record, TODO: race and several records with same barid??
 
-          res.data[0].likeNumber = res.data[0].like.length;
-          res.data[0].discussionNumber = res.data[0].discussion.length;
-          res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
-
-          var barlikediscussion = res.data[0];
-
-          barlikediscussion.meAlreadyLiked = false;
-          for (var i = 0; i < barlikediscussion.like.length; i++) {
-            if (barlikediscussion.like[i].openid == app.globalData.openid) {
-              barlikediscussion.meAlreadyLiked = true;
-              break;
+          collection.insertOne(
+            {
+              barid: barid,
+              like: [],
+              discussion: [],
+              createTime: Date.now(),
+              lastUpdateTime: Date.now()
             }
-          }
-
-          that.setData({
-            barlikediscussion: barlikediscussion
-          })
-
-        },
-        fail: function (err) {
-          console.log(err);
+          )
+            .then(res2 => {
+              console.log("insertRecord insert: ", res2);
+            }
+            )
+            .catch(console.error);
         }
-      });
+
+        res.data[0].likeNumber = res.data[0].like.length;
+        res.data[0].discussionNumber = res.data[0].discussion.length;
+        res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
+
+        var barlikediscussion = res.data[0];
+
+        barlikediscussion.meAlreadyLiked = false;
+        for (var i = 0; i < barlikediscussion.like.length; i++) {
+          if (barlikediscussion.like[i].openid == app.globalData.openid) {
+            barlikediscussion.meAlreadyLiked = true;
+            break;
+          }
+        }
+
+        that.setData({
+          barlikediscussion: barlikediscussion
+        })
+      })
+      .catch(console.error);
   },
 
   formSubmit: function (e) {
@@ -193,22 +184,20 @@ Page({
       barlikediscussion
     });
 
-    wx.cloud.callFunction({
-      name: 'foosDB',
-      data: {
-        db: 'foos_barlikediscussion',
-        type: 'update',
-        indexKey: rid,
-        data: {
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
+    conllection.updateOne(
+      { _id: rid },
+      {
+        $set: {
           discussion: barlikediscussion.discussion,
           lastUpdateTime: Date.now()
         }
-      },
-      complete: res => {
-        console.log("discussion update done");
       }
-    })
-
+    )
+      .then(res => {
+        console.log("discussion update done");
+      })
+      .catch(console.error);
   },
 
   addDelMe: function (docid) {
@@ -249,21 +238,19 @@ Page({
       barlikediscussion.like.splice(index, 1);
       // console.log(barlikediscussion.like);
 
-      wx.cloud.callFunction({
-        name: 'foosDB',
-        data: {
-          db: 'foos_barlikediscussion',
-          type: 'update',
-          indexKey: docid,
-          data: {
+      const collection = app.mpserverless.db.collection('foos_barlikediscussion');
+      collection.updateOne(
+        { _id: docid },
+        {
+          $set: {
             like: barlikediscussion.like,
             lastUpdateTime: Date.now()
           }
-        },
-        complete: res2 => {
-          console.log("like del done");
         }
-      })
+      )
+        .then(res => {
+          console.log("like del done");
+        })
 
       barlikediscussion.meAlreadyLiked = false;
       this.setData({
@@ -280,21 +267,19 @@ Page({
         createTime: Date.now(),
       });
 
-      wx.cloud.callFunction({
-        name: 'foosDB',
-        data: {
-          db: 'foos_barlikediscussion',
-          type: 'update',
-          indexKey: docid,
-          data: {
+      const collection = app.mpserverless.db.collection('foos_barlikediscussion');
+      collection.updateOne(
+        { _id: docid },
+        {
+          $set: {
             like: barlikediscussion.like,
             lastUpdateTime: Date.now()
           }
-        },
-        complete: res2 => {
-          console.log("like update done");
         }
-      })
+      )
+        .then(res2 => {
+          console.log("like update done");
+        })
 
       barlikediscussion.meAlreadyLiked = true;
       this.setData({
@@ -348,102 +333,80 @@ Page({
 
   insertRecord(barid) {
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
 
     /* insert record if not already there */
-    collection
-      .where({
-        barid: barid
-      })
-      .get({
-        success: function (res) {
-          console.log("insertRecord: ", barid, res);
-          if (res.data.length == 0) {
-            /* false */
-            wx.cloud.callFunction({
-              name: 'foosDB',
-              data: {
-                db: 'foos_barlikediscussion',
-                type: 'insert',
-                data: {
-                  barid: barid,
-                  like: [],
-                  discussion: [],
-                  createTime: Date.now(),
-                  lastUpdateTime: Date.now()
-                }
-              },
-              complete: res2 => {
-                console.log("insertRecord insert: ", res2);
-                that.insertLike(barid);
-              }
+    collection.find(
+      { barid: barid }
+    )
+      .then(res => {
+        console.log("insertRecord: ", barid, res);
+        if (res.data.length == 0) {
+          /* false */
+          collection.insertOne(
+            {
+              barid: barid,
+              like: [],
+              discussion: [],
+              createTime: Date.now(),
+              lastUpdateTime: Date.now()
+            }
+          )
+            .then(res2 => {
+              console.log("insertRecord insert: ", res2);
+              that.insertLike(barid);
             })
 
-          } else {
-            /* true */
-            console.log("already there");
-            that.insertLike(barid);
-          }
-
-        },
-        fail: function (err) {
-          console.log(err);
+        } else {
+          /* true */
+          console.log("already there");
+          that.insertLike(barid);
         }
-      });
+
+      })
+      .catch(console.error);
   },
 
 
   insertLike(barid) {
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
 
-
-    collection
-      .where({
-        barid: barid
-      })
-      .get({
-        success: function (res) {
-          console.log("insertLike: ", barid, res);
-          if (res.data.length == 0) {
-            console.log("impossible, no record!");
-            return;
-          }
-
-          var rid = res.data[0]._id;
-          var like = res.data[0].like;
-          like.push({
-            openid: app.globalData.openid,
-            nick: app.globalData.userInfo.nickName,
-            avatarUrl: app.globalData.userInfo.avatarUrl,
-            createTime: Date.now(),
-          });
-
-          wx.cloud.callFunction({
-            name: 'foosDB',
-            data: {
-              db: 'foos_barlikediscussion',
-              type: 'update',
-              indexKey: rid,
-              data: {
-                like: like,
-                lastUpdateTime: Date.now()
-              }
-            },
-            complete: res2 => {
-              console.log("like update done");
-              that.countLike(that.data.bar);
-            }
-          })
-
-        },
-        fail: function (err) {
-          console.log(err);
+    collection.find(
+      { barid: barid }
+    )
+      .then(res => {
+        console.log("insertLike: ", barid, res);
+        if (res.data.length == 0) {
+          console.log("impossible, no record!");
+          return;
         }
-      });
 
+        var rid = res.data[0]._id;
+        var like = res.data[0].like;
+        like.push({
+          openid: app.globalData.openid,
+          nick: app.globalData.userInfo.nickName,
+          avatarUrl: app.globalData.userInfo.avatarUrl,
+          createTime: Date.now(),
+        });
+
+        collection.updateOne(
+          { _id: rid },
+          {
+            $set: {
+              like: like,
+              lastUpdateTime: Date.now()
+            }
+          }
+        )
+          .then(res2 => {
+            console.log("like update done");
+            that.countLike(that.data.bar);
+          })
+          .catch(console.error);
+      })
+      .catch(console.error);
   },
 
   likeClicked(e) {

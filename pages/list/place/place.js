@@ -150,8 +150,7 @@ Page({
 
   getBarLikeDiscussion(barid) {
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
 
     if (!barid) {
       return;
@@ -162,47 +161,35 @@ Page({
      * and can share with likediscussion page.
      */
 
-    collection
-      .where({
-        barid: barid
-      })
-      .get({
-        success: function (res) {
-          // console.log(res);
-          if (res.data.length == 0) {
-            // console.log("no record!");
-            // insert record, TODO: race and several records with same barid??
-            wx.cloud.callFunction({
-              name: 'foosDB',
-              data: {
-                db: 'foos_barlikediscussion',
-                type: 'insert',
-                data: {
-                  barid: barid,
-                  like: [],
-                  discussion: [],
-                  createTime: Date.now(),
-                  lastUpdateTime: Date.now()
-                }
-              },
-              complete: res2 => {
-                console.log("insertRecord insert: ", res2);
-              }
+    collection.find(
+      { barid: barid }
+    )
+      .then(res => {
+        if (res.data.length == 0) {
+          // console.log("no record!");
+          // insert record, TODO: race and several records with same barid??
+          collection.insertOne(
+            {
+              barid: barid,
+              like: [],
+              discussion: [],
+              createTime: Date.now(),
+              lastUpdateTime: Date.now()
+            }
+          )
+            .then(res2 => {
+              console.log("insertRecord insert: ", res2);
             })
-          }
-
-          res.data[0].likeNumber = res.data[0].like.length;
-          res.data[0].discussionNumber = res.data[0].discussion.length;
-          res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
-          that.setData({
-            barlikediscussion: res.data[0]
-          })
-
-        },
-        fail: function (err) {
-          console.log(err);
         }
-      });
+
+        res.data[0].likeNumber = res.data[0].like.length;
+        res.data[0].discussionNumber = res.data[0].discussion.length;
+        res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
+        that.setData({
+          barlikediscussion: res.data[0]
+        })
+      })
+      .catch(console.error);
   },
 
   //TODO
@@ -251,6 +238,18 @@ Page({
       appointment.players.splice(pindex, 1);
       // console.log(appointment.players);
 
+      /* Aliyun EMAS version */
+      app.mpserverless.db.collection('foos_appointment').updateOne(
+        { _id: appointment._id },
+        { $set: { players: appointment.players } }
+      )
+        .then(res => {
+          console.log("appointment del me done");
+        })
+        .catch(console.error);
+
+      /* tencent cloud version */
+      /*
       wx.cloud.callFunction({
         name: 'foosDB',
         data: {
@@ -265,6 +264,7 @@ Page({
           console.log("appointment del me done");
         }
       })
+      */
 
       appointment.meAlreadyJoined = false;
     } else {

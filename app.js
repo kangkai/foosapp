@@ -1,7 +1,18 @@
+import MPServerless from '@alicloud/mpserverless-sdk';
+
+/* secret SECRET, remove before check in into git */
+const mpserverless = new MPServerless(wx, {
+  appId: "",
+  spaceId: "",
+  clientSecret: "",
+  endpoint: "https://api.next.bspapp.com"
+});
+
+
 var util = require('/utils/util.js');
 
-//app.js
 App({
+  mpserverless: mpserverless,
   globalData: {
     userInfo: null,
     openid: null,
@@ -26,17 +37,22 @@ App({
       withShareTicket: true
     })
 
+    /* wx cloud no free lunch anymore :)
     wx.cloud.init({
       env: 'foosball-test1',
       traceUser: true
     })
+    */
+
+    /* use Ali EMAS serverless now */
+    mpserverless.init();
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         //console.log("login code: ", res.code);
-        that.getOpenid();
+        that.getOpenid(res);
       }
     })
 
@@ -71,6 +87,7 @@ App({
     })
 
     // get cached data
+    /*
     wx.getStorage({
       key: "foobar",
       success: function (res) {
@@ -84,6 +101,7 @@ App({
         })
       }
     });
+    */
 
     // 获取数据库内容
     that.getBarListDetail();
@@ -137,6 +155,24 @@ App({
   },
 
   // 获取用户openid
+  getOpenid(res) {
+    let that = this;
+
+    mpserverless.function.invoke('getOpenid',
+      {code: res.code})
+      .then(res2 => {
+        if (res2.success && res2.result) {
+          // console.log("getopenid from EMAS: ", res2);
+          that.globalData.openid = res2.result.openid;
+          if (that.openidReadyCallback) {
+            that.openidReadyCallback(res2.result.openid);
+          }
+        }
+      })
+      .catch(console.error);
+  },
+
+  /* tencent cloud version
   getOpenid() {
     let that = this;
     wx.cloud.callFunction({
@@ -150,6 +186,7 @@ App({
       }
     })
   },
+  */
 
   constructIdBars(foobar, bars, from) {
     var that = this;
@@ -172,6 +209,7 @@ App({
     if (from == "cloud") {
       /* setStorage cache to speed up launch time */
       // console.log("cache data: ", util.formatTime(new Date()));
+      /*
       wx.setStorage({
         key: "foobar",
         data: foobar
@@ -181,6 +219,7 @@ App({
         key: "bars",
         data: bars
       });
+      */
     }
 
     /*
@@ -235,6 +274,33 @@ App({
 
   },
 
+  /* Aliyun EMAS version */
+  getBarListDetail() {
+    var that = this;
+
+    mpserverless.db.collection('foos_barlist')
+      .find(
+        {},
+        { skip: 0, limit: 100 }
+      )
+      .then((res) => {
+        if (res.success && res.result) {
+          mpserverless.db.collection('foos_bardetail')
+            .find(
+              {},
+              { skip: 0, limit: 100 }
+            )
+            .then((res2) => {
+              if (res2.success && res2.result) {
+                that.constructIdBars(res.result, res2.result, "cloud")
+              }
+            })
+        }
+      }).catch(console.error);
+  },
+
+  /* tencent cloud version */
+  /*
   getBarListDetail() {
     var that = this;
 
@@ -266,6 +332,7 @@ App({
       }
     })
   },
+  */
 
   /* get location */
   commonGetLocation(bar) {

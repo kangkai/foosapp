@@ -56,13 +56,10 @@
     ]
   },
   "sitemapLocation": "sitemap.json",
-  "cloud": true,
+  "lazyCodeLoading": "requiredComponents",
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于地图导航"
     }
-  },
-  "navigateToMiniProgramAppIdList": [
-    "wx8abaf00ee8c3202e"
-  ]
+  }
 }

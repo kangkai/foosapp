@@ -265,6 +265,18 @@ Page({
       appointment.players.splice(pindex, 1);
       // console.log(appointment.players);
 
+      /* Aliyun EMAS version */
+      app.mpserverless.db.collection('foos_appointment').updateOne(
+        {_id: appointment._id},
+        {$set: {players: appointment.players}}
+      )
+      .then(res => {
+        console.log("appointment del me done");
+      })
+      .catch(console.error);
+
+      /* tencent cloud version */
+      /*
       wx.cloud.callFunction({
         name: 'foosDB',
         data: {
@@ -279,6 +291,7 @@ Page({
           console.log("appointment del me done");
         }
       })
+      */
 
       appointment.meAlreadyJoined = false;
     } else {

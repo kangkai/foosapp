@@ -1,5 +1,10 @@
 // 获取全局应用程序实例对象
 var app = getApp();
+var emas = app.mpserverless;
+/* example
+ * emas.db.collection('test').find();
+ * emas.function.invoke('test');
+ */
 
 Page({
   data: {
