@@ -15,7 +15,8 @@ Page({
 
   data: {
     userInfo: null,
-    appId: "wx8abaf00ee8c3202e",
+    hasUserInfo: false,
+    canIUseGetUserProfile: false,
     extraData: null
   },
 
@@ -32,6 +33,12 @@ Page({
         clientInfo: "unknown"
       }
     };
+
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
 
     wx.showShareMenu({
       withShareTicket: true
@@ -63,6 +70,46 @@ Page({
       }
     })
 
+  },
+
+  getUserProfile(e) {
+    var that = this;
+    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+    // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    wx.getUserProfile({
+      desc: '仅用于交互时候的展示', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+
+        app.globalData.userInfo = res.userInfo
+        console.log(res.userInfo);
+
+        // 由于 getUserProfile 是网络请求，可能会在 Page.onLoad 之后才返回
+        // 所以此处加入 callback 以防止这种情况
+        if (app.userInfoReadyCallback) {
+          app.userInfoReadyCallback(res.userInfo)
+        }
+      }
+    })
+  },
+  getUserInfo(e) {
+    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+
+    app.globalData.userInfo = res.userInfo
+    console.log(res.userInfo);
+
+    // 由于 getUserProfile 是网络请求，可能会在 Page.onLoad 之后才返回
+    // 所以此处加入 callback 以防止这种情况
+    if (app.userInfoReadyCallback) {
+      app.userInfoReadyCallback(res.userInfo)
+    }
   },
 
   /**

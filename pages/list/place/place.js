@@ -88,7 +88,9 @@ Page({
   },
 
   markAppointments(appointments) {
-
+    if (!appointments) {
+      return;
+    }
     for (var i = 0; i < appointments.length; i++) {
 
       /* check due */
@@ -134,7 +136,7 @@ Page({
       }
     )
       .then(res => {
-        that.markAppointments(res.data);
+        that.markAppointments(res.result);
       })
       .catch(console.error);
   },
@@ -162,8 +164,10 @@ Page({
       { barid: barid }
     )
       .then(res => {
-        if (res.data.length == 0) {
-          // console.log("no record!");
+        // console.log("res: ", res);
+
+        if (res.result.length == 0) {
+          console.log("no record!");
           // insert record, TODO: race and several records with same barid??
           collection.insertOne(
             {
@@ -177,14 +181,15 @@ Page({
             .then(res2 => {
               console.log("insertRecord insert: ", res2);
             })
-        }
+        } else {
 
-        res.data[0].likeNumber = res.data[0].like.length;
-        res.data[0].discussionNumber = res.data[0].discussion.length;
-        res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
-        that.setData({
-          barlikediscussion: res.data[0]
-        })
+          res.result[0].likeNumber = res.result[0].like.length;
+          res.result[0].discussionNumber = res.result[0].discussion.length;
+          res.result[0].lastUpdateTime = util.formatDate(new Date(res.result[0].lastUpdateTime));
+          that.setData({
+            barlikediscussion: res.result[0]
+          })
+        }
       })
       .catch(console.error);
   },

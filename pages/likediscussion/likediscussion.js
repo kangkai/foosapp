@@ -118,7 +118,7 @@ Page({
     )
       .then(res => {
         // console.log(res);
-        if (res.data.length == 0) {
+        if (res.result.length == 0) {
           // console.log("no record!");
           // insert record, TODO: race and several records with same barid??
 
@@ -138,11 +138,11 @@ Page({
             .catch(console.error);
         }
 
-        res.data[0].likeNumber = res.data[0].like.length;
-        res.data[0].discussionNumber = res.data[0].discussion.length;
-        res.data[0].lastUpdateTime = util.formatDate(new Date(res.data[0].lastUpdateTime));
+        res.result[0].likeNumber = res.result[0].like.length;
+        res.result[0].discussionNumber = res.result[0].discussion.length;
+        res.result[0].lastUpdateTime = util.formatDate(new Date(res.result[0].lastUpdateTime));
 
-        var barlikediscussion = res.data[0];
+        var barlikediscussion = res.result[0];
 
         barlikediscussion.meAlreadyLiked = false;
         for (var i = 0; i < barlikediscussion.like.length; i++) {
@@ -185,7 +185,7 @@ Page({
     });
 
     const collection = app.mpserverless.db.collection('foos_barlikediscussion');
-    conllection.updateOne(
+    collection.updateOne(
       { _id: rid },
       {
         $set: {
@@ -306,29 +306,25 @@ Page({
   checkLiked(barid, openid) {
     /* check liked or not */
     var that = this;
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_barlikediscussion');
+    const collection = app.mpserverless.db.collection('foos_barlikediscussion');
 
-    collection.where({
-      barid: barid,
-      "like.openid": openid
+    collection.findOne(
+      {
+        barid: barid,
+        "like.openid": openid
+      }
+    )
+    .then(res => {
+      console.log("checkLiked: ", barid, res);
+      if (res.result.length == 0) {
+        /* false */
+        that.insertRecord(barid);
+      } else {
+        /* true */
+        console.log("already liked");
+      }
     })
-      .get({
-        success: function (res) {
-          console.log("checkLiked: ", barid, res);
-          if (res.data.length == 0) {
-            /* false */
-            that.insertRecord(barid);
-          } else {
-            /* true */
-            console.log("already liked");
-          }
-
-        },
-        fail: function (err) {
-          console.log(err);
-        }
-      });
+    .catch(console.error);
   },
 
   insertRecord(barid) {
@@ -341,7 +337,7 @@ Page({
     )
       .then(res => {
         console.log("insertRecord: ", barid, res);
-        if (res.data.length == 0) {
+        if (res.result.length == 0) {
           /* false */
           collection.insertOne(
             {
@@ -377,13 +373,13 @@ Page({
     )
       .then(res => {
         console.log("insertLike: ", barid, res);
-        if (res.data.length == 0) {
+        if (res.result.length == 0) {
           console.log("impossible, no record!");
           return;
         }
 
-        var rid = res.data[0]._id;
-        var like = res.data[0].like;
+        var rid = res.result[0]._id;
+        var like = res.result[0].like;
         like.push({
           openid: app.globalData.openid,
           nick: app.globalData.userInfo.nickName,

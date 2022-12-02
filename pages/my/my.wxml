@@ -1,9 +1,16 @@
 <view class="v-myavatarnick">
+  <block wx:if="{{!hasUserInfo}}">
+    <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 点击登录 </button>
+    <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点击登录 </button>
+  </block>
+  <block wx:else>
     <view class="v-myavatar">
-        <image class="img-myavatar" mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
-    </view>
-    <view class="v-mynick">{{userInfo.nickName}}</view>
+          <image class="img-myavatar" mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="v-mynick">{{userInfo.nickName}}</view>
+  </block>
 </view>
+<!--
 <view class="navigator-box navigator-box-show">
     <navigator id="{{page.index}}" url="/pages/myfbars/myfbars" class="navigator">
         <view class="navigator-text">我的最爱地点</view>
@@ -14,6 +21,7 @@
         <view class="navigator-arrow"></view>
     </navigator>
 </view>
+-->
 <view class="navigator-box navigator-box-show">
     <navigator target="miniProgram" open-type="navigate" class="navigator" app-id="{{ appId }}" extra-data="{{ extraData }}" version="release">
         <view class="navigator-text">意见反馈</view>
