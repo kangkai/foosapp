@@ -15,6 +15,7 @@ Page({
 
   data: {
     userInfo: null,
+    appId: "wx8abaf00ee8c3202e",
     hasUserInfo: false,
     canIUseGetUserProfile: false,
     extraData: null
