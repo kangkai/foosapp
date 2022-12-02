@@ -65,7 +65,6 @@ App({
     })
 
     // get cached data
-    /*
     wx.getStorage({
       key: "foobar",
       success: function (res) {
@@ -79,7 +78,6 @@ App({
         })
       }
     });
-    */
 
     // 获取数据库内容
     that.getBarListDetail();
@@ -187,7 +185,6 @@ App({
     if (from == "cloud") {
       /* setStorage cache to speed up launch time */
       // console.log("cache data: ", util.formatTime(new Date()));
-      /*
       wx.setStorage({
         key: "foobar",
         data: foobar
@@ -197,7 +194,6 @@ App({
         key: "bars",
         data: bars
       });
-      */
     }
 
     /*
