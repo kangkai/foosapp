@@ -27,8 +27,9 @@
             </block>
         </view>
     </view>
-
+<!--
     <view class="index-ft">
         <navigator class="footer-text" url="../about/about">关于本应用</navigator>
     </view>
+  -->
 </view>
