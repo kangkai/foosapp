@@ -41,12 +41,8 @@
         "iconPath": "images/map22.png",
         "selectedIconPath": "images/map11.png"
       },
-      {
-        "pagePath": "pages/appointment/appointment",
-        "text": "活动",
-        "iconPath": "images/appoint2.png",
-        "selectedIconPath": "images/appoint1.png"
-      },
+
+
       {
         "pagePath": "pages/my/my",
         "text": "我的",
