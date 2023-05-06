@@ -99,8 +99,77 @@ Page({
 
     /* check if we want to del this bar */
     if (app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0' &&
-    e.detail.value.name.length == 0 &&
-    e.detail.value.address.length == 0) {
+      e.detail.value.name.length == 0 &&
+      e.detail.value.address.length == 0) {
+
+      /* Aliyun EMAS version */
+      const collection = app.mpserverless.db.collection('foos_barlist');
+      collection.find(
+        { places: newbar.barid }
+      ).then(res => {
+        console.log("foos_barlist find result:", res);
+
+        if (res.result.length == 0) {
+          console.log("No record: ", newbar.barid);
+          app.globalData.bar_refresh = true;
+          wx.navigateBack({
+            delta: 1
+          })
+          return;
+        } else if (res.result.length > 1) {
+          console.log("error, bar in more than 1 city: ", res.result);
+          app.globalData.bar_refresh = true;
+          wx.navigateBack({
+            delta: 1
+          })
+          return;
+        } else {
+          var docid = res.result[0]._id;
+          var places = res.result[0].places;
+
+          places.forEach(function (item, index, arr) {
+            if (item === newbar.barid) {
+              arr.splice(index, 1);
+            }
+          });
+
+          if (places.length == 0) {
+            /* Del the only bar in the city, then we del city */
+            return app.mpserverless.db.collection('foos_barlist')
+              .deleteOne(
+                { _id: docid }
+              )
+              .then((res2) => {
+                console.log("Del place and city done: ", res2)
+                app.globalData.bar_refresh = true;
+                wx.navigateBack({
+                  delta: 1
+                })
+                return;
+              })
+          } else {
+            /* more than 1 bar in city, just update barlist */
+            return db.collection('foos_barlist')
+              .updateOne(
+                { _id: docid },
+                { $set: { places: places } }
+              )
+              .then((res2) => {
+                console.log("Del places done: ", res2)
+                app.globalData.bar_refresh = true;
+                wx.navigateBack({
+                  delta: 1
+                })
+                return;
+              })
+          }
+        }
+
+      }).catch(console.error);
+      /* Aliyun EMAS version end */
+
+      /* Tencent cloud version */
+      /*
       wx.cloud.callFunction({
         name: 'foosDelBar',
         data: {
@@ -108,13 +177,15 @@ Page({
         },
         complete: res => {
           // console.log("foosDelBar: ", res)
-          /* TODO: update idbars. app.globalData.idbars[newbar.barid] = newbar; */
+          /* TODO: update idbars. app.globalData.idbars[newbar.barid] = newbar; 
           app.globalData.bar_refresh = true;
           wx.navigateBack({
             delta: 2
           })
         }
       })
+      */
+      /* Tencent cloud version end */
 
       return;
     }
@@ -165,6 +236,51 @@ Page({
 
     // console.log("newbar: ", newbar);
 
+    /* Aliyun EMAS version */
+    const collection = app.mpserverless.db.collection('foos_bardetail');
+    collection.find(
+      { _id: newbar._id }
+    ).then(res => {
+      console.log("foos_bardetail find result:", res);
+
+      if (res.result.length == 0) {
+        console.log("No record: ", newbar._id);
+        app.globalData.bar_refresh = true;
+        wx.navigateBack({
+          delta: 1
+        })
+        return;
+      } else if (res.result.admin_openid == app.globalData.openid ||
+        app.globalData.openid == 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
+        console.log("to update");
+
+        var docid = newbar._id;
+        delete newbar._id;
+        return app.mpserverless.db.collection('foos_bardetail')
+          .updateOne(
+            { _id: docid },
+            { $set: newbar }
+          )
+          .then((res2) => {
+            console.log("update done: ", res2)
+            app.globalData.bar_refresh = true;
+            wx.navigateBack({
+              delta: 1
+            })
+            return;
+          })
+      } else {
+        console.log("You're not admin");
+        wx.navigateBack({
+          delta: 1
+        })
+        return;
+      }
+    }).catch(console.error);
+    /* Aliyun EMAS version end */
+
+    /* Tencent cloud version */
+    /*
     wx.cloud.callFunction({
       name: 'foosUpdateBarDetail',
       data: {
@@ -179,6 +295,8 @@ Page({
         })
       }
     })
+    */
+    /* Tencent cloud version end */
 
   },
 

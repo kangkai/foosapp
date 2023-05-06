@@ -120,6 +120,76 @@ Page({
 
     // console.log("newbar: ", newbar);
 
+    /* Aliyun EMAS version */
+    if (this.data.openid != 'oxksR5evxcGhFCJxpbjrtb7Am6d0') {
+      console.log("Only super admin can add places.");
+      return;
+    }
+
+    const collection = app.mpserverless.db.collection('foos_barlist');
+    collection.find(
+      { city: newbar.city }
+    ).then(res => {
+      console.log(res);
+
+      if (res.result.length == 0) {
+        console.log("No city.");
+
+        collection.insertOne(
+          {
+            city: newbar.city,
+            places: [newbar.barid]
+          }
+        ).then((res2) => {
+          console.log(res2);
+
+          if (!res2.result.success) {
+            console.log("Add city fail: ", res2);
+            return;
+          } else {
+            /* add into foos_bardetail */
+            return app.mpserverless.db.collection('foos_bardetail').insertOne(newbar)
+              .then((res3) => {
+                console.log("add bardetail done: ", res3);
+                app.globalData.idbars[newbar.barid] = newbar;
+                app.globalData.bar_refresh = true;
+              })
+          }
+        })
+
+      } else {
+
+        console.log("City already there ");
+
+        var docid = res.result[0]._id;
+        var places = res.result[0].places;
+        places.push(newbar.barid);
+
+        addbarlistplaces = collection.updateOne(
+          { _id: docid },
+          { $set: { places: places } }
+        )
+          .then((res2) => {
+            console.log("update places done: ", res2)
+            /* add into foos_bardetail */
+            return app.mpserverless.db.collection('foos_bardetail').insertOne(newbar)
+              .then((res3) => {
+                console.log("add bardetail done: ", res3)
+                app.globalData.idbars[newbar.barid] = newbar;
+                app.globalData.bar_refresh = true;
+              })
+          })
+
+        wx.navigateBack({
+          delta: 1
+        })
+        return;
+      }
+    }).catch(console.error);
+    /* Aliyun EMAS version end */
+
+    /* tencent cloud version */
+    /*
     wx.cloud.callFunction({
       name: 'foosAddBarDetail',
       data: {
@@ -135,6 +205,7 @@ Page({
         })
       }
     })
+    */
 
   },
 
