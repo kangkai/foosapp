@@ -41,8 +41,11 @@ Page({
       bar: bar
     });
 
-    this.getBarAppointments(bar);
-    this.getBarLikeDiscussion(bar.barid);
+    /* comment this out for now, cause Ali EMAS has cloud database
+     * quota limit of 500/day, either we cache data, or comment out
+     */
+    //this.getBarAppointments(bar);
+    //this.getBarLikeDiscussion(bar.barid);
   },
 
   /**

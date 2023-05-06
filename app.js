@@ -27,22 +27,24 @@ App({
   },
 
   onLaunch: function () {
-    // 展示本地存储能力
     var that = this;
+
+    // 展示本地存储能力 example
+    /*
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    */
 
     wx.showShareMenu({
       withShareTicket: true
     })
 
-    /* wx cloud no free lunch anymore :)
+    /* wx cloud no free lunch anymore :) */
     wx.cloud.init({
-      env: 'foosball-test1',
+      // env: 'foosball-test1',
       traceUser: true
     })
-    */
 
     /* use Ali EMAS serverless now */
     mpserverless.init();
