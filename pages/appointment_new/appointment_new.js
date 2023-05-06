@@ -41,12 +41,15 @@ Page({
       withShareTicket: true
     })
 
+    const randomid = (min, max) => Math.floor(Math.random() * (max - min)) + min;
     if (!app.globalData.bars) {
       app.dataReadyCallback_picker = res => {
         that.setData({
-          bars: app.globalData.bars,
-          bar_index: 0,
-          barid: app.globalData.bars[0].barid,
+          bar_index: randomid(0, app.globalData.bars.length),
+        });
+        that.setData({
+          bars: app.globalData.bars, 
+          barid: app.globalData.bars[that.data.bar_index].barid,
           date: util.formatDate(new Date()),
           date_limit: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
           time: util.formatTime2(new Date()),
@@ -55,10 +58,12 @@ Page({
         })
       }
     } else {
+      that.setData({
+        bar_index: randomid(0, app.globalData.bars.length),
+      });
       this.setData({
         bars: app.globalData.bars,
-        bar_index: 0,
-        barid: app.globalData.bars[0].barid,
+        barid: app.globalData.bars[that.data.bar_index].barid,
         date: util.formatDate(new Date()),
         date_limit: util.formatDate(new Date(Date.now() + 31536000000)), //一年后
         time: util.formatTime2(new Date()),
@@ -175,27 +180,17 @@ Page({
     };
 
     //console.log(foos_appointment);
+    const collection = app.mpserverless.db.collection('foos_appointment');
 
-    const db = wx.cloud.database();
-    const collection = db.collection('foos_appointment');
-
-    collection.add({
-      data: foos_appointment,
-      success: function (res) {
-        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log("数据库创建成功: ", res._id);
-
+    collection.insertOne(foos_appointment)
+    .then((res) => {
+      console.log("foos_appointment insert done: ", res)
         //redirect to appointment list page
         app.globalData.appointment_needs_refresh = true;
         wx.switchTab({
           url: '/pages/appointment/appointment' // 希望跳转过去的页面
         })
-      },
-      fail: function (err) {
-        console.log(err);
-      }
     })
-
 
   },
 

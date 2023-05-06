@@ -40,7 +40,7 @@
             </view>
             <view class="tr-line">
                 <text class="td-left-30">选择地点：</text>
-                <picker class="td-right-70" mode="selector" range="{{bars}}" range-key="{{'name'}}"
+                <picker class="td-right-70" mode="selector" range="{{bars}}" range-key="name"
                         value="{{bar_index}}" bindchange="bindPlaceChange">
                     <text class="picker" name="provinceName">{{bars[bar_index].name}}</text>
                 </picker>
@@ -61,8 +61,10 @@
                 </swiper>
             </view>
             <view class="paddinghalfrem">
+                <!-- 涉及信息发布，无法通过微信小程序审核
                 <textarea class="ta" name="appoint_desc" placeholder-class="textarea-ph" placeholder="约一个球？说点什么吧！"
                            auto-height  />
+                -->
                 <!-- Form submit 按钮 -->
                 <button class="btn" size="mini" type="primary" formType="submit">发起约球</button>
             </view>

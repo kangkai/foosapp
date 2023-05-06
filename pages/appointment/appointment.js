@@ -302,7 +302,17 @@ Page({
         "avatarUrl": app.globalData.userInfo.avatarUrl
       });
 
-      //push to db
+      /* Aliyun EMAS version */
+      app.mpserverless.db.collection('foos_appointment').updateOne(
+        {_id: appointment._id},
+        {$set: {players: appointment.players}}
+      )
+      .then(res => {
+        console.log("appointment add me done");
+      })
+      .catch(console.error);
+
+      /* Tencent cloud version 
       wx.cloud.callFunction({
         name: 'appointPlayersUpdate',
         data: {
@@ -314,6 +324,7 @@ Page({
           console.log(res)
         }
       })
+      */
 
       appointment.meAlreadyJoined = true;
     }
