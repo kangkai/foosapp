@@ -149,7 +149,7 @@ Page({
               })
           } else {
             /* more than 1 bar in city, just update barlist */
-            return db.collection('foos_barlist')
+            return app.mpserverless.db.collection('foos_barlist')
               .updateOne(
                 { _id: docid },
                 { $set: { places: places } }
@@ -158,7 +158,7 @@ Page({
                 console.log("Del places done: ", res2)
                 app.globalData.bar_refresh = true;
                 wx.navigateBack({
-                  delta: 1
+                  delta: 2
                 })
                 return;
               })
