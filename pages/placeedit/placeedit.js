@@ -135,7 +135,7 @@ Page({
 
           if (places.length == 0) {
             /* Del the only bar in the city, then we del city */
-            return app.mpserverless.db.collection('foos_barlist')
+            return collection
               .deleteOne(
                 { _id: docid }
               )
@@ -149,7 +149,7 @@ Page({
               })
           } else {
             /* more than 1 bar in city, just update barlist */
-            return app.mpserverless.db.collection('foos_barlist')
+            return collection
               .updateOne(
                 { _id: docid },
                 { $set: { places: places } }

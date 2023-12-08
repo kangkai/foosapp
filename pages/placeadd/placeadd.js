@@ -143,7 +143,7 @@ Page({
         ).then((res2) => {
           console.log(res2);
 
-          if (!res2.result.success) {
+          if (!res2.success) {
             console.log("Add city fail: ", res2);
             return;
           } else {
@@ -165,7 +165,7 @@ Page({
         var places = res.result[0].places;
         places.push(newbar.barid);
 
-        addbarlistplaces = collection.updateOne(
+        var addbarlistplaces = collection.updateOne(
           { _id: docid },
           { $set: { places: places } }
         )
